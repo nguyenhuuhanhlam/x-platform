@@ -1,3 +1,4 @@
+import { useLocation } from 'react-router-dom'
 import {
 	Sidebar,
 	SidebarContent,
@@ -9,16 +10,12 @@ import {
 } from "@/components/ui/sidebar"
 
 import NavUser from "./nav-user"
+import { side_menu } from './config'
 
 const AppSidebar = () => {
-	const side_menu = [
-		{ title: 'Platform', url: '#', items: [{ title: 'History', url: '#' }] },
-		{
-			title: 'Projects', url: '#', items: [
-				{ title: 'Sale', url: '#', isActive: true },
-				{ title: 'Architecture', url: '#' }]
-		},
-	]
+
+	const location = useLocation()
+	const path = location.pathname
 
 	return (
 		<Sidebar>
@@ -42,7 +39,7 @@ const AppSidebar = () => {
 								<SidebarMenu>
 									{item?.items?.map((item, k) => (
 										<SidebarMenuItem key={k}>
-											<SidebarMenuButton asChild isActive={item?.isActive}>
+											<SidebarMenuButton asChild isActive={item?.url == path}>
 												<a href={item?.url}>{item?.title}</a>
 											</SidebarMenuButton>
 										</SidebarMenuItem>
