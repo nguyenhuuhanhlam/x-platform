@@ -5,5 +5,11 @@ export const hrm_menu_items = (t) => [
 			{ title: t('employees'), url: '/employees' },
 			{ title: t('contracts'), url: '/contracts' },
 		]
+	},
+	{
+		title: 'Workdays', url: '#',
+		items: [
+			{ title: 'Leaves', url: '#' }
+		]
 	}
 ]
