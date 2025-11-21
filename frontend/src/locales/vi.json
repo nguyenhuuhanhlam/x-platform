@@ -1,6 +1,9 @@
 {
+	"home": "Trang Chủ",
 	"fullname": "Họ và Tên",
 	"department": "Phòng Ban",
 	"position": "Chức Vụ",
-	"employee_type": "Trạng Thái"
+	"employees": "Nhân Viên",
+	"type": "Trạng Thái",
+	"contracts": "Hợp Đồng"
 }

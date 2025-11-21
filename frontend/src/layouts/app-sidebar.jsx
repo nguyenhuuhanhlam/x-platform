@@ -1,4 +1,4 @@
-import { useLocation } from 'react-router-dom'
+import { useTranslation } from "react-i18next"
 import {
 	Sidebar,
 	SidebarContent,
@@ -9,13 +9,12 @@ import {
 	SidebarGroupLabel
 } from "@/components/ui/sidebar"
 
-import NavUser from "./nav-user"
-import { side_menu } from './config'
+import NavUser from './nav-user'
+import NavGroup from './nav-group'
+import { hrm_menu_items } from './config'
 
 const AppSidebar = () => {
-
-	const location = useLocation()
-	const path = location.pathname
+	const { t } = useTranslation()
 
 	return (
 		<Sidebar>
@@ -31,24 +30,7 @@ const AppSidebar = () => {
 			</SidebarHeader>
 
 			<SidebarContent>
-				{
-					side_menu.map((item, k) => (
-						<SidebarGroup key={k}>
-							<SidebarGroupLabel>{item.title}</SidebarGroupLabel>
-							<SidebarGroupContent>
-								<SidebarMenu>
-									{item?.items?.map((item, k) => (
-										<SidebarMenuItem key={k}>
-											<SidebarMenuButton asChild isActive={item?.url == path}>
-												<a href={item?.url}>{item?.title}</a>
-											</SidebarMenuButton>
-										</SidebarMenuItem>
-									))}
-								</SidebarMenu>
-							</SidebarGroupContent>
-						</SidebarGroup>
-					))
-				}
+				<NavGroup group="HRM" items={hrm_menu_items(t)} />
 			</SidebarContent>
 
 			<SidebarFooter>

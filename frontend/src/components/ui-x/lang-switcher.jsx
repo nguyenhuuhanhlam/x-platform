@@ -14,13 +14,13 @@ export default function LangSwitcher() {
 
 	return (
 		<div className="flex items-center gap-2">
-			<span className="text-xs">🇻🇳</span>
+			<span className="text-[.5rem]">VN</span>
 			<Switch
 				id="lang-switch"
 				checked={isEn}
 				onCheckedChange={toggleLanguage}
 			/>
-			<span className="text-xs">🇺🇸</span>
+			<span className="text-[.5rem]">US</span>
 		</div>
 	);
 }

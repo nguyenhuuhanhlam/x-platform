@@ -1,11 +1,9 @@
-export const side_menu = [
+export const hrm_menu_items = (t) => [
 	{
-		title: 'HRM', url: '#',
-		items: [{ title: 'Employees', url: '/employees' }]
-	},
-	{
-		title: 'Projects', url: '#', items: [
-			{ title: 'Sale', url: '#' },
-			{ title: 'Architecture', url: '#' }]
-	},
+		title: 'Employees Management', url: '#',
+		items: [
+			{ title: t('employees'), url: '/employees' },
+			{ title: t('contracts'), url: '/contracts' },
+		]
+	}
 ]

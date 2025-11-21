@@ -3,6 +3,7 @@ import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import Layout from '@/layouts'
 import HomePage from '@/pages/home'
 import EmployeesPage from '@/pages/hrm/employees'
+import ContractsPage from '@/pages/hrm/contracts'
 
 const router = createBrowserRouter([
 	{
@@ -11,7 +12,8 @@ const router = createBrowserRouter([
 		errorElement: <div>NOT FOUND</div>,
 		children: [
 			{ index: true, element: <HomePage /> },
-			{ path: '/employees', element: <EmployeesPage /> }
+			{ path: '/employees', element: <EmployeesPage /> },
+			{ path: '/contracts', element: <ContractsPage /> },
 		]
 	}
 ])

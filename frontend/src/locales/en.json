@@ -1,6 +1,9 @@
 {
+	"home": "Home",
 	"fullname": "Full Name",
 	"department": "Department",
 	"position": "Position",
-	"employee_type": "Type"
+	"type": "Type",
+	"employees": "Employees",
+	"contracts": "Contracts"
 }

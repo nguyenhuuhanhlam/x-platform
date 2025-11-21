@@ -1,10 +1,11 @@
 'use client'
-
+import { useState } from 'react'
 import {
   flexRender,
   getCoreRowModel,
   useReactTable,
   getPaginationRowModel,
+  getFilteredRowModel
 } from '@tanstack/react-table'
 
 import {
@@ -19,16 +20,22 @@ import {
 import { Button } from '@/components/ui/button'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 
-
+// - - - - -
 export function DataTable({
   columns,
   data,
+  globalFilter,
+  setGlobalFilter,
   usePaging = true
 }) {
+  // const [globalFilter, setGlobalFilter] = useState('')
 
   const table = useReactTable({
     data,
     columns,
+    state: { globalFilter },
+    onGlobalFilterChange: setGlobalFilter,
+    getFilteredRowModel: getFilteredRowModel(),
     getCoreRowModel: getCoreRowModel(),
     ...(usePaging && { getPaginationRowModel: getPaginationRowModel() }),
   })
@@ -39,8 +46,6 @@ export function DataTable({
 
   return (
     <>
-      <div>TOOLS</div>
-
       <div className="overflow-hidden rounded-md border mt-2">
         <Table>
           <TableHeader>

@@ -17,6 +17,6 @@ export const employee_columns = (t) => [
 	},
 	{
 		accessorKey: 'employee_type',
-		header: t("employee_type")
+		header: t('type')
 	}
 ]
