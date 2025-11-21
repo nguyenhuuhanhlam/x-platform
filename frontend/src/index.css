@@ -181,6 +181,10 @@ button:focus-visible {
   --sidebar-ring: oklch(0.556 0 0);
 }
 
+tr[data-state="selected"] {
+  @apply bg-sky-800/40! text-white;
+}
+
 @layer base {
   * {
     @apply border-border outline-ring/50;

@@ -26,16 +26,22 @@ export function DataTable({
   data,
   globalFilter,
   setGlobalFilter,
+  rowSelection = {},
+  onRowSelectionChange,
   usePaging = true
 }) {
-  // const [globalFilter, setGlobalFilter] = useState('')
 
   const table = useReactTable({
     data,
     columns,
-    state: { globalFilter },
+    state: {
+      globalFilter,
+      rowSelection
+    },
     onGlobalFilterChange: setGlobalFilter,
     getFilteredRowModel: getFilteredRowModel(),
+    onRowSelectionChange,
+    enableRowSelection: true,
     getCoreRowModel: getCoreRowModel(),
     ...(usePaging && { getPaginationRowModel: getPaginationRowModel() }),
   })
@@ -73,6 +79,11 @@ export function DataTable({
                 <TableRow
                   key={row.id}
                   data-state={row.getIsSelected() && "selected"}
+                  onClick={() => {
+                    table.resetRowSelection()
+                    row.toggleSelected()
+                  }}
+                  className="cursor-default"
                 >
                   {row.getVisibleCells().map((cell) => (
                     <TableCell key={cell.id}>
@@ -97,31 +108,40 @@ export function DataTable({
         {usePaging && (
           <div className="flex items-center justify-between">
             <Button
-              className="px-2"
+              className="text-sm text-muted-foreground"
               variant="outline"
             >
-              Page {table.getState().pagination?.pageIndex + 1} /{" "}
-              {table.getPageCount()}
+              Total <span className="text-white">{table.getFilteredRowModel().rows.length}</span> rows
             </Button>
 
-            <div className="space-x-2">
+            <div className="flex items-center gap-4">
               <Button
+                className="px-2"
                 variant="outline"
-                size="icon"
-                onClick={() => table.previousPage()}
-                disabled={!table.getCanPreviousPage()}
               >
-                <IconChevronLeft />
+                Page {table.getState().pagination?.pageIndex + 1} /{" "}
+                {table.getPageCount()}
               </Button>
 
-              <Button
-                variant="outline"
-                size="icon"
-                onClick={() => table.nextPage()}
-                disabled={!table.getCanNextPage()}
-              >
-                <IconChevronRight />
-              </Button>
+              <div className="space-x-2">
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => table.previousPage()}
+                  disabled={!table.getCanPreviousPage()}
+                >
+                  <IconChevronLeft />
+                </Button>
+
+                <Button
+                  variant="outline"
+                  size="icon"
+                  onClick={() => table.nextPage()}
+                  disabled={!table.getCanNextPage()}
+                >
+                  <IconChevronRight />
+                </Button>
+              </div>
             </div>
           </div>
         )}
