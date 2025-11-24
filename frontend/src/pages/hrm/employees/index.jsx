@@ -10,12 +10,14 @@ import { IconPlus } from '@tabler/icons-react'
 import { DataTable } from '@/components/ui-x/data-table'
 
 import EmployeeFormSheet from './components/employee-form-sheet'
+import EmployeeDetailsDrawer from './components/employee-details-drawer'
 
 const EmployeesPage = () => {
 	const { t } = useTranslation()
 	const [filter, setFilter] = useState('')
 	const [rowSelection, setRowSelection] = useState({})
 	const [sheetOpen, setSheetOpen] = useState(false)
+	const [drawerOpen, setDrawerOpen] = useState(false)
 
 	const { data, isLoading } = useQuery({
 		queryKey: ['employees'],
@@ -31,7 +33,7 @@ const EmployeesPage = () => {
 			const selectedKey = Object.keys(newState)[0]
 			if (selectedKey) {
 				const rowData = data[selectedKey]
-
+				setDrawerOpen(true)
 			}
 
 			return newState
@@ -66,6 +68,7 @@ const EmployeesPage = () => {
 			/>
 
 			<EmployeeFormSheet open={sheetOpen} onOpenChange={setSheetOpen} />
+			<EmployeeDetailsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} data={rowSelection} />
 		</div>
 	)
 }
