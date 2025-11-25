@@ -1,5 +1,8 @@
 import { useEffect } from 'react'
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
+import { Tabs, TabsContent, TabsList, TabsTrigger, } from '@/components/ui/tabs'
+import { Separator } from '@/components/ui/separator'
+
 
 const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
 
@@ -11,20 +14,27 @@ const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
 
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
-			{/* <DrawerTrigger>Open</DrawerTrigger> */}
-			<DrawerContent>
+			<DrawerContent className="min-h-2/3">
 
 				<DrawerHeader>
-					<DrawerTitle>Are you absolutely sure?</DrawerTitle>
-					<DrawerDescription>This action cannot be undone.</DrawerDescription>
+					<DrawerTitle>{data.lastname} {data.firstname}</DrawerTitle>
+					<DrawerDescription><span className="text-amber-200">{data.department}</span> • {data.position}</DrawerDescription>
 				</DrawerHeader>
 
-				{/* <DrawerFooter>
-      <Button>Submit</Button>
-      <DrawerClose>
-        <Button variant="outline">Cancel</Button>
-      </DrawerClose>
-    </DrawerFooter> */}
+				<Tabs>
+					<div className="flex justify-center w-full px-4 sm:px-0">
+						<TabsList className="flex justify-start overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden">
+							<TabsTrigger value="personal">Personal</TabsTrigger>
+							<TabsTrigger value="work.infos">Work-Infos</TabsTrigger>
+							<TabsTrigger value="workdays">Workdays</TabsTrigger>
+							<TabsTrigger value="salary">Salary</TabsTrigger>
+							<TabsTrigger value="career.path">Career-Path</TabsTrigger>
+							<TabsTrigger value="documents">Documents</TabsTrigger>
+						</TabsList>
+					</div>
+
+					<TabsContent value="personal" className="px-4">Personal Content</TabsContent>
+				</Tabs>
 
 			</DrawerContent>
 		</Drawer>

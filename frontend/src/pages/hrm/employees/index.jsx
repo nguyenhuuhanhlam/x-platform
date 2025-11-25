@@ -16,6 +16,7 @@ const EmployeesPage = () => {
 	const { t } = useTranslation()
 	const [filter, setFilter] = useState('')
 	const [rowSelection, setRowSelection] = useState({})
+	const [rowSelectedData, setRowSelectedData] = useState({})
 	const [sheetOpen, setSheetOpen] = useState(false)
 	const [drawerOpen, setDrawerOpen] = useState(false)
 
@@ -33,6 +34,7 @@ const EmployeesPage = () => {
 			const selectedKey = Object.keys(newState)[0]
 			if (selectedKey) {
 				const rowData = data[selectedKey]
+				setRowSelectedData(rowData)
 				setDrawerOpen(true)
 			}
 
@@ -68,7 +70,7 @@ const EmployeesPage = () => {
 			/>
 
 			<EmployeeFormSheet open={sheetOpen} onOpenChange={setSheetOpen} />
-			<EmployeeDetailsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} data={rowSelection} />
+			<EmployeeDetailsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} data={rowSelectedData} />
 		</div>
 	)
 }
