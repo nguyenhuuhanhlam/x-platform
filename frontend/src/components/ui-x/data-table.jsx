@@ -52,7 +52,7 @@ export function DataTable({
 
   return (
     <>
-      <div className="overflow-hidden rounded-md border mt-2">
+      <div className="overflow-hidden rounded-md border">
         <Table>
           <TableHeader>
             {table.getHeaderGroups().map((headerGroup) => (

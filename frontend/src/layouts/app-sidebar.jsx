@@ -1,13 +1,5 @@
 import { useTranslation } from "react-i18next"
-import {
-	Sidebar,
-	SidebarContent,
-	SidebarFooter,
-	SidebarGroup, SidebarGroupContent,
-	SidebarHeader,
-	SidebarMenu, SidebarMenuItem, SidebarMenuButton,
-	SidebarGroupLabel
-} from "@/components/ui/sidebar"
+import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupContent, SidebarHeader, SidebarMenu, SidebarMenuItem, SidebarMenuButton, SidebarGroupLabel } from "@/components/ui/sidebar"
 
 import NavUser from './nav-user'
 import NavGroup from './nav-group'
@@ -23,7 +15,7 @@ const AppSidebar = () => {
 				<SidebarMenu>
 					<SidebarMenuItem>
 						<SidebarMenuButton asChild>
-							<span className="text-base">COMPANY NAME</span>
+							<span className="text-base">X PLATFORM</span>
 						</SidebarMenuButton>
 					</SidebarMenuItem>
 				</SidebarMenu>

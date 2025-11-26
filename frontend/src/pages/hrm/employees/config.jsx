@@ -1,22 +1,35 @@
+import { Badge } from '@/components/ui/badge'
+
 export const employee_columns = (t) => [
 	{
 		accessorKey: "fullname",
 		header: t('fullname'),
 		accessorFn: (row) => `${row.lastname} ${row.firstname}`,
 		cell: ({ row }) => {
-			return <div>{row.getValue('fullname')}</div>
+			return <span>{row.getValue('fullname')}</span>
+		}
+	},
+	{ accessorKey: 'department', header: t('department'), },
+	{ accessorKey: 'position', header: t('position'), },
+	{ accessorKey: 'employee_type', header: t('type') }
+]
+
+export const family_columns = (t) => [
+	{
+		accessorKey: "fullname",
+		header: t('fullname'),
+		accessorFn: (row) => `${row.lastname} ${row.firstname}`,
+		cell: ({ row }) => {
+			return <span>{row.getValue('fullname')}</span>
 		}
 	},
 	{
-		accessorKey: 'department',
-		header: t('department'),
+		accessorKey: 'relationship', header: t('relationship'),
+		cell: ({ row }) => {
+			return row.original['is_dependent']
+				? row.getValue('relationship') + '*'
+				: row.getValue('relationship')
+		}
 	},
-	{
-		accessorKey: 'position',
-		header: t('position'),
-	},
-	{
-		accessorKey: 'employee_type',
-		header: t('type')
-	}
+	{ accessorKey: 'phone', header: t('phone'), },
 ]

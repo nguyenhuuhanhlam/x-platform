@@ -1,26 +1,6 @@
-import {
-	DropdownMenu,
-	DropdownMenuContent,
-	DropdownMenuGroup,
-	DropdownMenuItem,
-	DropdownMenuLabel,
-	DropdownMenuSeparator,
-	DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import {
-	SidebarMenu,
-	SidebarMenuButton,
-	SidebarMenuItem,
-	useSidebar,
-} from "@/components/ui/sidebar"
-
-import {
-	Avatar,
-	AvatarFallback,
-	AvatarImage,
-} from "@/components/ui/avatar"
-
+import { DropdownMenu, DropdownMenuContent, DropdownMenuGroup, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger, } from '@/components/ui/dropdown-menu'
+import { SidebarMenu, SidebarMenuButton, SidebarMenuItem, useSidebar, } from '@/components/ui/sidebar'
+import { Avatar, AvatarFallback, AvatarImage, } from '@/components/ui/avatar'
 import { IconSelector, IconLogout, IconBell } from '@tabler/icons-react'
 
 const NavUser = ({ user }) => {
@@ -56,15 +36,13 @@ const NavUser = ({ user }) => {
 						sideOffset={4}
 					>
 						<DropdownMenuItem>
-							<IconBell />
-							Notifications
+							<IconBell /> Notifications
 						</DropdownMenuItem>
 
 						<DropdownMenuSeparator />
 
 						<DropdownMenuItem>
-							<IconLogout />
-							Log out
+							<IconLogout /> Log out
 						</DropdownMenuItem>
 					</DropdownMenuContent>
 				</DropdownMenu>

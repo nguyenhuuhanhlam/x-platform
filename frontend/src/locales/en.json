@@ -3,7 +3,20 @@
 	"fullname": "Full Name",
 	"department": "Department",
 	"position": "Position",
-	"type": "Type",
 	"employees": "Employees",
-	"contracts": "Contracts"
+	"type": "Type",
+	"contracts": "Contracts",
+	"workdays": "Workdays",
+	"employees.management": "Employees Management",
+	"gender": "Gender",
+	"male": "Male",
+	"female": "Female",
+	"birthday": "Birthday",
+	"qualification": "Qualification",
+	"address": "Address",
+	"province": "Province",
+	"marital": "Marital",
+	"marital.single": "Single",
+	"marital.married": "Married",
+	"relationship": "Relationship"
 }

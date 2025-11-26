@@ -1,6 +1,5 @@
-import { useNavigate, Link, Outlet, useLocation } from 'react-router-dom'
+import { Outlet } from 'react-router-dom'
 import { SidebarProvider, SidebarTrigger, SidebarInset } from "@/components/ui/sidebar"
-import { Breadcrumb, BreadcrumbList, BreadcrumbItem } from '@/components/ui/breadcrumb'
 import { Separator } from '@/components/ui/separator'
 import AppSidebar from './app-sidebar'
 import LangSwitcher from '@/components/ui-x/lang-switcher'
@@ -23,7 +22,7 @@ const Layout = () => {
 				<div className="flex-1 overflow-auto">
 					<Outlet className="h-full" />
 				</div>
-				
+
 			</SidebarInset>
 		</SidebarProvider>
 	)

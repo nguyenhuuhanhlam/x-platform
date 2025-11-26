@@ -1,17 +1,10 @@
-import { useEffect } from 'react'
+// import { useEffect } from 'react'
 import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
 import { Tabs, TabsContent, TabsList, TabsTrigger, } from '@/components/ui/tabs'
-import { Separator } from '@/components/ui/separator'
 
+import PersonalTabsContent from './personal-tabs-content'
 
 const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
-
-	useEffect(() => {
-		if (open) {
-			console.log(data)
-		}
-	}, [open])
-
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
 			<DrawerContent className="min-h-2/3">
@@ -33,7 +26,7 @@ const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
 						</TabsList>
 					</div>
 
-					<TabsContent value="personal" className="px-4">Personal Content</TabsContent>
+					<PersonalTabsContent value="personal" data={data} />
 				</Tabs>
 
 			</DrawerContent>

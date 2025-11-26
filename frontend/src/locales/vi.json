@@ -5,5 +5,17 @@
 	"position": "Chức Vụ",
 	"employees": "Nhân Viên",
 	"type": "Trạng Thái",
-	"contracts": "Hợp Đồng"
+	"contracts": "Hợp Đồng",
+	"workdays": "Ngày Công",
+	"employees.management": "Quản Lý Nhân Sự",
+	"gender": "Giới tính",
+	"male": "Nam",
+	"female": "Nữ",
+	"birthday": "Ngày sinh",
+	"qualification": "Chuyên môn",
+	"address": "Địa chỉ",
+	"province": "Tỉnh thành",
+	"marital": "Hôn nhân",
+	"marital.single": "Độc thân",
+	"marital.married": "Kết hôn"
 }
