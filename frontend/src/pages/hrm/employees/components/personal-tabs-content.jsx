@@ -3,6 +3,8 @@ import { useTranslation } from 'react-i18next'
 import { TabsContent } from '@/components/ui/tabs'
 import { DataTable } from '@/components/ui-x/data-table'
 import { Card, CardContent, CardHeader, CardTitle, } from '@/components/ui/card'
+import { Button } from '@/components/ui/button'
+import { IconPlus } from '@tabler/icons-react'
 
 import { employees_api } from '@/services/api'
 import LabelValue from '@/components/ui-x/label-value'
@@ -37,20 +39,32 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 							<CardTitle>Personal Infomation</CardTitle>
 						</CardHeader>
 
-						<CardContent className="p-0 w-full sm:max-w-fit gap-1 flex flex-col">
-							<LabelValue label="Email" value={personalData?.email} />
-							<LabelValue label="Phone" value={personalData?.phone} />
-							<LabelValue label={t('gender')} value={t(personalData?.gender)} />
-							<LabelValue label={t('birthday')} value={personalData?.dob} />
-							<LabelValue label={t('qualification')} value={personalData?.qualification} />
-							<LabelValue label={t('address')} value={personalData?.address} />
-							<LabelValue label={t('province')} value={personalData?.province_name} />
-							<LabelValue label={t('marital')} value={t(`marital.${personalData?.marital}`)} />
+						<CardContent className="flex flex-col sm:flex-row w-full sm:max-w-fit gap-4 p-0">
+							<div>AVT</div>
+							<div className="flex flex-col gap-1">
+								<LabelValue label="Email" value={personalData?.email} />
+								<LabelValue label="Phone" value={personalData?.phone} />
+								<LabelValue label={t('gender')} value={t(personalData?.gender)} />
+								<LabelValue label={t('birthday')} value={personalData?.dob} />
+								<LabelValue label={t('qualification')} value={personalData?.qualification} />
+								<LabelValue label={t('address')} value={personalData?.address} />
+								<LabelValue label={t('province')} value={personalData?.province_name} />
+								<LabelValue label={t('marital')} value={t(`marital.${personalData?.marital}`)} />
+							</div>
 						</CardContent>
 					</Card>
 				</div>
 
 				<div className="w-full md:w-1/2">
+					<div className="flex items-center justify-between gap-2 mb-2">
+						<p className="font-bold">Immediate Family</p>
+						<Button
+							variant="outline" size="icon-sm" className="bg-blue-800! hover:bg-blue-700! rounded-full"
+							onClick={() => { }}
+						>
+							<IconPlus />
+						</Button>
+					</div>
 					<DataTable
 						columns={family_columns(t)}
 						data={familyData || []}

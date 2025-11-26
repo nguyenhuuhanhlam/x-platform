@@ -5,6 +5,9 @@ import HomePage from '@/pages/home'
 import EmployeesPage from '@/pages/hrm/employees'
 import ContractsPage from '@/pages/hrm/contracts'
 
+import AdminLandingPage from '@/pages/admin'
+import UsersPage from '@/pages/admin/users'
+
 const router = createBrowserRouter([
 	{
 		path: '/',
@@ -14,6 +17,9 @@ const router = createBrowserRouter([
 			{ index: true, element: <HomePage /> },
 			{ path: '/employees', element: <EmployeesPage /> },
 			{ path: '/contracts', element: <ContractsPage /> },
+
+			{ path: '/admin', element: <AdminLandingPage /> },
+			{ path: '/admin/users', element: <UsersPage /> },
 		]
 	}
 ])

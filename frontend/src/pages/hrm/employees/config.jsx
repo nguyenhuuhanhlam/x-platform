@@ -27,7 +27,7 @@ export const family_columns = (t) => [
 		accessorKey: 'relationship', header: t('relationship'),
 		cell: ({ row }) => {
 			return row.original['is_dependent']
-				? row.getValue('relationship') + '*'
+				? <Badge variant="outline" className="bg-blue-500/30">{row.getValue('relationship')}</Badge>
 				: row.getValue('relationship')
 		}
 	},
