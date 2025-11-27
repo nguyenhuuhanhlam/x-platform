@@ -1,20 +1,20 @@
-// import { useEffect } from 'react'
-import { Drawer, DrawerClose, DrawerContent, DrawerDescription, DrawerFooter, DrawerHeader, DrawerTitle, DrawerTrigger } from '@/components/ui/drawer'
-import { Tabs, TabsContent, TabsList, TabsTrigger, } from '@/components/ui/tabs'
+import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, } from '@/components/ui/drawer'
+import { Tabs, TabsList, TabsTrigger, } from '@/components/ui/tabs'
 
 import PersonalTabsContent from './personal-tabs-content'
 
 const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
+
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
-			<DrawerContent className="min-h-2/3">
+			<DrawerContent className="h-[60vh] flex flex-col p-0">
 
-				<DrawerHeader>
-					<DrawerTitle>{data.lastname} {data.firstname}</DrawerTitle>
-					<DrawerDescription><span className="text-amber-200">{data.department}</span> • {data.position}</DrawerDescription>
-				</DrawerHeader>
+				<Tabs defaultValue="personal" className="flex flex-col h-full">
+					<DrawerHeader>
+						<DrawerTitle> {data.lastname} {data.firstname} </DrawerTitle>
+						<DrawerDescription> <span className="text-amber-200">{data.department}</span> • {data.position} </DrawerDescription>
+					</DrawerHeader>
 
-				<Tabs>
 					<div className="flex justify-center w-full px-4 sm:px-0">
 						<TabsList className="flex justify-start overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden">
 							<TabsTrigger value="personal">Personal</TabsTrigger>
@@ -26,9 +26,11 @@ const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
 						</TabsList>
 					</div>
 
-					<PersonalTabsContent value="personal" data={data} />
-				</Tabs>
+					<div className="flex-1 min-h-0 overflow-y-auto px-4 py-2">
+						<PersonalTabsContent value="personal" data={data} />
+					</div>
 
+				</Tabs>
 			</DrawerContent>
 		</Drawer>
 	)

@@ -18,5 +18,9 @@
 	"marital": "Marital",
 	"marital.single": "Single",
 	"marital.married": "Married",
-	"relationship": "Relationship"
+	"relationship": "Relationship",
+	"cfm": "CFM",
+	"cfm.management": "CFM Management",
+	"project": "Project",
+	"company": "Company"
 }

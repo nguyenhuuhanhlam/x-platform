@@ -1,4 +1,4 @@
-import { IconBriefcase, IconUsersGroup, IconSettings } from '@tabler/icons-react'
+import { IconUsersGroup, IconSettings, IconBriefcase2, IconCalendarUser } from '@tabler/icons-react'
 
 export const hrm_menu_items = (t) => [
 	{
@@ -9,11 +9,20 @@ export const hrm_menu_items = (t) => [
 		]
 	},
 	{
-		title: t('workdays'), url: '#', icon: IconBriefcase,
+		title: t('workdays'), url: '#', icon: IconCalendarUser,
 		items: [
 			{ title: 'Leaves', url: '#' }
 		]
 	}
+]
+
+export const cfm_menu_items = (t) => [
+	{
+		title: t('cfm.management'), url: '#', icon: IconBriefcase2,
+		items: [
+			{ title: t('Projects'), url: '/cfm/projects' },
+		]
+	},
 ]
 
 export const admin_menu_items = [

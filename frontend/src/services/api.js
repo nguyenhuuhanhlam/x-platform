@@ -10,3 +10,17 @@ export const employees_api = (base = '/employees') => ({
 	get_families: async (id) => await api.get(`/families/${id}`)
 })
 
+export const cfm_api = (base = '/cfm') => ({
+	get_spa_cons: async () => await api.get(`${base}/spa-cons`),
+	get_con_projects: async () => await api.get(`${base}/con/projects`)
+})
+
+export const minio_api = (base = '/minio') => ({
+	get_presigned: async (employee_id, filename) => {
+		const res = await api.get(`${base}/presigned-url/docs/${employee_id}/${filename}`)
+		return res.data
+	},
+	uploadFile: async (employee_id, file, params) => {
+		return await api.post(`${base}/upload/docs/${employee_id}`, file, params)
+	}
+})
