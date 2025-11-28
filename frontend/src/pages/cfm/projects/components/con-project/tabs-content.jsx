@@ -30,7 +30,7 @@ const _TabsContent = ({ value, data = {} }) => {
 	const use_data_table = useDataTable(spaconsData, () => setDrawerOpen(true))
 
 	return (
-		<>
+		<div>
 			<TabsContent value={value}>
 
 				<div className="flex items-center justify-end gap-2 mb-2">
@@ -52,7 +52,7 @@ const _TabsContent = ({ value, data = {} }) => {
 			</TabsContent>
 
 			<ProjectDetailsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} data={use_data_table.rowSelectedData} />
-		</>
+		</div>
 	)
 }
 

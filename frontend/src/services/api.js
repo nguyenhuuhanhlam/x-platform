@@ -13,7 +13,9 @@ export const employees_api = (base = '/employees') => ({
 export const cfm_api = (base = '/cfm') => ({
 	get_spa_cons: async () => await api.get(`${base}/spa-cons`),
 	get_con_projects: async () => await api.get(`${base}/con/projects`),
-	get_detail_con_project: async (project_id) => await api.get(`/cfm/con/project/${project_id}`)
+	get_detail_con_project: async (project_id) => await api.get(`${base}/con/project/${project_id}`),
+
+	get_contacts: async (ids) => await api.post(`${base}/some_contacts`, ids)
 })
 
 export const minio_api = (base = '/minio') => ({

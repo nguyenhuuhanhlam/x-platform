@@ -10,11 +10,11 @@ const ProjectDetailsDrawer = ({ open, onOpenChange, data }) => {
 
 				<Tabs defaultValue="information" className="flex flex-col h-full">
 					<DrawerHeader>
-						<DrawerTitle> {data.project_id} </DrawerTitle>
+						<DrawerTitle> {data.project_name} </DrawerTitle>
 						<DrawerDescription> - </DrawerDescription>
 					</DrawerHeader>
 
-					<div className="flex justify-center w-full px-4 sm:px-0">
+					<div className="flex justify-center w-full px-4 sm:px-0 pb-2">
 						<TabsList className="flex justify-start overflow-x-auto overflow-y-hidden [&::-webkit-scrollbar]:hidden">
 							<TabsTrigger value="information">Information</TabsTrigger>
 							<TabsTrigger value="contractscosts">Contracts - Costs</TabsTrigger>
@@ -26,6 +26,7 @@ const ProjectDetailsDrawer = ({ open, onOpenChange, data }) => {
 					<div className="flex-1 min-h-0 overflow-y-auto px-4 py-2">
 						<ProjectTabsInfos value="information" data={data} />
 					</div>
+
 				</Tabs>
 
 			</DrawerContent>

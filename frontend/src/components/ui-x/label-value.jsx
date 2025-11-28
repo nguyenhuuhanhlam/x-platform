@@ -6,7 +6,9 @@ const LabelValue = ({ label = "", labelClass, value = "", valueClass, vTag = fal
 	return (
 		<div className="flex items-center space-x-4 justify-between">
 			<Label className={clsx('text-neutral-500 block truncate', labelClass)}>{label}</Label>
-			<div className={clsx('text-sm', valueClass)}>{value}</div>
+			<div className={clsx('text-sm', valueClass)}>
+				{vTag ? <Badge variant="secondary">{value}</Badge> : value}
+			</div>
 		</div>
 	)
 }
