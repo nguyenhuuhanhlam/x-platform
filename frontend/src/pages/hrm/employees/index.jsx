@@ -12,11 +12,11 @@ import { DataTable } from '@/components/ui-x/data-table'
 import EmployeeFormSheet from './components/employee-form-sheet'
 import EmployeeDetailsDrawer from './components/employee-details-drawer'
 
+import { useDataTable } from '@/hooks/use-datatable'
+
 const EmployeesPage = () => {
 	const { t } = useTranslation()
 	const [filter, setFilter] = useState('')
-	const [rowSelection, setRowSelection] = useState({})
-	const [rowSelectedData, setRowSelectedData] = useState({})
 	const [sheetOpen, setSheetOpen] = useState(false)
 	const [drawerOpen, setDrawerOpen] = useState(false)
 
@@ -27,20 +27,7 @@ const EmployeesPage = () => {
 		enabled: true
 	})
 
-	const handleSelectionChange = (updater) => {
-		setRowSelection((old) => {
-			const newState = typeof updater === 'function' ? updater(old) : updater
-
-			const selectedKey = Object.keys(newState)[0]
-			if (selectedKey) {
-				const rowData = data[selectedKey]
-				setRowSelectedData(rowData)
-				setDrawerOpen(true)
-			}
-
-			return newState
-		})
-	}
+	const use_data_table = useDataTable(data, () => setDrawerOpen(true))
 
 	return (
 		<div className="p-4">
@@ -64,13 +51,13 @@ const EmployeesPage = () => {
 				data={data || []}
 				globalFilter={filter}
 				setGlobalFilter={setFilter}
-				rowSelection={rowSelection}
-				onRowSelectionChange={handleSelectionChange}
+				rowSelection={use_data_table.rowSelection}
+				onRowSelectionChange={use_data_table.handleSelectionChange}
 				usePaging={true}
 			/>
 
 			<EmployeeFormSheet open={sheetOpen} onOpenChange={setSheetOpen} />
-			<EmployeeDetailsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} data={rowSelectedData} />
+			<EmployeeDetailsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} data={use_data_table.rowSelectedData} />
 		</div>
 	)
 }

@@ -1,6 +1,6 @@
 import { Tabs, TabsList, TabsTrigger, } from '@/components/ui/tabs'
 
-import CONTabsContent from './components/con-tabs-content'
+import CON_TabsContent from './components/con-project/tabs-content'
 
 const CFMProjectsPage = () => {
 	return (
@@ -12,7 +12,7 @@ const CFMProjectsPage = () => {
 					<TabsTrigger value="et">ET</TabsTrigger>
 				</TabsList>
 
-				<CONTabsContent value="con" />
+				<CON_TabsContent value="con" />
 			</Tabs>
 		</div>
 	)
