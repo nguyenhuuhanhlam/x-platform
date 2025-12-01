@@ -6,7 +6,7 @@ const FormFieldSelect = ({
 	form,
 	name,
 	label,
-	placeholder = "---",
+	placeholder = 'Please choose',
 	items = [],
 	loading = false,
 }) => {

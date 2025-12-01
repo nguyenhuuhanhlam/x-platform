@@ -2,12 +2,12 @@ import { useState, useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useForm, useStore } from '@tanstack/react-form'
 import { z } from 'zod'
-import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '@/components/ui/sheet'
+import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 
-import { Input } from "@/components/ui/input"
-import { Field, FieldGroup, FieldLabel, FieldDescription, FieldError, } from '@/components/ui/field'
+import { FieldGroup, } from '@/components/ui/field'
 import FormFieldSelect from '@/components/ui-x/form-field-select'
+import FormFieldInput from '@/components/ui-x/form-field-input'
 
 import { cfm_api } from '@/services/api'
 
@@ -16,8 +16,12 @@ const ProjectFormSheet = ({ open = false, onOpenChange }) => {
 	const { data: consData = [], isLoading } = useQuery({ queryKey: ['spa_con_projects'], queryFn: get_spa_cons, select: res => res.data, enabled: true })
 
 	const formSchema = z.object({
-		funding_source: z.string().min(1, "Hãy chọn Funding Source"),
+		funding_source: z.string().min(1),
+		contract_name: z.string().min(1),
+		contract_code: z.string().min(1),
+		contract_status: z.string().min(1),
 	})
+
 	const form = useForm({
 		defaultValues: {},
 		validators: {
@@ -70,6 +74,16 @@ const ProjectFormSheet = ({ open = false, onOpenChange }) => {
 							items={[
 								{ label: 'Tư nhân', value: 'TN' },
 								{ label: 'Nhà nước - Đã cấp vốn', value: 'NN-D' }
+							]}
+						/>
+
+						<FormFieldInput form={form} name="contract_name" label="Contract Name" />
+						<FormFieldInput form={form} name="contract_code" label="Contract Code" />
+						<FormFieldSelect form={form} name="contract_status" label="Contract Status"
+							items={[
+								{ label: 'Đã Ký', value: 'K' },
+								{ label: 'Thanh Lý', value: 'TL' },
+								{ label: 'Hủy', value: 'H' },
 							]}
 						/>
 
