@@ -11,6 +11,7 @@ import { con_columns } from '../../config'
 import { cfm_api } from '@/services/api'
 import { useDataTable } from '@/hooks/use-datatable'
 
+import ProjectFormSheet from './project-form-sheet'
 import ProjectDetailsDrawer from './project-details-drawer'
 
 const { get_spa_cons, get_con_projects } = cfm_api()
@@ -51,6 +52,7 @@ const _TabsContent = ({ value, data = {} }) => {
 				/>
 			</TabsContent>
 
+			<ProjectFormSheet open={sheetOpen} onOpenChange={setSheetOpen} />
 			<ProjectDetailsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} data={use_data_table.rowSelectedData} />
 		</div>
 	)
