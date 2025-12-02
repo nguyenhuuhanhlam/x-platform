@@ -8,15 +8,16 @@ const FormFieldInput = ({
 	label,
 	placeholder = '',
 	type = 'text',
+	highlight = 'bg-blue-900/30!'
 }) => {
 	return (
 		<form.Field
 			name={name}
 			children={(field) => (
-				<Field>
+				<Field className="gap-2">
 					{
 						label
-						&& <FieldLabel>
+						&& <FieldLabel className="flex justify-between field-label">
 							{label}
 							{field.state.meta.errors.length > 0 && (
 								<IconPointFilled size={14} className="text-red-800 translate-y-[2px]" />
@@ -25,6 +26,7 @@ const FormFieldInput = ({
 					}
 
 					<Input
+						className={field.state.value ? highlight : ''}
 						type={type}
 						placeholder={placeholder}
 						value={field.state.value ?? ''}

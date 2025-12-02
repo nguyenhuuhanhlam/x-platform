@@ -1,0 +1,11 @@
+fastapi
+uvicorn
+sqlalchemy
+pydantic
+asyncmy
+greenlet
+python-dotenv
+pyjwt
+openpyxl
+minio
+python-multipart

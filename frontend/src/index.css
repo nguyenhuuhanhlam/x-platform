@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "tw-animate-css";
+@plugin 'tailwind-scrollbar';
 
 @custom-variant dark (&:is(.dark *));
 
@@ -143,6 +144,15 @@ body {
 	}
 }
 
+/* màu highlight cho data-table  */
 tr[data-state="selected"] {
 	@apply bg-sky-800/40! text-white;
+}
+
+.field-label {
+	@apply text-neutral-300 font-normal;
+}
+
+.m-scroll {
+	@apply scrollbar-thin scrollbar-thumb-stone-600/20 scrollbar-track-stone-900/10;
 }

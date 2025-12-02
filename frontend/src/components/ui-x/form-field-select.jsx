@@ -9,15 +9,16 @@ const FormFieldSelect = ({
 	placeholder = 'Please choose',
 	items = [],
 	loading = false,
+	highlight = 'bg-blue-900/30!'
 }) => {
 	return (
 		<form.Field
 			name={name}
 			children={(field) => (
-				<Field>
+				<Field className="gap-2">
 					{
 						label
-						&& <FieldLabel>
+						&& <FieldLabel className="flex justify-between field-label">
 							{label}
 							{field.state.meta.errors.length > 0 && (
 								<IconPointFilled size={14} className="text-red-800 translate-y-[2px]" />
@@ -26,7 +27,7 @@ const FormFieldSelect = ({
 					}
 
 					<Select value={field.state.value ?? ''} onValueChange={field.handleChange}>
-						<SelectTrigger><SelectValue placeholder={placeholder} /></SelectTrigger>
+						<SelectTrigger className={field.state.value ? highlight : ''}><SelectValue placeholder={placeholder} /></SelectTrigger>
 
 						<SelectContent>
 							{loading && (<SelectItem value="loading" disabled>Loading...</SelectItem>)}
