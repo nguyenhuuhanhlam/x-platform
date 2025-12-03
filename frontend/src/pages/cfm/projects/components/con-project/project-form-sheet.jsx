@@ -1,7 +1,7 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useForm, useStore } from '@tanstack/react-form'
-import { z } from 'zod'
+// import { z } from 'zod'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 
@@ -13,62 +13,57 @@ import FormFieldNumber from '@/components/ui-x/form-field-number'
 import SeparatorWithText from '@/components/ui-x/separator-with-text'
 
 import { cfm_api } from '@/services/api'
+import { formSchema } from './config'
 
-const ProjectFormSheet = ({ open = false, onOpenChange }) => {
+const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) => {
 	const { get_spa_cons } = cfm_api()
-	const { data: consData = [], isLoading } = useQuery({ queryKey: ['spa_con_projects'], queryFn: get_spa_cons, select: res => res.data, enabled: true })
 
-	const formSchema = z.object({
-		funding_source: z.string().min(1),
-		contract_name: z.string().min(1),
-		contract_code: z.string().min(1),
-		contract_status: z.string().min(1),
-		signed_date: z.string().min(1),
-		expiry_date: z.string().min(1),
-		contract_value_vat: z.string().min(1),
+	const { data: consData = [], isLoading } = useQuery({
+		queryKey: ['spa-con-projects'],
+		queryFn: get_spa_cons,
+		select: res => res.data,
+		enabled: open === true
 	})
 
-	// contract_value_vat
-	// total_original_vat
-	// sales_cost
-	// total_planned_vat
-
 	const form = useForm({
-		defaultValues: {},
-		validators: {
-			onSubmit: formSchema
-		},
+		validators: { onSubmit: formSchema },
 		onSubmit: ({ value }) => {
 			console.log(value)
 		}
 	})
 
-	const selected_project_id = useStore(form.store, s => s.values.project);
-	const selected_project = consData.find(p => String(p.Id) === selected_project_id);
+	const selected_project_id = useStore(form.store, s => s.values.project)
+	const selected_project = consData.find(p => String(p.Id) === selected_project_id)
 	const company_items = selected_project ? [{ value: String(selected_project.CompanyId), label: selected_project.CompanyName }] : []
 	const stage_items = selected_project ? [{ value: String(selected_project.stageValue), label: selected_project.stageText }] : []
 	const responsible_items = selected_project ? [{ value: String(selected_project.responsible_id), label: selected_project.responsible }] : []
 
 	useEffect(() => {
-		form.reset()
+		if (open === false) return
+
+		if (mode === 'edit') {
+
+			// form.setFieldValue('project', String(data.project_id))
+			// form.setFieldValue('company', String(data.company_id))
+
+			// console.log('data from props:', data)
+			form.reset(data)
+
+		} else if (mode === 'new') {
+			form.reset()
+		}
+
 	}, [open])
 
 	useEffect(() => {
-		form.setFieldValue('company', '')
-		form.setFieldValue('stage', '')
-		form.setFieldValue('responsible', '')
+		// form.setFieldValue('company', '')
+		// form.setFieldValue('stage', '')
+		// form.setFieldValue('responsible', '')
 
-		if (company_items.length === 1) {
-			form.setFieldValue('company', company_items[0].value)
-		}
+		if (company_items.length === 1) { form.setFieldValue('company', company_items[0].value) }
+		if (stage_items.length === 1) { form.setFieldValue('stage', stage_items[0].value) }
+		if (responsible_items.length === 1) { form.setFieldValue('responsible', responsible_items[0].value) }
 
-		if (stage_items.length === 1) {
-			form.setFieldValue('stage', stage_items[0].value)
-		}
-
-		if (responsible_items.length === 1) {
-			form.setFieldValue('responsible', responsible_items[0].value)
-		}
 	}, [selected_project_id])
 
 	return (
@@ -87,11 +82,19 @@ const ProjectFormSheet = ({ open = false, onOpenChange }) => {
 						<FieldGroup className="gap-4">
 
 							<FormFieldSelect form={form} name="project" label="Project"
-								items={consData.map(item => ({ value: String(item.Id), label: item.Title })) ?? []}
+								items={
+									mode === 'edit'
+										? [{ value: String(data.project_id), label: data.project_name }]
+										: consData.map(item => ({ value: String(item.Id), label: item.Title })) ?? []
+								}
 							/>
 
 							<FormFieldSelect form={form} name="company" label="Company"
-								items={company_items}
+								items={
+									mode === 'edit'
+										? [{ value: String(data.company_id), label: data.company_name }]
+										: company_items
+								}
 							/>
 
 							<FormFieldSelect form={form} name="sales_objects" label="Sales Objects"

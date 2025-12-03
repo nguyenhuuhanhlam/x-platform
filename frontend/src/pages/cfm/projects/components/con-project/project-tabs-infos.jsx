@@ -8,19 +8,19 @@ import NoteAccordion from '@/components/ui-x/note-accordion'
 import { cfm_api } from '@/services/api'
 
 const ProjectTabsInfos = ({ value, data }) => {
-	const { get_detail_con_project, get_contacts } = cfm_api()
+	const { get_con_project_details, get_some_contacts } = cfm_api()
 	const { t } = useTranslation()
 
 	const { data: _data } = useQuery({
-		queryKey: ['con-details', data.id],
-		queryFn: () => get_detail_con_project(data.project_id),
+		queryKey: ['con-project-detail', data.id],
+		queryFn: () => get_con_project_details(data.project_id),
 		select: res => res.data[0],
 		enabled: true
 	})
 
 	const { data: contactsData } = useQuery({
-		queryKey: ['some_contacts', _data?.contact_ids],
-		queryFn: () => get_contacts(_data.contact_ids.split(',').map(Number)),
+		queryKey: ['some-contacts', _data?.contact_ids],
+		queryFn: () => get_some_contacts(_data.contact_ids.split(',').map(Number)),
 		select: res => res.data
 	})
 
@@ -32,7 +32,7 @@ const ProjectTabsInfos = ({ value, data }) => {
 
 	return (
 		<TabsContent value={value}>
-			<div className="flex flex-col sm:flex-row gap-8 pb-4">
+			<div className="flex flex-col sm:flex-row gap-8 pb-8">
 				<div className="flex flex-col gap-2 sm:min-w-[420px]">
 					<LabelValue label="Project Name" value={_data?.project_name} valueClass="truncate" />
 					<LabelValue label="Company" value={_data?.company_name} />

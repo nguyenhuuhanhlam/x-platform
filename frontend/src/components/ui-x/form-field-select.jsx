@@ -29,7 +29,7 @@ const FormFieldSelect = ({
 					<Select value={field.state.value ?? ''} onValueChange={field.handleChange}>
 						<SelectTrigger className={field.state.value ? highlight : ''}><SelectValue placeholder={placeholder} /></SelectTrigger>
 
-						<SelectContent>
+						<SelectContent className="max-w-[var(--radix-select-trigger-width)]">
 							{loading && (<SelectItem value="loading" disabled>Loading...</SelectItem>)}
 							{!loading && items.map((item) => (<SelectItem key={item.value} value={item.value}>{item.label}</SelectItem>))}
 						</SelectContent>

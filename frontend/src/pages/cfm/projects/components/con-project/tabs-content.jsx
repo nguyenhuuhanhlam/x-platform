@@ -9,20 +9,20 @@ import { DataTable } from '@/components/ui-x/data-table'
 
 import { con_columns } from '../../config'
 import { cfm_api } from '@/services/api'
-import { useDataTable } from '@/hooks/use-datatable'
+import { useDataTable } from '@/hooks/use-data-table'
 
 import ProjectFormSheet from './project-form-sheet'
 import ProjectDetailsDrawer from './project-details-drawer'
 
-const { get_spa_cons, get_con_projects } = cfm_api()
-
 const _TabsContent = ({ value, data = {} }) => {
+	const { get_con_projects } = cfm_api()
 	const { t } = useTranslation()
 	const [sheetOpen, setSheetOpen] = useState(false)
+	const [mode, setMode] = useState('new')
 	const [drawerOpen, setDrawerOpen] = useState(false)
 
 	const { data: spaconsData } = useQuery({
-		queryKey: ['spa_cons'],
+		queryKey: ['spa-cons'],
 		queryFn: get_con_projects,
 		select: res => res?.data,
 		enabled: true
@@ -35,10 +35,12 @@ const _TabsContent = ({ value, data = {} }) => {
 			<TabsContent value={value}>
 
 				<div className="flex items-center justify-end gap-2 mb-2">
-
 					<Button
 						variant="outline" size="icon" className="bg-green-900! hover:bg-green-700! rounded-full"
-						onClick={() => setSheetOpen(true)}
+						onClick={() => {
+							setMode('new')
+							setSheetOpen(true)
+						}}
 					>
 						<IconPlus />
 					</Button>
@@ -52,8 +54,22 @@ const _TabsContent = ({ value, data = {} }) => {
 				/>
 			</TabsContent>
 
-			<ProjectFormSheet open={sheetOpen} onOpenChange={setSheetOpen} />
-			<ProjectDetailsDrawer open={drawerOpen} onOpenChange={setDrawerOpen} data={use_data_table.rowSelectedData} />
+			<ProjectFormSheet
+				open={sheetOpen} onOpenChange={setSheetOpen}
+				data={use_data_table.rowSelectedData}
+				mode={mode}
+			/>
+
+			<ProjectDetailsDrawer
+				open={drawerOpen} onOpenChange={setDrawerOpen}
+				data={use_data_table.rowSelectedData}
+				callback={(e) => {
+					if (e.action === 'edit') {
+						setMode('edit')
+						setSheetOpen(true)
+					}
+				}}
+			/>
 		</div>
 	)
 }

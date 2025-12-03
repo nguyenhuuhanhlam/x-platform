@@ -12,7 +12,7 @@ import { DataTable } from '@/components/ui-x/data-table'
 import EmployeeFormSheet from './components/employee-form-sheet'
 import EmployeeDetailsDrawer from './components/employee-details-drawer'
 
-import { useDataTable } from '@/hooks/use-datatable'
+import { useDataTable } from '@/hooks/use-data-table'
 
 const EmployeesPage = () => {
 	const { t } = useTranslation()

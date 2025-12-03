@@ -1,6 +1,7 @@
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.middleware.gzip import GZipMiddleware
 from contextlib import asynccontextmanager
 from sqlalchemy.orm import DeclarativeBase
 from app.db.session import engine
@@ -22,6 +23,7 @@ async def lifespan(app: FastAPI):
 
 
 app = FastAPI(lifespan=lifespan)
+app.add_middleware(GZipMiddleware, minimum_size=1024)
 app.add_middleware(
 	CORSMiddleware,
 	allow_origins=["*"],
@@ -30,7 +32,7 @@ app.add_middleware(
 	allow_headers=["*"],
 )
 
-app.include_router(cfm_router, prefix="/api/v1")
+app.include_router(cfm_router)
 
 if __name__ == "__main__":
 	uvicorn.run('app.main:app', host="127.0.0.1", port=8000)
