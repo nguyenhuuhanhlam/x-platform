@@ -1,7 +1,6 @@
-import { useEffect, useState } from 'react'
+import { useEffect } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useForm, useStore } from '@tanstack/react-form'
-// import { z } from 'zod'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 
@@ -32,7 +31,7 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 		}
 	})
 
-	const selected_project_id = useStore(form.store, s => s.values.project)
+	const selected_project_id = useStore(form.store, s => s.values.project_id)
 	const selected_project = consData.find(p => String(p.Id) === selected_project_id)
 	const company_items = selected_project ? [{ value: String(selected_project.CompanyId), label: selected_project.CompanyName }] : []
 	const stage_items = selected_project ? [{ value: String(selected_project.stageValue), label: selected_project.stageText }] : []
@@ -42,12 +41,14 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 		if (open === false) return
 
 		if (mode === 'edit') {
-
-			// form.setFieldValue('project', String(data.project_id))
-			// form.setFieldValue('company', String(data.company_id))
-
-			// console.log('data from props:', data)
 			form.reset(data)
+
+			form.setFieldValue('project_id', String(data.project_id))
+			form.setFieldValue('company_id', String(data.company_id))
+			form.setFieldValue('sales_objects', String(data.sales_objects))
+			form.setFieldValue('funding_source', String(data.funding_source))
+			form.setFieldValue('responsible', String(data.responsible_id))
+			// form.setFieldValue('stage', String(data.stage))
 
 		} else if (mode === 'new') {
 			form.reset()
@@ -60,7 +61,7 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 		// form.setFieldValue('stage', '')
 		// form.setFieldValue('responsible', '')
 
-		if (company_items.length === 1) { form.setFieldValue('company', company_items[0].value) }
+		if (company_items.length === 1) { form.setFieldValue('company_id', company_items[0].value) }
 		if (stage_items.length === 1) { form.setFieldValue('stage', stage_items[0].value) }
 		if (responsible_items.length === 1) { form.setFieldValue('responsible', responsible_items[0].value) }
 
@@ -81,7 +82,7 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 					<form className="px-4">
 						<FieldGroup className="gap-4">
 
-							<FormFieldSelect form={form} name="project" label="Project"
+							<FormFieldSelect form={form} name="project_id" label="Project"
 								items={
 									mode === 'edit'
 										? [{ value: String(data.project_id), label: data.project_name }]
@@ -89,7 +90,7 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 								}
 							/>
 
-							<FormFieldSelect form={form} name="company" label="Company"
+							<FormFieldSelect form={form} name="company_id" label="Company"
 								items={
 									mode === 'edit'
 										? [{ value: String(data.company_id), label: data.company_name }]
@@ -129,8 +130,21 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 
 							<FormFieldNumber form={form} name="effective_days" label="Effective Days" />
 
-							<FormFieldSelect form={form} name="stage" label="Stage" items={stage_items} />
-							<FormFieldSelect form={form} name="responsible" label="Responsible" items={responsible_items} />
+							<FormFieldSelect form={form} name="stage" label="Stage"
+								items={
+									mode === 'edit'
+										? [{ value: String(data.stage), label: data.stage_text }]
+										: stage_items
+								}
+							/>
+
+							<FormFieldSelect form={form} name="responsible" label="Responsible"
+								items={
+									mode === 'edit'
+										? [{ value: String(data.responsible_id), label: data.responsible_name }]
+										: responsible_items
+								}
+							/>
 
 							<SeparatorWithText>/</SeparatorWithText>
 
