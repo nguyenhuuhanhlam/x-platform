@@ -4,7 +4,6 @@ from sqlalchemy import text
 
 from app.db.utils import ( build_sql_payload, generate_upsert_sql, parse_iso_date )
 
-
 # - - - - -	
 async def get_projects(db: AsyncSession):
 	query = text(
@@ -25,7 +24,6 @@ async def get_projects(db: AsyncSession):
 
 	result = await db.execute(query)
 	return [dict(row) for row in result.mappings()]
-
 
 # - - - - -	
 async def get_project_details(db: AsyncSession, project_id: int):
@@ -59,55 +57,19 @@ async def get_project_details(db: AsyncSession, project_id: int):
 	result = await db.execute(query, params={'project_id': project_id})
 	return [dict(row) for row in result.mappings()]
 
-
 # - - - - -		
-async def create_project(db: AsyncSession, data: dict):
-	data['project_id'] = data['project']['value']
-	data['project_name'] = data['project']['label']
+async def post_project(db: AsyncSession, data: dict):
 	data['signed_date'] = parse_iso_date(data['signed_date']).strftime('%Y-%m-%d')
 	data['expiry_date'] = parse_iso_date(data['expiry_date']).strftime('%Y-%m-%d')
-	data['company_id'] = data['company']['value']
-	data['responsible_id'] = data['responsible']['value']
-	data['stage'] = data['stage']['value']
-
-	del data['project']
-	del data['company']
-	del data['responsible']
-
-	sql = generate_upsert_sql('cfm_con_projects', data)
-	payload = build_sql_payload(sql, data)
-
-	await db.execute(text(sql), payload)
-	await db.commit()
-
-	q = text('SELECT * FROM cfm_con_projects WHERE id = LAST_INSERT_ID()')
-	result = await db.execute(q)
-	return [dict(row) for row in result.mappings()]
-
-
-# - - - - -	
-async def update_project(db: AsyncSession, project_id: int, data: dict):
-	data['id'] = project_id
-	data['project_name'] = data['project']['label']
-	data['signed_date'] = parse_iso_date(data['signed_date']).strftime('%Y-%m-%d')
-	data['expiry_date'] = parse_iso_date(data['expiry_date']).strftime('%Y-%m-%d')
-	data['company_id'] = data['company']['value']
-	data['responsible_id'] = data['responsible']['value']
-	data['stage'] = data['stage']['value']
-
-	del data['project']
-	del data['company']
-	del data['responsible']
 
 	sql = generate_upsert_sql('cfm_con_projects', data, upsert=True)
 	payload = build_sql_payload(sql, data)
 
 	try:
-		result = await db.execute(text(sql), payload)
+		await db.execute(text(sql), payload)
 		await db.commit()
-		return []
-		
+		return { 'success': True, 'action': 'create' }
+	
 	except SQLAlchemyError as e:
 		await db.rollback()
-		print('Error updating CFM Project:', e)
-		return None
+		return { 'success': False, 'action': 'update', "error": str(e) }

@@ -109,6 +109,7 @@ export function DataTable({
           <div className="flex items-center justify-between">
             <Button
               className="text-sm text-muted-foreground"
+              size="sm"
               variant="outline"
             >
               Total <span className="text-white">{table.getFilteredRowModel().rows.length}</span> rows
@@ -117,6 +118,7 @@ export function DataTable({
             <div className="flex items-center gap-4">
               <Button
                 className="px-2"
+                size="sm"
                 variant="outline"
               >
                 Page {table.getState().pagination?.pageIndex + 1} /{" "}
@@ -126,7 +128,7 @@ export function DataTable({
               <div className="space-x-2">
                 <Button
                   variant="outline"
-                  size="icon"
+                  size="icon-sm"
                   onClick={() => table.previousPage()}
                   disabled={!table.getCanPreviousPage()}
                 >
@@ -135,7 +137,7 @@ export function DataTable({
 
                 <Button
                   variant="outline"
-                  size="icon"
+                  size="icon-sm"
                   onClick={() => table.nextPage()}
                   disabled={!table.getCanNextPage()}
                 >

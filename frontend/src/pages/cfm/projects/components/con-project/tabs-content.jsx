@@ -28,7 +28,12 @@ const _TabsContent = ({ value, data = {} }) => {
 		enabled: true
 	})
 
-	const use_data_table = useDataTable(spaconsData, () => setDrawerOpen(true))
+	const use_data_table = useDataTable(
+		spaconsData,
+		(value) => {
+			setDrawerOpen(true)
+		}
+	)
 
 	return (
 		<div>

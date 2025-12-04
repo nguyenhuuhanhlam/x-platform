@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const useDataTable = (data, callback = () => { }) => {
+export const useDataTable = (data, callback = (e) => { }) => {
 	const [rowSelection, setRowSelection] = useState({})
 	const [rowSelectedData, setRowSelectedData] = useState({})
 
@@ -12,7 +12,7 @@ export const useDataTable = (data, callback = () => { }) => {
 			if (selectedKey) {
 				const rowData = data[selectedKey]
 				setRowSelectedData(rowData)
-				callback()
+				callback(rowData)
 			}
 
 			return newState

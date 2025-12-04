@@ -1,5 +1,5 @@
 import { useEffect } from 'react'
-import { useQuery } from '@tanstack/react-query'
+import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm, useStore } from '@tanstack/react-form'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
@@ -14,8 +14,16 @@ import SeparatorWithText from '@/components/ui-x/separator-with-text'
 import { cfm_api } from '@/services/api'
 import { formSchema } from './config'
 
-const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) => {
-	const { get_spa_cons } = cfm_api()
+const ProjectFormSheet = ({
+	open = false,
+	mode = 'new',
+	onOpenChange,
+	data,
+	callback = (e) => { }
+}) => {
+
+	const { get_spa_cons, post_con_project } = cfm_api()
+	const queryClient = useQueryClient()
 
 	const { data: consData = [], isLoading } = useQuery({
 		queryKey: ['spa-con-projects'],
@@ -24,10 +32,29 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 		enabled: open === true
 	})
 
+	const mutation = useMutation({
+		mutationFn: post_con_project,
+		onSuccess: () => {
+			queryClient.invalidateQueries(['spa-con-projects'])
+			onOpenChange(false)
+
+			callback({ action: 'close' })
+		},
+		onError: () => {
+			console.log('post_con_project :: failed')
+		}
+	})
+
 	const form = useForm({
 		validators: { onSubmit: formSchema },
 		onSubmit: ({ value }) => {
-			console.log(value)
+			if (mode === 'new') {
+				const payload = { ...value, project_name: selected_project.Title }
+				mutation.mutate(payload)
+			} else {
+				const { company_name, stage_text, responsible_name, ...payload } = value
+				mutation.mutate(payload)
+			}
 		}
 	})
 
@@ -47,8 +74,7 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 			form.setFieldValue('company_id', String(data.company_id))
 			form.setFieldValue('sales_objects', String(data.sales_objects))
 			form.setFieldValue('funding_source', String(data.funding_source))
-			form.setFieldValue('responsible', String(data.responsible_id))
-			// form.setFieldValue('stage', String(data.stage))
+			form.setFieldValue('responsible_id', String(data.responsible_id))
 
 		} else if (mode === 'new') {
 			form.reset()
@@ -57,13 +83,9 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 	}, [open])
 
 	useEffect(() => {
-		// form.setFieldValue('company', '')
-		// form.setFieldValue('stage', '')
-		// form.setFieldValue('responsible', '')
-
 		if (company_items.length === 1) { form.setFieldValue('company_id', company_items[0].value) }
 		if (stage_items.length === 1) { form.setFieldValue('stage', stage_items[0].value) }
-		if (responsible_items.length === 1) { form.setFieldValue('responsible', responsible_items[0].value) }
+		if (responsible_items.length === 1) { form.setFieldValue('responsible_id', responsible_items[0].value) }
 
 	}, [selected_project_id])
 
@@ -138,7 +160,7 @@ const ProjectFormSheet = ({ open = false, onOpenChange, data, mode = 'new' }) =>
 								}
 							/>
 
-							<FormFieldSelect form={form} name="responsible" label="Responsible"
+							<FormFieldSelect form={form} name="responsible_id" label="Responsible"
 								items={
 									mode === 'edit'
 										? [{ value: String(data.responsible_id), label: data.responsible_name }]

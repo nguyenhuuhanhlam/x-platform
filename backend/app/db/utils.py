@@ -33,17 +33,22 @@ def add_returning(sql: str, *fields: str) -> str:
 
 # - - - - -
 def generate_upsert_sql(table_name: str, data: dict, upsert: bool = False) -> str:
+	"""
+	Generate INSERT ... VALUES (...) AS new ... ON DUPLICATE KEY UPDATE ...
+	using alias reference instead of deprecated VALUES(col).
+	"""
 	columns = ', '.join(data.keys())
 	placeholders = ', '.join([f':{key}' for key in data.keys()])
-	
+
+	# INSERT with alias "new"
 	sql = f'''
 		INSERT INTO {table_name}
 		({columns})
-		VALUES ({placeholders})
+		VALUES ({placeholders}) AS new
 	'''
 
 	if upsert:
-		update_clause = ', '.join([f"{key} = VALUES({key})" for key in data.keys()])
+		update_clause = ', '.join([f"{key} = new.{key}" for key in data.keys()])
 		sql += f"\nON DUPLICATE KEY UPDATE {update_clause}"
 
 	return sql
@@ -51,7 +56,24 @@ def generate_upsert_sql(table_name: str, data: dict, upsert: bool = False) -> st
 
 # - - - - -
 def parse_iso_date(date_str):
-	return datetime.fromisoformat(date_str.replace("Z", "+00:00")).date()
+	if not date_str:
+		return None
+
+	# 1) Nếu đúng format YYYY-MM-DD → parse trực tiếp
+	try:
+		return date.fromisoformat(date_str)
+	except ValueError:
+		pass
+
+	# 2) Nếu là dạng ISO datetime → convert sang date
+	# Thay Z thành +00:00 để Python hiểu timezone
+	try:
+		clean = date_str.replace("Z", "+00:00")
+		return datetime.fromisoformat(clean).date()
+	except ValueError:
+		pass
+
+	raise ValueError(f"Invalid date format: {date_str}")
 
 
 # - - - - -
