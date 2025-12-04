@@ -63,6 +63,8 @@ const _TabsContent = ({ value, data = {} }) => {
 				open={sheetOpen} onOpenChange={setSheetOpen}
 				data={use_data_table.rowSelectedData}
 				mode={mode}
+				callback={(e) => {
+				}}
 			/>
 
 			<ProjectDetailsDrawer
