@@ -68,8 +68,12 @@ async def post_project(db: AsyncSession, data: dict):
 	try:
 		await db.execute(text(sql), payload)
 		await db.commit()
-		return { 'success': True, 'action': 'create' }
+
+		return {
+			'success': True,
+			'upsert_data': data
+		}
 	
 	except SQLAlchemyError as e:
 		await db.rollback()
-		return { 'success': False, 'action': 'update', "error": str(e) }
+		return { 'success': False, 'error': str(e) }

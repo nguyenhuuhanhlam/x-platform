@@ -32,19 +32,6 @@ const ProjectFormSheet = ({
 		enabled: open === true
 	})
 
-	const mutation = useMutation({
-		mutationFn: post_con_project,
-		onSuccess: () => {
-			queryClient.invalidateQueries(['spa-con-projects'])
-			onOpenChange(false)
-
-			callback({ action: 'close' })
-		},
-		onError: () => {
-			console.log('post_con_project :: failed')
-		}
-	})
-
 	const form = useForm({
 		validators: { onSubmit: formSchema },
 		onSubmit: ({ value }) => {
@@ -55,6 +42,19 @@ const ProjectFormSheet = ({
 				const { company_name, stage_text, responsible_name, ...payload } = value
 				mutation.mutate(payload)
 			}
+		}
+	})
+
+	const mutation = useMutation({
+		mutationFn: post_con_project,
+		onSuccess: (e, form_values) => {
+			queryClient.invalidateQueries(['spa-con-projects'])
+
+			callback(form_values)
+			onOpenChange(false)
+		},
+		onError: () => {
+			console.log('post_con_project :: failed')
 		}
 	})
 

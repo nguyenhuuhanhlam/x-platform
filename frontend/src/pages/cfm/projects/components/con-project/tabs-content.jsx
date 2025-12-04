@@ -21,6 +21,8 @@ const _TabsContent = ({ value, data = {} }) => {
 	const [mode, setMode] = useState('new')
 	const [drawerOpen, setDrawerOpen] = useState(false)
 
+	const [editingData, setEditingData] = useState(null)
+
 	const { data: spaconsData } = useQuery({
 		queryKey: ['spa-cons'],
 		queryFn: get_con_projects,
@@ -61,9 +63,10 @@ const _TabsContent = ({ value, data = {} }) => {
 
 			<ProjectFormSheet
 				open={sheetOpen} onOpenChange={setSheetOpen}
-				data={use_data_table.rowSelectedData}
+				data={editingData ?? use_data_table.rowSelectedData}
 				mode={mode}
 				callback={(e) => {
+					setEditingData({ ...use_data_table.rowSelectedData, ...e })
 				}}
 			/>
 
