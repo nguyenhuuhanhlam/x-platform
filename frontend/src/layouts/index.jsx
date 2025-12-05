@@ -4,6 +4,7 @@ import { Separator } from '@/components/ui/separator'
 import AppSidebar from './app-sidebar'
 import LangSwitcher from '@/components/ui-x/lang-switcher'
 import AutoBreadcrumb from '@/components/ui-x/auto-breadcrumb'
+import { Toaster } from '@/components/ui/sonner'
 
 const Layout = () => {
 	return (
@@ -21,6 +22,7 @@ const Layout = () => {
 
 				<div className="flex-1 overflow-auto">
 					<Outlet className="h-full" />
+					<Toaster richColors position="top-center" duration={2000} />
 				</div>
 
 			</SidebarInset>

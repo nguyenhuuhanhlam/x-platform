@@ -24,7 +24,7 @@ const _TabsContent = ({ value, data = {} }) => {
 	const [editingData, setEditingData] = useState(null)
 
 	const { data: spaconsData } = useQuery({
-		queryKey: ['spa-cons'],
+		queryKey: ['con-projects'],
 		queryFn: get_con_projects,
 		select: res => res?.data,
 		enabled: true
@@ -32,9 +32,7 @@ const _TabsContent = ({ value, data = {} }) => {
 
 	const use_data_table = useDataTable(
 		spaconsData,
-		(value) => {
-			setDrawerOpen(true)
-		}
+		(e) => { setDrawerOpen(true) }
 	)
 
 	return (

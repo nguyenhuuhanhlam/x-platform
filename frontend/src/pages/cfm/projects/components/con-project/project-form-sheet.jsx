@@ -3,6 +3,7 @@ import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm, useStore } from '@tanstack/react-form'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
+import { toast } from 'sonner'
 
 import { FieldGroup, } from '@/components/ui/field'
 import FormFieldSelect from '@/components/ui-x/form-field-select'
@@ -50,7 +51,13 @@ const ProjectFormSheet = ({
 		onSuccess: (e, form_values) => {
 			queryClient.invalidateQueries(['spa-con-projects'])
 
-			callback(form_values)
+			if (mode === 'new') {
+				toast.success('Your data has been created.')
+			} else {
+				toast.info('Your data has been updated.')
+				callback(form_values)
+			}
+
 			onOpenChange(false)
 		},
 		onError: () => {

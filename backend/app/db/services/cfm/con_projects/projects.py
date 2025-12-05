@@ -77,3 +77,22 @@ async def post_project(db: AsyncSession, data: dict):
 	except SQLAlchemyError as e:
 		await db.rollback()
 		return { 'success': False, 'error': str(e) }
+	
+
+# - - - - -
+async def delete_project(db: AsyncSession, project_id: int):
+	sql = 'DELETE FROM cfm_con_projects WHERE project_id = :project_id'
+	payload = {'project_id': project_id}
+
+	try:
+		await db.execute(text(sql), payload)
+		await db.commit()
+
+		return {
+			'success': True,
+			'deleted_data': project_id
+		}
+	
+	except SQLAlchemyError as e:
+		await db.rollback()
+		return { 'success': False, 'error': str(e) }
