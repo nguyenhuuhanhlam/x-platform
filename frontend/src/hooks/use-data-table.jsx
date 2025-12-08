@@ -12,11 +12,12 @@ export const useDataTable = (data, callback = (e) => { }) => {
 			if (selectedKey) {
 				const rowData = data[selectedKey]
 				setRowSelectedData(rowData)
-				callback(rowData)
+				// callback(rowData)
 			}
-
 			return newState
 		})
+
+		callback()
 	}
 
 	return { rowSelection, rowSelectedData, handleSelectionChange }

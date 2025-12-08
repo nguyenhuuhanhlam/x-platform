@@ -2,6 +2,7 @@ import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, } 
 import { Tabs, TabsList, TabsTrigger, } from '@/components/ui/tabs'
 
 import PersonalTabsContent from './personal-tabs-content'
+import WorkInfosTabsContent from './workinfos-tabs-content'
 
 const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
 
@@ -28,6 +29,7 @@ const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
 
 					<div className="flex-1 min-h-0 overflow-y-auto px-4 py-2">
 						<PersonalTabsContent value="personal" data={data} />
+						<WorkInfosTabsContent value="work.infos" data={data} />
 					</div>
 
 				</Tabs>

@@ -36,7 +36,10 @@ const ProjectDetailsDrawer = ({
 
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
-			<DrawerContent className="h-full sm:h-[60vh] flex flex-col p-0" onInteractOutside={(e) => e.preventDefault()}>
+			<DrawerContent
+				className="h-full sm:h-[60vh] flex flex-col p-0"
+				// onInteractOutside={(e) => e.preventDefault()}
+			>
 
 				<Tabs defaultValue="information" className="flex flex-col h-full">
 					<DrawerHeader className="mt-3 py-0">
