@@ -8,7 +8,9 @@ export const employees_api = (base = '/hrm') => ({
 	get_one: async (id) => await api.get(`${base}/employees/${id}`),
 
 	get_personal: async (id) => await api.get(`${base}/personal/${id}`),
-	get_families: async (id) => await api.get(`${base}/families/${id}`)
+	get_families: async (id) => await api.get(`${base}/families/${id}`),
+
+	get_workinfos_by_employee: async (employee_id) => await api.get(`/workinfos/by-employee/${employee_id}`)
 })
 
 export const cfm_api = (base = '/cfm') => ({

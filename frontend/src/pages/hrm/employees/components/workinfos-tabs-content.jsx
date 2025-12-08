@@ -10,6 +10,8 @@ import LabelValue from '@/components/ui-x/label-value'
 const WorkInfosTabsContent = ({ value, data = {} }) => {
 	const { t } = useTranslation()
 
+	console.log('WorkInfosTabsContent data:', data)
+
 	return (
 		<TabsContent value={value} className="px-4 pt-4">
 			<div className="flex flex-col md:flex-row gap-4">
@@ -21,10 +23,11 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 						</CardHeader>
 
 						<CardContent className="flex flex-col p-0 gap-1">
-							<LabelValue label="BadgeID" value={'-'} />
-							<LabelValue label="Department" value={'-'} />
+							<LabelValue label="BadgeID" value={data?.badge_id} />
+							<LabelValue label="Department" value={data?.department} />
+							<LabelValue label="Position" value={data?.position} />
 							<LabelValue label="Work Type" value={'-'} />
-							<LabelValue label="Employee Type" value={'-'} />
+							<LabelValue label="Employee Type" value={data?.employee_type} />
 							<LabelValue label="Manager" value={'-'} />
 							<LabelValue label="Probation Start Date" value={'-'} />
 							<LabelValue label="Joining Date" value={'-'} />
