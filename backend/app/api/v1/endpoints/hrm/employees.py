@@ -6,9 +6,9 @@ from app.db.session import get_db
 from app.db.services.hrm.employees import get_employees
 
 # - - - - -
-router = APIRouter(prefix='/hrm', tags=['HRM-Employees'])
+router = APIRouter(prefix='/hrm/employees', tags=['HRM-Employees'])
 # - - - - -
 
-@router.get('/employees/is-active')
+@router.get('/is-active')
 async def get__employees(db: AsyncSession = Depends(get_db)):
 	return await handle_exceptions(get_employees, db, is_leaving=0)

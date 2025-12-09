@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
-import { employees_api } from '@/services/api'
+import { hrm_api } from '@/services/api'
 import { employee_columns } from './config'
 import { Input } from '@/components/ui/input'
 import { Button } from '@/components/ui/button'
@@ -22,7 +22,7 @@ const EmployeesPage = () => {
 
 	const { data, isLoading } = useQuery({
 		queryKey: ['employees'],
-		queryFn: () => employees_api().get_active_list(),
+		queryFn: () => hrm_api().get_active_list(),
 		select: res => res?.data,
 		enabled: true
 	})

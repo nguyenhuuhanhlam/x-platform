@@ -7,11 +7,12 @@ import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
 import { IconPlus } from '@tabler/icons-react'
 
-import { employees_api, minio_api } from '@/services/api'
+import { hrm_api, minio_api } from '@/services/api'
 import LabelValue from '@/components/ui-x/label-value'
 import { family_columns } from '../config'
+import { format_phonestring } from '@/lib/helpers'
 
-const { get_personal, get_families } = employees_api()
+const { get_personal, get_families } = hrm_api()
 const { get_presigned } = minio_api()
 
 const PersonalTabsContent = ({ value, data = {} }) => {
@@ -38,7 +39,7 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 	})
 
 	return (
-		<TabsContent value={value} className="px-4 pt-4">
+		<TabsContent value={value} className="px-0 pt-0 pb-4">
 			<div className="flex flex-col md:flex-row gap-4">
 
 				<div className="w-full md:w-1/2">
@@ -59,7 +60,7 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 							</div>
 							<div className="flex flex-col gap-1">
 								<LabelValue label="Email" value={personalData?.email} />
-								<LabelValue label="Phone" value={personalData?.phone} />
+								<LabelValue label="Phone" value={format_phonestring(personalData?.phone)} />
 								<LabelValue label={t('gender')} value={t(personalData?.gender)} />
 								<LabelValue label={t('birthday')} value={personalData?.dob} />
 								<LabelValue label={t('qualification')} value={personalData?.qualification} />
