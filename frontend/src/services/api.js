@@ -1,7 +1,7 @@
 import axios from 'axios'
 
 const api = axios.create({ baseURL: import.meta.env.VITE_API_ENDPOINT })
-const api_minio = axios.create({ baseURL: import.meta.env.VITE_MINIO_API_ENDPOINT })
+// const api_minio = axios.create({ baseURL: import.meta.env.VITE_MINIO_API_ENDPOINT })
 
 export const employees_api = (base = '/hrm') => ({
 	get_active_list: async () => await api.get(`${base}/employees/is-active`),
@@ -25,10 +25,10 @@ export const cfm_api = (base = '/cfm') => ({
 
 export const minio_api = (base = '/minio') => ({
 	get_presigned: async (employee_id, filename) => {
-		const res = await api_minio.get(`${base}/presigned-url/docs/${employee_id}/${filename}`)
+		const res = await api.get(`${base}/presigned-url/docs/${employee_id}/${filename}`)
 		return res.data
 	},
 	uploadFile: async (employee_id, file, params) => {
-		return await api_minio.post(`${base}/upload/docs/${employee_id}`, file, params)
+		return await api.post(`${base}/upload/docs/${employee_id}`, file, params)
 	}
 })
