@@ -32,14 +32,14 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 						</CardHeader>
 
 						<CardContent className="flex flex-col p-0 gap-1">
-							<div className="flex flex-col sm:flex-row gap-8">
-								<div>
+							<div className="flex flex-col gap-8 sm:flex-row">
+								<div className="flex flex-col gap-1 md:w-1/2">
 									<LabelValue label="BadgeID" value={data?.badge_id} />
-									<LabelValue label="Department" value={data?.department} />
-									<LabelValue label="Position" value={data?.position} />
-									<LabelValue label="Work Type" value={'-'} />
-									<LabelValue label="Employee Type" value={data?.employee_type} />
-									<LabelValue label="Manager" value={'-'} />
+									<LabelValue label="Department" value={workinfosData?.department_name} />
+									<LabelValue label="Position" value={workinfosData?.position_name} />
+									<LabelValue label="Work Type" value={workinfosData?.work_type_name} />
+									<LabelValue label="Employee Type" value={workinfosData?.employee_type_name} />
+									<LabelValue label="Manager" value={workinfosData?.manager_name} />
 									<LabelValue label="Probation Start Date" value={workinfosData?.probation_startdate} />
 									<LabelValue label="Joining Date" value={dayjs(workinfosData?.joining_date).format('DD-MM-YYYY')} />
 								</div>
