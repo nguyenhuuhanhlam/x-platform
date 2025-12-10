@@ -10,9 +10,13 @@ const FormFieldDate = ({
 	name,
 	label,
 	placeholder = "Select date",
-	displayFormat = 'DD-MM-YYYY',
-	highlight = 'bg-blue-900/30!'
+	displayFormat = "DD-MM-YYYY",
+	highlight = "bg-blue-900/30!",
+	disabled = false,
+	readonly = false,
 }) => {
+	const isLocked = disabled || readonly // dùng chung check lock UI
+
 	return (
 		<form.Field
 			name={name}
@@ -23,10 +27,17 @@ const FormFieldDate = ({
 
 				return (
 					<Field className="gap-2">
+
+						{/* LABEL (mờ khi disabled + readonly) */}
 						{label && (
-							<FieldLabel className="flex justify-between field-label">
+							<FieldLabel
+								className={`flex justify-between field-label ${disabled || readonly ? "opacity-60" : ""
+									}`}
+							>
 								{label}
-								{field.state.meta.errors.length > 0 && (
+
+								{/* Error icon — hiện khi không locked */}
+								{field.state.meta.errors.length > 0 && !isLocked && (
 									<IconPointFilled
 										size={14}
 										className="text-red-800 translate-y-[2px]"
@@ -35,36 +46,57 @@ const FormFieldDate = ({
 							</FieldLabel>
 						)}
 
-						<div className="flex items-center gap-2">
-							{/* Date Picker */}
+						<div
+							className={`flex items-center gap-2 ${disabled ? "cursor-not-allowed" : ""
+								}`}
+						>
+
+							{/* DATE PICKER */}
 							<Popover>
-								<PopoverTrigger className={field.state.value ? highlight : ''} asChild>
+								<PopoverTrigger
+									className={value && !disabled ? highlight : ""}
+									asChild
+									disabled={disabled}
+								>
 									<Button
 										variant="outline"
-										className={`flex-1 justify-start text-left font-normal ${!value ? 'text-muted-foreground' : ''}`}
+										disabled={disabled}
+										className={`flex-1 justify-start text-left font-normal ${!value ? "text-muted-foreground" : ""
+											}`}
 									>
 										{value ? value.format(displayFormat) : placeholder}
 									</Button>
 								</PopoverTrigger>
 
-								<PopoverContent className="p-0">
-									<Calendar
-										mode="single"
-										selected={calendarValue}
-										onSelect={(date) => {
-											if (!date) {
-												field.handleChange('')
-												return
-											}
-											field.handleChange(dayjs(date).toISOString())
-										}}
-										initialFocus
-									/>
-								</PopoverContent>
+								{/* Disabled thì không render calendar */}
+								{!disabled && (
+									<PopoverContent className="p-0">
+										<Calendar
+											mode="single"
+											selected={calendarValue}
+											// READONLY MODE — KHÔNG CHO CHỌN
+											onSelect={(date) => {
+												if (readonly) return
+												if (!date) {
+													field.handleChange("")
+													return
+												}
+
+												// ⭐ Format YYYY-MM-DD
+												field.handleChange(
+													dayjs(date).format("YYYY-MM-DD")
+												)
+											}}
+											// Khóa selectable khi readonly
+											disabled={readonly}
+											initialFocus
+										/>
+									</PopoverContent>
+								)}
 							</Popover>
 
-							{/* Clear button */}
-							{value && (
+							{/* CLEAR BUTTON — chỉ hiện khi không locked */}
+							{value && !isLocked && (
 								<Button
 									type="button"
 									variant="secondary"
@@ -76,6 +108,7 @@ const FormFieldDate = ({
 								</Button>
 							)}
 						</div>
+
 					</Field>
 				)
 			}}

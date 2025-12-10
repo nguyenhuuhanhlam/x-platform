@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm, useStore } from '@tanstack/react-form'
+import dayjs from 'dayjs'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
@@ -22,7 +23,6 @@ const ProjectFormSheet = ({
 	data,
 	callback = (e) => { }
 }) => {
-
 	const { get_spa_cons, post_con_project } = cfm_api()
 	const queryClient = useQueryClient()
 
@@ -34,17 +34,28 @@ const ProjectFormSheet = ({
 	})
 
 	const form = useForm({
-		validators: { onSubmit: formSchema },
+		validators: { 
+			onSubmit: formSchema
+		},
 		onSubmit: ({ value }) => {
-			if (mode === 'new') {
-				const payload = { ...value, project_name: selected_project.Title }
-				mutation.mutate(payload)
-			} else {
-				const { company_name, stage_text, responsible_name, ...payload } = value
-				mutation.mutate(payload)
-			}
+			// if (mode === 'new') {
+			// 	const payload = { ...value, project_name: selected_project.Title }
+			// 	mutation.mutate(payload)
+			// } else {
+			// 	const { company_name, stage_text, responsible_name, ...payload } = value
+			// 	mutation.mutate(payload)
+			// }
+
+
+			console.log('SUBMIT FORM VALUE:', value)
 		}
 	})
+
+	// Watch fields
+	const { signed_date, effective_days } = useStore(form.store, s => ({
+		signed_date: s.values.signed_date,
+		effective_days: s.values.effective_days,
+	}))
 
 	const mutation = useMutation({
 		mutationFn: post_con_project,
@@ -60,8 +71,8 @@ const ProjectFormSheet = ({
 
 			onOpenChange(false)
 		},
-		onError: () => {
-			console.log('post_con_project :: failed')
+		onError: (e) => {
+			toast.error(e)
 		}
 	})
 
@@ -93,8 +104,21 @@ const ProjectFormSheet = ({
 		if (company_items.length === 1) { form.setFieldValue('company_id', company_items[0].value) }
 		if (stage_items.length === 1) { form.setFieldValue('stage', stage_items[0].value) }
 		if (responsible_items.length === 1) { form.setFieldValue('responsible_id', responsible_items[0].value) }
-
 	}, [selected_project_id])
+
+	useEffect(() => { // Calculate expiry_date
+		if (!signed_date || !effective_days) {
+			form.setFieldValue("expiry_date", null)
+			return
+		}
+
+		const newDate = dayjs(signed_date)
+			.add(Number(effective_days), "day")
+			.toISOString()
+
+		form.setFieldValue("expiry_date", newDate)
+	}, [signed_date, effective_days])
+
 
 	return (
 		<Sheet open={open} onOpenChange={onOpenChange}>
@@ -156,9 +180,8 @@ const ProjectFormSheet = ({
 							<SeparatorWithText>/</SeparatorWithText>
 
 							<FormFieldDate form={form} name="signed_date" label="Signed Date" />
-							<FormFieldDate form={form} name="expiry_date" label="Expiry Date" />
-
 							<FormFieldNumber form={form} name="effective_days" label="Effective Days" />
+							<FormFieldDate form={form} name="expiry_date" label="Expiry Date" readonly={true}/>
 
 							<FormFieldSelect form={form} name="stage" label="Stage"
 								items={
