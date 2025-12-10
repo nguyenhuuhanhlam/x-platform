@@ -1,4 +1,5 @@
 import { Badge } from '@/components/ui/badge'
+import { IconCircleCheckFilled } from '@tabler/icons-react'
 
 export const employee_columns = (t) => [
 	{
@@ -32,4 +33,17 @@ export const family_columns = (t) => [
 		}
 	},
 	{ accessorKey: 'phone', header: t('phone'), },
+]
+
+export const contract_columns = (t) => [
+	{
+		accessorKey: 'contract_code', header: t('contract.code'),
+		cell: ({ row }) => {
+			return <div className='flex items-center gap-2'>
+				<span>{row.getValue('contract_code')}</span>
+				{row.original['is_latest'] === 1 && <span className="text-green-500"><IconCircleCheckFilled size={16} /></span>}
+			</div>
+		}
+	},
+	{ accessorKey: 'name', header: t('contract.name'), },
 ]

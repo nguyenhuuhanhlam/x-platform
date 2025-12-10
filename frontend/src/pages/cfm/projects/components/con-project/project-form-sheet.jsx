@@ -112,6 +112,7 @@ const ProjectFormSheet = ({
 						<FieldGroup className="gap-4">
 
 							<FormFieldSelect form={form} name="project_id" label="Project"
+								showSearch={true}
 								items={
 									mode === 'edit'
 										? [{ value: String(data.project_id), label: data.project_name }]

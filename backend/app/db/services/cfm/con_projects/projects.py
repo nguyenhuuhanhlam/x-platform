@@ -41,7 +41,8 @@ async def get_project_details(db: AsyncSession, project_id: int):
 				spa.CustomerCommitments 'customer_commitments',
 				spa.AcceptanceConditions 'acceptance_conditions',
 				spa.WarrantyExpirationDate 'warranty_expiration_date',
-				CONCAT(up.LastName, ' ', up.UserName) 'participant'
+				CONCAT(up.LastName, ' ', up.UserName) 'participant',
+				spa.CurrentStatus 'current_status'
 			FROM
 				cfm_con_projects p
 			LEFT JOIN spa_131_15 spa ON spa.Id = p.project_id

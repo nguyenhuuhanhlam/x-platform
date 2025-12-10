@@ -8,7 +8,7 @@ const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
 
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
-			<DrawerContent className="h-[60vh] flex flex-col p-0">
+			<DrawerContent className="h-full flex flex-col p-0">
 
 				<Tabs defaultValue="personal" className="flex flex-col h-full">
 					<DrawerHeader>

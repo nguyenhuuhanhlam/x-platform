@@ -3,12 +3,6 @@ import { Sheet, SheetContent, SheetDescription, SheetHeader, SheetTitle } from '
 import { Button } from '@/components/ui/button'
 
 const EmployeeFormSheet = ({ open = false, onOpenChange }) => {
-	useEffect(() => {
-		if (!open) {
-			// reset logic
-		}
-	}, [open])
-
 	return (
 		<Sheet open={open} onOpenChange={onOpenChange}>
 			<SheetContent className="min-w-full sm:min-w-1/3">

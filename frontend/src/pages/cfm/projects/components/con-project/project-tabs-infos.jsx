@@ -35,17 +35,23 @@ const ProjectTabsInfos = ({ value, data }) => {
 			<div className="flex flex-col sm:flex-row gap-8 pb-8">
 				<div className="flex flex-col gap-2 sm:min-w-[420px]">
 					<LabelValue label="Project Name" value={_data?.project_name} valueClass="truncate" />
-					<LabelValue label="Company" value={_data?.company_name} />
-					<LabelValue label="Stage Deadline" value={'-'} />
 					<LabelValue label="Stage" value={_data?.stage_text} vTag={true} />
+					<LabelValue label="Responsible" value={_data?.responsible} />
+					<LabelValue label="Participant" value={'-'} />
+					<LabelValue label="Current Status" value={_data?.current_status} />
+					<LabelValue label="Challenges" value={'-'} />
+					<LabelValue label="Solutions" value={'-'} />
 				</div>
 
 				<div className="flex flex-col gap-2 sm:min-w-[260px]">
 					<LabelValue label="Code" value={_data?.project_id} vTag={true} />
-					<LabelValue label="Responsible" value={_data?.responsible} />
+					<LabelValue label="Stage Deadline" value={'-'} />
+					<LabelValue label="Handover Deadline" value={_data?.handover_deadline} />
+					<LabelValue label="Warranty Expiration Date" value={_data?.warranty_expiration_date} />
 				</div>
 
 				<div className="flex flex-col gap-2 flex-1">
+					<div className="w-fit"><LabelValue label="Company" value={_data?.company_name} /></div>
 					<div className="text-sm font-bold text-stone-500">Contacts</div>
 					<div className="flex flex-col sm:flex-row gap-4 sm:w-fit">
 						{

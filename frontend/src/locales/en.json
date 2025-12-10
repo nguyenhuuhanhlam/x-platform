@@ -22,5 +22,7 @@
 	"cfm": "CFM",
 	"cfm.management": "CFM Management",
 	"project": "Project",
-	"company": "Company"
+	"company": "Company",
+	"contract.code": "Contract Code",
+	"contract.name": "Contract Name"
 }

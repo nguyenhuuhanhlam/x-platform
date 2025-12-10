@@ -1,5 +1,6 @@
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
+import dayjs from 'dayjs'
 import { TabsContent } from '@/components/ui/tabs'
 import { DataTable } from '@/components/ui-x/data-table'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
@@ -10,7 +11,7 @@ import { IconPlus } from '@tabler/icons-react'
 import { hrm_api, minio_api } from '@/services/api'
 import LabelValue from '@/components/ui-x/label-value'
 import { family_columns } from '../config'
-import { format_phonestring } from '@/lib/helpers'
+import { fmt_phonestring } from '@/lib/helpers'
 
 const { get_personal, get_families } = hrm_api()
 const { get_presigned } = minio_api()
@@ -61,9 +62,9 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 
 							<div className="flex flex-col sm:max-w-[320px] sm:w-full gap-1">
 								<LabelValue label="Email" value={personalData?.email} />
-								<LabelValue label="Phone" value={format_phonestring(personalData?.phone)} />
+								<LabelValue label="Phone" value={fmt_phonestring(personalData?.phone)} />
 								<LabelValue label={t('gender')} value={t(personalData?.gender)} />
-								<LabelValue label={t('birthday')} value={personalData?.dob} />
+								<LabelValue label={t('birthday')} value={dayjs(personalData?.dob).format('DD-MM-YYYY')} />
 								<LabelValue label={t('qualification')} value={personalData?.qualification} />
 								<LabelValue label={t('address')} value={personalData?.address} />
 								<LabelValue label={t('province')} value={personalData?.province_name} />
