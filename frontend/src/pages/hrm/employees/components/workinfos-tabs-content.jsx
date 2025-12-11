@@ -5,10 +5,9 @@ import { useTranslation } from 'react-i18next'
 import { TabsContent } from '@/components/ui/tabs'
 import { DataTable } from '@/components/ui-x/data-table'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-// import { Button } from '@/components/ui/button'
 
 import LabelValue from '@/components/ui-x/label-value'
-import { fmt_phonestring } from '@/lib/helpers'
+import { fmt_phonestring, fmt_date } from '@/lib/helpers'
 import { hrm_api } from '@/services/api'
 import { contract_columns } from '../config'
 
@@ -58,7 +57,7 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 									<LabelValue label="Work Type" value={latestContract?.work_type_name} />
 									<LabelValue label="Employee Type" value={latestContract?.employee_type_name} />
 									<LabelValue label="Manager" value={latestContract?.manager_name} />
-									<LabelValue label="Probation Start Date" value={dayjs(workinfosData?.probation_startdate).format('DD-MM-YYYY')} />
+									<LabelValue label="Probation Start Date" value={fmt_date(dayjs(workinfosData?.probation_startdate).format('DD-MM-YYYY'))} />
 									<LabelValue label="Joining Date" value={dayjs(workinfosData?.joining_date).format('DD-MM-YYYY')} />
 								</div>
 

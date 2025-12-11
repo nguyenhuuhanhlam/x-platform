@@ -59,7 +59,7 @@ body {
 	margin: 0;
 	display: flex;
 	width: 100%;
-	min-height: 100vh;
+	min-height: 100dvh;
 }
 
 @theme inline {
@@ -156,3 +156,23 @@ tr[data-state="selected"] {
 .m-scroll {
 	@apply scrollbar-thin scrollbar-thumb-stone-600/20 scrollbar-track-stone-900/10;
 }
+
+.m-lv-label {
+	@apply
+		block
+		truncate
+		leading-tight
+		text-neutral-500
+}
+
+.m-lv-value {
+	@apply
+		flex flex-1
+		text-sm text-right text-ellipsis
+		justify-end
+		items-center
+		gap-2
+		overflow-hidden
+		whitespace-nowrap
+		leading-tight
+	}

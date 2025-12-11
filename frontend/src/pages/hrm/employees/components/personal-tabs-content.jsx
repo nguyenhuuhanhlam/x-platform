@@ -52,15 +52,15 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 							</CardTitle>
 						</CardHeader>
 
-						<CardContent className="flex flex-col sm:flex-row w-full gap-4 p-0">
-							<div className="flex items-center justify-center max-h-full mb-4 sm:min-w-[200px]">
-								<Avatar className="w-24 h-24 sm:w-20 sm:h-20 border-4">
+						<CardContent className="flex flex-col w-full gap-4 p-0 sm:flex-row">
+							<div className="flex items-center justify-center max-h-full mb-4 sm:min-w-[150px]">
+								<Avatar className="w-24 h-24 border-4">
 									<AvatarImage src={avatarData?.url} />
 									<AvatarFallback>{data.firstname[0]}</AvatarFallback>
 								</Avatar>
 							</div>
 
-							<div className="flex flex-col sm:max-w-[320px] sm:w-full gap-1">
+							<div className="flex flex-col sm:max-w-[380px] sm:w-full gap-1">
 								<LabelValue label="Email" value={personalData?.email} />
 								<LabelValue label="Phone" value={fmt_phonestring(personalData?.phone)} />
 								<LabelValue label={t('gender')} value={t(personalData?.gender)} />
