@@ -167,7 +167,7 @@ tr[data-state="selected"] {
 
 .m-lv-value {
 	@apply
-		flex flex-1
+		flex-1
 		text-sm text-right text-ellipsis
 		justify-end
 		items-center

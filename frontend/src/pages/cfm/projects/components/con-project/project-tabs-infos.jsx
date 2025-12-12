@@ -25,16 +25,17 @@ const ProjectTabsInfos = ({ value, data }) => {
 		select: res => res.data
 	})
 
-	const note_items = [
-		{ title: 'Important', content: _data?.important_notes },
-		{ title: 'Customer Commitments', content: _data?.customer_commitments },
-		{ title: 'Acceptance Conditions', content: _data?.acceptance_conditions }
-	]
-
-	const things_items = [
-		{ title: 'Current Status', content: _data?.current_status },
-		{ title: 'Challenges', content: _data?.challenges },
-		{ title: 'Solutions', content: _data?.solutions }
+	const accordion_items = [
+		[
+			{ title: 'Important', content: _data?.important_notes },
+			{ title: 'Customer Commitments', content: _data?.customer_commitments },
+			{ title: 'Acceptance Conditions', content: _data?.acceptance_conditions }
+		],
+		[
+			{ title: 'Current Status', content: _data?.current_status },
+			{ title: 'Challenges', content: _data?.challenges },
+			{ title: 'Solutions', content: _data?.solutions }
+		]
 	]
 
 	return (
@@ -46,7 +47,7 @@ const ProjectTabsInfos = ({ value, data }) => {
 					<LabelValue label="Responsible" value={_data?.responsible} />
 					<LabelValue label="Participant" value={'-'} />
 
-					<NoteAccordion items={things_items} />
+					<NoteAccordion items={accordion_items[1]} />
 				</div>
 
 				<div className="flex flex-col gap-2 sm:min-w-[260px]">
@@ -68,7 +69,7 @@ const ProjectTabsInfos = ({ value, data }) => {
 					</div>
 
 					<div className="flex flex-col w-full sm:w-fit">
-						<NoteAccordion items={note_items} />
+						<NoteAccordion items={accordion_items[0]} />
 					</div>
 				</div>
 			</div>
