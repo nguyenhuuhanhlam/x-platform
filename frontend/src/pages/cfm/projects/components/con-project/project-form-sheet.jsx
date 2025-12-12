@@ -38,16 +38,16 @@ const ProjectFormSheet = ({
 			onSubmit: formSchema
 		},
 		onSubmit: ({ value }) => {
-			// if (mode === 'new') {
-			// 	const payload = { ...value, project_name: selected_project.Title }
-			// 	mutation.mutate(payload)
-			// } else {
-			// 	const { company_name, stage_text, responsible_name, ...payload } = value
-			// 	mutation.mutate(payload)
-			// }
+			if (mode === 'new') {
+				const payload = { ...value, project_name: selected_project.Title }
+				mutation.mutate(payload)
+			} else {
+				const { company_name, stage_text, responsible_name, ...payload } = value
+				mutation.mutate(payload)
+			}
 
 
-			console.log('SUBMIT FORM VALUE:', value)
+			// console.log('SUBMIT FORM VALUE:', value)
 		}
 	})
 

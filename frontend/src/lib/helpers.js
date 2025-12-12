@@ -1,4 +1,5 @@
 import dayjs from 'dayjs'
+import { PD, SI, DD, PIT_RULES } from '@/constants'
 
 export const fmt_phonestring = (s) => {
 	if (!s) return '-'
@@ -16,3 +17,7 @@ export const fmt_date = (value, fmt = 'DD-MM-YYYY', fallback = '-') => {
 	const d = dayjs(value)
 	return d.isValid() ? d.format(fmt) : fallback
 }
+
+// calculate social insurance deduction
+export const si_deduction = (basic_pay = 0) => Math.round(basic_pay * SI)
+

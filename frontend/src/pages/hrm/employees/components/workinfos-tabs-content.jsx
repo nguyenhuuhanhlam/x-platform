@@ -8,7 +8,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Separator } from '@/components/ui/separator'
 
 import LabelValue from '@/components/ui-x/label-value'
-import { fmt_date } from '@/lib/helpers'
+import { fmt_date, si_deduction } from '@/lib/helpers'
 import { hrm_api } from '@/services/api'
 import { contract_columns } from '../config'
 
@@ -80,8 +80,25 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 
 								<Separator className="my-2" />
 
-								<LabelValue label="Gross Pay" value={0} type="money" />
-								<LabelValue label="SI Deduction" value={0} type="money" />
+								<LabelValue label="Gross Pay" type="money"
+									value={
+										(latestContract?.basic_pay || 0) +
+										(latestContract?.position_pay || 0) +
+										(latestContract?.management_allowance || 0) +
+										(latestContract?.phone_allowance || 0) +
+										(latestContract?.field_allowance || 0) +
+										(latestContract?.additional_allowance || 0)
+									}
+								/>
+
+								<LabelValue label="SI Deduction" type="money"
+									value={
+										latestContract?.basic_pay
+											? si_deduction(latestContract.basic_pay)
+											: 0
+									}
+								/>
+								
 								<LabelValue label="Tax Deductions" value={0} type="money" />
 							</div>
 						</CardContent>
