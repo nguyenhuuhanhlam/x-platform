@@ -1,5 +1,10 @@
 import { z } from 'zod'
 
+export const styles = {
+	container: 'flex flex-col sm:flex-row gap-4 pb-8 w-full sm:w-[1444px]',
+	card: 'flex flex-col sm:w-1/3 bg-neutral-900/50 rounded-md p-4'
+}
+
 export const formSchema = z.object({
 	project_id: z.string().min(1),
 

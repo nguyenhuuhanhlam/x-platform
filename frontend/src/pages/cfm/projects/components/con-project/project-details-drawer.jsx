@@ -1,4 +1,4 @@
-import { useMutation, useQueryClient } from '@tanstack/react-query'
+import { useMutation, useQueryClient, useQuery } from '@tanstack/react-query'
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle } from '@/components/ui/drawer'
 import { Tabs, TabsList, TabsTrigger, } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
@@ -6,6 +6,7 @@ import { IconEdit } from '@tabler/icons-react'
 import { toast } from 'sonner'
 
 import ProjectTabsInfos from './project-tabs-infos'
+import ProjectTabsContractsCosts from './project-tabs-contracts-costs'
 import ConfirmButton from '@/components/ui-x/confirm-button'
 import { cfm_api } from '@/services/api'
 
@@ -15,8 +16,15 @@ const ProjectDetailsDrawer = ({
 	callback = (e) => { }
 }) => {
 
-	const { delete_con_project } = cfm_api()
+	const { get_con_project_details, delete_con_project } = cfm_api()
 	const queryClient = useQueryClient()
+
+	const { data: detailData } = useQuery({
+		queryKey: ['con-project-detail', data.id],
+		queryFn: () => get_con_project_details(data.project_id),
+		select: res => res.data[0],
+		enabled: true
+	})
 
 	const mutation = useMutation({
 		mutationFn: () => delete_con_project(data.project_id),
@@ -38,7 +46,7 @@ const ProjectDetailsDrawer = ({
 		<Drawer open={open} onOpenChange={onOpenChange}>
 			<DrawerContent
 				className="h-full flex flex-col p-0"
-				// onInteractOutside={(e) => e.preventDefault()}
+			// onInteractOutside={(e) => e.preventDefault()}
 			>
 				<Tabs defaultValue="information" className="flex flex-col h-full">
 					<DrawerHeader className="mt-3 py-0">
@@ -64,7 +72,8 @@ const ProjectDetailsDrawer = ({
 					</div>
 
 					<div className="flex-1 min-h-0 overflow-y-auto px-4 py-2 m-scroll">
-						<ProjectTabsInfos value="information" data={data} />
+						<ProjectTabsInfos value="information" data={detailData} />
+						<ProjectTabsContractsCosts value="contractscosts" data={detailData} />
 					</div>
 
 				</Tabs>

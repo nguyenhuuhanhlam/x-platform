@@ -31,6 +31,7 @@ const LabelValue = ({
 	value = '',
 	valueClass,
 	vTag = false,
+	tagClass,
 	loading = false,
 	type = 'text', // Thêm prop type: 'text' | 'money' | 'phone'
 	suffix = ''    // Thêm hậu tố (ví dụ: 'đ', 'VND') nếu cần
@@ -64,7 +65,7 @@ const LabelValue = ({
 					</div>
 				) : (
 					vTag ? (
-						<Badge variant="secondary" className={type === 'money' ? 'font-mono' : ''}>
+						<Badge variant="secondary" className={clsx(type === 'money' ? 'font-mono' : '', tagClass)}>
 							{displayContent}
 						</Badge>
 					) : (
