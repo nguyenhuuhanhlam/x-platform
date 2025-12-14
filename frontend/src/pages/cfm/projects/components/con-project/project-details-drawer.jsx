@@ -5,10 +5,12 @@ import { Button } from '@/components/ui/button'
 import { IconEdit } from '@tabler/icons-react'
 import { toast } from 'sonner'
 
-import ProjectTabsInfos from './project-tabs-infos'
-import ProjectTabsContractsCosts from './project-tabs-contracts-costs'
+import ProjectInfosTabsContent from './project-infos-tabscontent'
+import ProjectContractsCostsTabsContent from './project-contracts-costs-tabscontent'
 import ConfirmButton from '@/components/ui-x/confirm-button'
 import { cfm_api } from '@/services/api'
+
+import MOCK_RESPONSE from '@/test/con-project-detail.json'
 
 const ProjectDetailsDrawer = ({
 	open, onOpenChange,
@@ -21,7 +23,10 @@ const ProjectDetailsDrawer = ({
 
 	const { data: detailData } = useQuery({
 		queryKey: ['con-project-detail', data.id],
-		queryFn: () => get_con_project_details(data.project_id),
+		
+		// queryFn: () => get_con_project_details(data.project_id),
+		queryFn: () => MOCK_RESPONSE,
+
 		select: res => res.data[0],
 		enabled: true
 	})
@@ -72,8 +77,8 @@ const ProjectDetailsDrawer = ({
 					</div>
 
 					<div className="flex-1 min-h-0 overflow-y-auto px-4 py-2 m-scroll">
-						<ProjectTabsInfos value="information" data={detailData} />
-						<ProjectTabsContractsCosts value="contractscosts" data={detailData} />
+						<ProjectInfosTabsContent value="information" data={detailData} />
+						<ProjectContractsCostsTabsContent value="contractscosts" data={detailData} />
 					</div>
 
 				</Tabs>

@@ -1,0 +1,22 @@
+{
+	"data": [
+		{
+			"id": 1,
+			"title": "Income Source 1",
+			"type": "TU",
+			"amount": 100000
+		},
+		{
+			"id": 2,
+			"title": "Income Source 1",
+			"type": "GD",
+			"amount": 200000
+		},
+		{
+			"id": 3,
+			"title": "Income Source 3",
+			"type": "BH",
+			"amount": 300000
+		}
+	]
+}

@@ -5,6 +5,21 @@ export const styles = {
 	card: 'flex flex-col sm:w-1/3 bg-neutral-900/50 rounded-md p-4'
 }
 
+export const con_columns = (t) => [
+	{ accessorKey: 'project_name', header: t('project'), },
+	{ accessorKey: 'company_name', header: t('company'), },
+]
+
+export const income_columns = (t) => [
+	{ accessorKey: 'title', header: t('income.title'), },
+	{ accessorKey: 'type', header: t('income.type'), },
+	{ accessorKey: 'amount', header: t('amount'), },
+	{ accessorKey: 'payment_received_date', header: t('income.payment_received_date'), },
+	{ accessorKey: 'status', header: t('status'), },
+
+	{ accessorKey: 'action', header: t('action'), },
+]
+
 export const formSchema = z.object({
 	project_id: z.string().min(1),
 

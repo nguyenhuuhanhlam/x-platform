@@ -7,12 +7,14 @@ import { TabsContent } from '@/components/ui/tabs'
 import { Button } from '@/components/ui/button'
 import { DataTable } from '@/components/ui-x/data-table'
 
-import { con_columns } from '../../config'
+import { con_columns } from './config'
 import { cfm_api } from '@/services/api'
 import { useDataTable } from '@/hooks/use-data-table'
 
 import ProjectFormSheet from './project-form-sheet'
 import ProjectDetailsDrawer from './project-details-drawer'
+
+import MOCK_RESPONSE from '@/test/con-projects.json'
 
 const _TabsContent = ({ value, data = {} }) => {
 	const { get_con_projects } = cfm_api()
@@ -24,8 +26,12 @@ const _TabsContent = ({ value, data = {} }) => {
 	const [editingData, setEditingData] = useState(null)
 
 	const { data: spaconsData } = useQuery({
+		
 		queryKey: ['con-projects'],
-		queryFn: get_con_projects,
+
+		// queryFn: get_con_projects,
+		queryFn: () => MOCK_RESPONSE,
+		
 		select: res => res?.data,
 		enabled: true
 	})
@@ -41,7 +47,7 @@ const _TabsContent = ({ value, data = {} }) => {
 
 				<div className="flex items-center justify-end gap-2 mb-2">
 					<Button
-						variant="outline" size="icon" className="bg-green-900! hover:bg-green-700! rounded-full"
+						variant="outline" size="icon" className="m-add-button"
 						onClick={() => {
 							setMode('new')
 							setSheetOpen(true)

@@ -22,3 +22,9 @@ export const FUNDING_SOURCE = {
 	1: { text: 'Funded', tagClass: 'dark:bg-green-900/50' },
 	2: { text: 'Unfunded', tagClass: 'dark:bg-red-900/50' }
 }
+
+export const CONTRACT_STATUS = {
+	'K': { text: 'Đã Ký', tagClass: 'dark:bg-green-900/50' },
+	'TL': { text: 'Thanh Lý', tagClass: 'dark:bg-yellow-900/50' },
+	'H': { text: 'Hủy', tagClass: 'dark:bg-red-900/50' }
+}

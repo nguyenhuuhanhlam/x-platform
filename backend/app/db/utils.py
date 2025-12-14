@@ -25,10 +25,10 @@ def build_sql_payload(sql: str, data: dict, default=None) -> Dict[str, Any]:
 	return {f: data.get(f, default) for f in fields}
 
 # - - - - -
-def add_returning(sql: str, *fields: str) -> str:
-	if "returning" in sql.lower():
-		return sql
-	return sql.strip() + "\nRETURNING " + ", ".join(fields)
+# def add_returning(sql: str, *fields: str) -> str:
+# 	if "returning" in sql.lower():
+# 		return sql
+# 	return sql.strip() + "\nRETURNING " + ", ".join(fields)
 
 
 # - - - - -

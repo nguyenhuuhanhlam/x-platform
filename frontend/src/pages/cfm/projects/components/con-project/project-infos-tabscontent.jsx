@@ -11,7 +11,7 @@ import { cfm_api } from '@/services/api'
 import { fmt_date } from '@/lib/helpers'
 import { styles } from './config'
 
-const ProjectTabsInfos = ({ value, data }) => {
+const ProjectInfosTabsContent = ({ value, data }) => {
 	const { get_some_contacts } = cfm_api()
 	const { t } = useTranslation()
 
@@ -80,4 +80,4 @@ const ProjectTabsInfos = ({ value, data }) => {
 	)
 }
 
-export default ProjectTabsInfos
+export default ProjectInfosTabsContent
