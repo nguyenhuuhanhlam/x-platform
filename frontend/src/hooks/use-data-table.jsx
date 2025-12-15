@@ -20,3 +20,4 @@ export const useDataTable = (data, callback = (e) => { }) => {
 
 	return { rowSelection, rowSelectedData, handleSelectionChange }
 }
+

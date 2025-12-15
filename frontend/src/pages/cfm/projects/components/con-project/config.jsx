@@ -26,17 +26,16 @@ export const income_columns = (t) => [
 			const meta = table.options.meta
 			const isEditing = meta?.editingRowId === row.id
 
-			const onEdit = () => meta?.setEditingRowId(row.id)
-			const handleSaveClick = () => meta?.onSaveRow(row.original)
-
-			const onCancel = () => meta?.setEditingRowId(null) // Tắt edit mode
+			const onEdit = () => meta?.onStartEdit(row.original) //meta?.setEditingRowId(row.id)
+			const onSave = () => meta?.onSaveRow(row.original)
+			const onCancel = () => meta?.onCancelEdit()
 
 			return (
 				<div className="flex items-center gap-2">
 					{isEditing ? (
 						<>
 							<Button
-								onClick={handleSaveClick}
+								onClick={onSave}
 								variant="ghost"
 								size="icon"
 								className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-100"
@@ -44,12 +43,13 @@ export const income_columns = (t) => [
 							>
 								<Check className="h-4 w-4" />
 							</Button>
+
 							<Button
 								onClick={onCancel}
 								variant="ghost"
 								size="icon"
 								className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-100"
-								title="Delete"
+								title="Cancel"
 							>
 								<X className="h-4 w-4" />
 							</Button>

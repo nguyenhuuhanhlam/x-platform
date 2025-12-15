@@ -13,6 +13,8 @@ export function DataTable({
 	updateData,
 	editingRowId,
 	setEditingRowId,
+	onStartEdit,
+	onCancelEdit,
 	onSaveRow,
 	globalFilter,
 	setGlobalFilter,
@@ -39,6 +41,8 @@ export function DataTable({
 			updateData,
 			editingRowId,
 			setEditingRowId,
+			onStartEdit,
+			onCancelEdit,
 			onSaveRow,
 		},
 	})

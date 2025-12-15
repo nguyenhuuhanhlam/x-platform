@@ -8,15 +8,17 @@ import { IconPlus } from '@tabler/icons-react'
 
 import { income_columns } from './config'
 import { cfm_api } from '@/services/api'
+import { useDataTable } from "@/hooks/v2/use-data-table"
 
 const IncomeSourcesTabsContent = ({ value, data }) => {
 	const { get_con_incomes, post_con_income } = cfm_api()
 	const { t } = useTranslation()
 	const queryClient = useQueryClient()
-	const [editingRowId, setEditingRowId] = useState(null)
+	// const [editingRowId, setEditingRowId] = useState(null)
+	const queryKey = ['con-incomes', data?.project_id]
 
 	const { data: incomeData, isLoading } = useQuery({
-		queryKey: ['con-incomes', data?.project_id],
+		queryKey: queryKey,
 		queryFn: () => get_con_incomes(data?.project_id),
 		select: res => res.data,
 		enabled: data?.project_id !== undefined,
@@ -25,23 +27,20 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 	const createMutation = useMutation({
 		mutationFn: ({ data }) => post_con_income(data),
 		onSuccess: () => {
-			queryClient.invalidateQueries({ queryKey: ['con-incomes', data?.project_id] })
+			queryClient.invalidateQueries({ queryKey: queryKey })
 		},
 		onError: () => {
 			msg.error('Failed to create income source')
 		},
 	})
 
-	const handleUpdateData = (rowIndex, columnId, value) => {
-		// setData((old) =>
-		// 	old.map((row, index) => {
-		// 		if (index === rowIndex) {
-		// 			return { ...old[rowIndex], [columnId]: value }
-		// 		}
-		// 		return row
-		// 	})
-		// )
-	}
+	const tableManager = useDataTable({
+		data: incomeData || [],
+		queryKey: queryKey,
+		onSave: (rowOriginal) => {
+			console.log('Saving row:', rowOriginal)
+		}
+	})
 
 	return (
 		<TabsContent value={value}>
@@ -53,7 +52,7 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 							createMutation.mutate({
 								data: {
 									project_id: data.project_id,
-									title: '-',
+									title: 'New Item',
 									type: 0,
 									payment_received_date: null,
 									amount: 0,
@@ -69,11 +68,7 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 				<div className="flex flex-col">
 					<DataTable
 						columns={income_columns(t)}
-						data={incomeData || []}
-
-						updateData={handleUpdateData}
-						editingRowId={editingRowId}
-						setEditingRowId={setEditingRowId}
+						{...tableManager}
 					/>
 				</div>
 			</section>
