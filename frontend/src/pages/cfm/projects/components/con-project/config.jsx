@@ -1,4 +1,7 @@
 import { z } from 'zod'
+import { Button } from '@/components/ui/button'
+import { MoreHorizontal, Pencil, Check, X } from "lucide-react"
+import { EditableCell, DateCell, OptionCell } from '@/components/ui-x/custom-cells'
 
 export const styles = {
 	container: 'flex flex-col sm:flex-row gap-4 pb-8 w-full sm:w-[1444px]',
@@ -11,13 +14,61 @@ export const con_columns = (t) => [
 ]
 
 export const income_columns = (t) => [
-	{ accessorKey: 'title', header: t('income.title'), },
+	{ accessorKey: 'title', header: t('income.title'), cell: EditableCell },
 	{ accessorKey: 'type', header: t('income.type'), },
 	{ accessorKey: 'amount', header: t('amount'), },
 	{ accessorKey: 'payment_received_date', header: t('income.payment_received_date'), },
 	{ accessorKey: 'status', header: t('status'), },
 
-	{ accessorKey: 'action', header: t('action'), },
+	{
+		id: 'action', header: t('action'),
+		cell: ({ row, table }) => {
+			const meta = table.options.meta
+			const isEditing = meta?.editingRowId === row.id
+
+			const onEdit = () => meta?.setEditingRowId(row.id)
+			const handleSaveClick = () => meta?.onSaveRow(row.original)
+
+			const onCancel = () => meta?.setEditingRowId(null) // Tắt edit mode
+
+			return (
+				<div className="flex items-center gap-2">
+					{isEditing ? (
+						<>
+							<Button
+								onClick={handleSaveClick}
+								variant="ghost"
+								size="icon"
+								className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-100"
+								title="Save"
+							>
+								<Check className="h-4 w-4" />
+							</Button>
+							<Button
+								onClick={onCancel}
+								variant="ghost"
+								size="icon"
+								className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-100"
+								title="Delete"
+							>
+								<X className="h-4 w-4" />
+							</Button>
+						</>
+					) : (
+						<Button
+							onClick={onEdit}
+							variant="ghost"
+							size="icon"
+							className="h-8 w-8 hover:bg-slate-200"
+							title="Edit"
+						>
+							<Pencil className="h-3.5 w-3.5" />
+						</Button>
+					)}
+				</div>
+			)
+		}
+	},
 ]
 
 export const formSchema = z.object({

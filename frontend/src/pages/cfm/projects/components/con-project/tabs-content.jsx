@@ -14,7 +14,7 @@ import { useDataTable } from '@/hooks/use-data-table'
 import ProjectFormSheet from './project-form-sheet'
 import ProjectDetailsDrawer from './project-details-drawer'
 
-import MOCK_RESPONSE from '@/test/con-projects.json'
+// import MOCK_RESPONSE from '@/test/con-projects.json'
 
 const _TabsContent = ({ value, data = {} }) => {
 	const { get_con_projects } = cfm_api()
@@ -26,11 +26,10 @@ const _TabsContent = ({ value, data = {} }) => {
 	const [editingData, setEditingData] = useState(null)
 
 	const { data: spaconsData } = useQuery({
-		
 		queryKey: ['con-projects'],
 
-		// queryFn: get_con_projects,
-		queryFn: () => MOCK_RESPONSE,
+		queryFn: get_con_projects,
+		// queryFn: () => MOCK_RESPONSE,
 		
 		select: res => res?.data,
 		enabled: true

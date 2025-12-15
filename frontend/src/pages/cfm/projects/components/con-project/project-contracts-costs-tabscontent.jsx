@@ -5,16 +5,16 @@ import { useTranslation } from 'react-i18next'
 import LabelValue from '@/components/ui-x/label-value'
 import { cn } from '@/lib/utils'
 
-import { FUNDING_SOURCE } from '@/constants'
-import { cfm_api } from '@/services/api'
-import { fmt_date } from '@/lib/helpers'
-import { styles } from './config'
 import IncomeSourcesTabsContent from './income-sources-tabscontent'
 import ExpenditureSourcesTabsContent from './expenditure-sources-tabscontent'
+// import { cfm_api } from '@/services/api'
+import { fmt_date } from '@/lib/helpers'
+import { styles } from './config'
+import { FUNDING_SOURCE } from '@/constants'
 
 
 const ProjectTabsContractsCosts = ({ value, data }) => {
-	const { get_con_project_details, get_some_contacts } = cfm_api()
+	// const { get_con_project_details, get_some_contacts } = cfm_api()
 	const { t } = useTranslation()
 	const funding = FUNDING_SOURCE[data?.funding_source]
 
@@ -39,16 +39,16 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 					</div>
 
 					<div className={cn(styles.card, 'gap-2')}>
-						<LabelValue label="Signed Date" value={'-'} />
-						<LabelValue label="Expiry Date" value={'-'} />
-						<LabelValue label="Effective Days" value={'-'} />
+						<LabelValue label="Signed Date" value={data?.signed_date} />
+						<LabelValue label="Expiry Date" value={data?.expiry_date} />
+						<LabelValue label="Effective Days" value={data?.effective_days} />
 					</div>
 
 					<div className={cn(styles.card, 'gap-2')}>
-						<LabelValue label="Contract Value" value={'-'} />
-						<LabelValue label="Total Planned" value={'-'} />
-						<LabelValue label="Total Original" value={'-'} />
-						<LabelValue label="Sales Discount" value={'-'} />
+						<LabelValue label="Contract Value" value={data?.contract_value_vat} type="money" />
+						<LabelValue label="Total Planned" value={data?.total_planned_vat} type="money" />
+						<LabelValue label="Total Original" value={data?.total_original_vat} type="money" />
+						<LabelValue label="Sales Discount" value={data?.sales_cost} type="money" />
 					</div>
 				</div>
 			</section>

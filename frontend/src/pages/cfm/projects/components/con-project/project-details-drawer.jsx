@@ -10,7 +10,7 @@ import ProjectContractsCostsTabsContent from './project-contracts-costs-tabscont
 import ConfirmButton from '@/components/ui-x/confirm-button'
 import { cfm_api } from '@/services/api'
 
-import MOCK_RESPONSE from '@/test/con-project-detail.json'
+// import MOCK_RESPONSE from '@/test/con-project-detail.json'
 
 const ProjectDetailsDrawer = ({
 	open, onOpenChange,
@@ -24,11 +24,11 @@ const ProjectDetailsDrawer = ({
 	const { data: detailData } = useQuery({
 		queryKey: ['con-project-detail', data.id],
 		
-		// queryFn: () => get_con_project_details(data.project_id),
-		queryFn: () => MOCK_RESPONSE,
+		queryFn: () => get_con_project_details(data.project_id),
+		// queryFn: () => MOCK_RESPONSE,
 
 		select: res => res.data[0],
-		enabled: true
+		enabled: data.project_id !== undefined
 	})
 
 	const mutation = useMutation({
