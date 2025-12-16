@@ -10,7 +10,8 @@ from app.db.services.cfm.con_projects.projects import (
 )
 from app.db.services.cfm.con_projects.incomes import (
   get_incomes,
-  post_income
+  post_income,
+  delete_income
 )
 
 from app.utils.api import handle_exceptions
@@ -42,3 +43,7 @@ async def get__incomes(project_id: int, db: AsyncSession = Depends(second_get_db
 @router.post('/income')
 async def post__income(data: dict, db: AsyncSession = Depends(second_get_db)):
    return await handle_exceptions(post_income, db, data)
+
+@router.delete('/income/{income_id}')
+async def delete__income(income_id: int, db: AsyncSession = Depends(second_get_db)):
+   return await handle_exceptions(delete_income, db, income_id)

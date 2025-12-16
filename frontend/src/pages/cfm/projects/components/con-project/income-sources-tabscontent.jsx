@@ -8,14 +8,15 @@ import { IconPlus } from '@tabler/icons-react'
 
 import { income_columns } from './config'
 import { cfm_api } from '@/services/api'
-import { useDataTable } from "@/hooks/v2/use-data-table"
+import { useDataTable } from '@/hooks/use-data-table'
+import IncomeFormDialog from './income-form-dialog'
 
 const IncomeSourcesTabsContent = ({ value, data }) => {
 	const { get_con_incomes, post_con_income } = cfm_api()
 	const { t } = useTranslation()
 	const queryClient = useQueryClient()
-	// const [editingRowId, setEditingRowId] = useState(null)
 	const queryKey = ['con-incomes', data?.project_id]
+	const [open, setOpen] = useState(false)
 
 	const { data: incomeData, isLoading } = useQuery({
 		queryKey: queryKey,
@@ -30,17 +31,14 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 			queryClient.invalidateQueries({ queryKey: queryKey })
 		},
 		onError: () => {
-			msg.error('Failed to create income source')
+			console.log('Failed to create income source')
 		},
 	})
 
-	const tableManager = useDataTable({
-		data: incomeData || [],
-		queryKey: queryKey,
-		onSave: (rowOriginal) => {
-			console.log('Saving row:', rowOriginal)
-		}
-	})
+	const tableHook = useDataTable(
+		incomeData,
+		(e) => { setOpen(true) }
+	)
 
 	return (
 		<TabsContent value={value}>
@@ -52,7 +50,7 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 							createMutation.mutate({
 								data: {
 									project_id: data.project_id,
-									title: 'New Item',
+									title: '-',
 									type: 0,
 									payment_received_date: null,
 									amount: 0,
@@ -68,7 +66,15 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 				<div className="flex flex-col">
 					<DataTable
 						columns={income_columns(t)}
-						{...tableManager}
+						data={incomeData || []}
+						// rowSelection={tableHook.rowSelection}
+						onRowSelectionChange={tableHook.handleSelectionChange}
+					/>
+
+					<IncomeFormDialog
+						open={open}
+						onOpenChange={setOpen}
+						data={tableHook.rowSelectedData}
 					/>
 				</div>
 			</section>

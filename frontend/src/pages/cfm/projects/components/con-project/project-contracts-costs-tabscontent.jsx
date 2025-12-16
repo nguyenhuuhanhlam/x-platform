@@ -1,4 +1,3 @@
-import { useQuery } from '@tanstack/react-query'
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { useTranslation } from 'react-i18next'
 
@@ -7,14 +6,12 @@ import { cn } from '@/lib/utils'
 
 import IncomeSourcesTabsContent from './income-sources-tabscontent'
 import ExpenditureSourcesTabsContent from './expenditure-sources-tabscontent'
-// import { cfm_api } from '@/services/api'
 import { fmt_date } from '@/lib/helpers'
 import { styles } from './config'
 import { FUNDING_SOURCE } from '@/constants'
 
 
 const ProjectTabsContractsCosts = ({ value, data }) => {
-	// const { get_con_project_details, get_some_contacts } = cfm_api()
 	const { t } = useTranslation()
 	const funding = FUNDING_SOURCE[data?.funding_source]
 
@@ -55,10 +52,13 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 
 			<section className="flex flex-col items-center">
 				<Tabs defaultValue="income">
-					<TabsList>
-						<TabsTrigger value="income">Income Sources</TabsTrigger>
-						<TabsTrigger value="expenditure">Expenditure Sources</TabsTrigger>
-					</TabsList>
+
+					<div className="flex justify-center w-full">
+						<TabsList>
+							<TabsTrigger value="income">Income Sources</TabsTrigger>
+							<TabsTrigger value="expenditure">Expenditure Sources</TabsTrigger>
+						</TabsList>
+					</div>
 
 					<IncomeSourcesTabsContent value="income" data={data} />
 					<ExpenditureSourcesTabsContent value="expenditure" data={data} />

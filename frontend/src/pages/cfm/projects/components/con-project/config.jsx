@@ -1,7 +1,9 @@
 import { z } from 'zod'
-import { Button } from '@/components/ui/button'
-import { MoreHorizontal, Pencil, Check, X } from "lucide-react"
-import { EditableCell, DateCell, OptionCell } from '@/components/ui-x/custom-cells'
+import { Badge } from '@/components/ui/badge'
+import { IconCircleFilled } from '@tabler/icons-react'
+
+import { cn } from '@/lib/utils'
+import { INCOME_TYPES, INCOME_STATUS } from '@/constants'
 
 export const styles = {
 	container: 'flex flex-col sm:flex-row gap-4 pb-8 w-full sm:w-[1444px]',
@@ -14,58 +16,32 @@ export const con_columns = (t) => [
 ]
 
 export const income_columns = (t) => [
-	{ accessorKey: 'title', header: t('income.title'), cell: EditableCell },
-	{ accessorKey: 'type', header: t('income.type'), },
-	{ accessorKey: 'amount', header: t('amount'), },
-	{ accessorKey: 'payment_received_date', header: t('income.payment_received_date'), },
-	{ accessorKey: 'status', header: t('status'), },
-
+	{ accessorKey: 'title', header: t('income.title') },
 	{
-		id: 'action', header: t('action'),
-		cell: ({ row, table }) => {
-			const meta = table.options.meta
-			const isEditing = meta?.editingRowId === row.id
-
-			const onEdit = () => meta?.onStartEdit(row.original) //meta?.setEditingRowId(row.id)
-			const onSave = () => meta?.onSaveRow(row.original)
-			const onCancel = () => meta?.onCancelEdit()
+		accessorKey: 'type', header: t('income.type'),
+		cell: ({ row }) => {
+			if (row.getValue('type').length < 2) return '-'
 
 			return (
-				<div className="flex items-center gap-2">
-					{isEditing ? (
-						<>
-							<Button
-								onClick={onSave}
-								variant="ghost"
-								size="icon"
-								className="h-8 w-8 text-green-600 hover:text-green-700 hover:bg-green-100"
-								title="Save"
-							>
-								<Check className="h-4 w-4" />
-							</Button>
+				<Badge variant="outline" size="sm">
+					<IconCircleFilled className={cn("w-2! h-2! mt-0.5", INCOME_TYPES[row.getValue('type')]?.tagClass)} />
+					{INCOME_TYPES[row.getValue('type')]?.text}
+				</Badge>
+			)
+		}
+	},
+	{ accessorKey: 'amount', header: t('amount'), },
+	{ accessorKey: 'payment_received_date', header: t('income.payment_received_date'), },
+	{
+		accessorKey: 'status', header: t('status'),
+		cell: ({ row }) => {
+			if (row.getValue('status').length < 2) return '-'
 
-							<Button
-								onClick={onCancel}
-								variant="ghost"
-								size="icon"
-								className="h-8 w-8 text-red-500 hover:text-red-600 hover:bg-red-100"
-								title="Cancel"
-							>
-								<X className="h-4 w-4" />
-							</Button>
-						</>
-					) : (
-						<Button
-							onClick={onEdit}
-							variant="ghost"
-							size="icon"
-							className="h-8 w-8 hover:bg-slate-200"
-							title="Edit"
-						>
-							<Pencil className="h-3.5 w-3.5" />
-						</Button>
-					)}
-				</div>
+			return (
+				<Badge variant="outline" size="sm">
+					<IconCircleFilled className={cn("w-2! h-2! mt-0.5", INCOME_STATUS[row.getValue('status')]?.tagClass)} />
+					{INCOME_STATUS[row.getValue('status')]?.text}
+				</Badge>
 			)
 		}
 	},

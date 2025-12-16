@@ -28,3 +28,14 @@ export const CONTRACT_STATUS = {
 	'TL': { text: 'Thanh Lý', tagClass: 'dark:bg-yellow-900/50' },
 	'H': { text: 'Hủy', tagClass: 'dark:bg-red-900/50' }
 }
+
+export const INCOME_TYPES = {
+	'TU': { text: 'Tạm ứng', tagClass: 'dark:text-amber-500' },
+	'GD': { text: 'Giai đoạn', tagClass: 'dark:text-green-500' },
+	'BH': { text: 'Bảo hành', tagClass: 'dark:text-blue-500' }
+}
+
+export const INCOME_STATUS = {
+	'KH': { text: 'Kế hoạch', tagClass: 'dark:text-stone-500' },
+	'HT': { text: 'Hoàn thành', tagClass: 'dark:text-green-500' },
+}

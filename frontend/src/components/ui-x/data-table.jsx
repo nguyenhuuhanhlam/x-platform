@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getFilteredRowModel } from '@tanstack/react-table'
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
@@ -10,12 +9,14 @@ import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
 export function DataTable({
 	columns,
 	data,
+	
 	updateData,
 	editingRowId,
 	setEditingRowId,
 	onStartEdit,
 	onCancelEdit,
 	onSaveRow,
+
 	globalFilter,
 	setGlobalFilter,
 	rowSelection = {},

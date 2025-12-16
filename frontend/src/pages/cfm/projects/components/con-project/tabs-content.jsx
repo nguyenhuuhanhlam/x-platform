@@ -36,7 +36,7 @@ const _TabsContent = ({ value, data = {} }) => {
 	)
 
 	return (
-		<div>
+		<>
 			<TabsContent value={value}>
 
 				<div className="flex items-center justify-end gap-2 mb-2">
@@ -78,7 +78,7 @@ const _TabsContent = ({ value, data = {} }) => {
 					}
 				}}
 			/>
-		</div>
+		</>
 	)
 }
 

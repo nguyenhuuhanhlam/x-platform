@@ -6,7 +6,7 @@ import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sh
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
 
-import { FieldGroup, } from '@/components/ui/field'
+import { FieldGroup } from '@/components/ui/field'
 import FormFieldSelect from '@/components/ui-x/form-field-select'
 import FormFieldInput from '@/components/ui-x/form-field-input'
 import FormFieldDate from '@/components/ui-x/form-field-date'
@@ -45,9 +45,6 @@ const ProjectFormSheet = ({
 				const { company_name, stage_text, responsible_name, ...payload } = value
 				mutation.mutate(payload)
 			}
-
-
-			// console.log('SUBMIT FORM VALUE:', value)
 		}
 	})
 

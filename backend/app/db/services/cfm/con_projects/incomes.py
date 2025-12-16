@@ -26,6 +26,12 @@ async def post_income(db: AsyncSession, data: dict):
 	await db.execute(text(sql), payload)
 	await db.commit()
 
-	# q = text('SELECT * FROM cfm_con_incomes WHERE id = LAST_INSERT_ID()')
-	# result = await db.execute(q)
-	# return [dict(row) for row in result.mappings()]
+# - - - - -	
+async def delete_income(db: AsyncSession, income_id: int):
+	sql = 'DELETE FROM cfm_con_incomes WHERE id = :income_id'
+	payload = {'income_id': income_id}
+
+	await db.execute(text(sql), payload)
+	await db.commit()
+
+# - - - - -
