@@ -24,7 +24,7 @@ export const income_columns = (t) => [
 
 			return (
 				<Badge variant="outline" size="sm">
-					<IconCircleFilled className={cn("w-2! h-2! mt-0.5", INCOME_TYPES[row.getValue('type')]?.tagClass)} />
+					<IconCircleFilled className={cn("w-2! h-2!", INCOME_TYPES[row.getValue('type')]?.tagClass)} />
 					{INCOME_TYPES[row.getValue('type')]?.text}
 				</Badge>
 			)
@@ -39,7 +39,7 @@ export const income_columns = (t) => [
 
 			return (
 				<Badge variant="outline" size="sm">
-					<IconCircleFilled className={cn("w-2! h-2! mt-0.5", INCOME_STATUS[row.getValue('status')]?.tagClass)} />
+					<IconCircleFilled className={cn("w-2! h-2!", INCOME_STATUS[row.getValue('status')]?.tagClass)} />
 					{INCOME_STATUS[row.getValue('status')]?.text}
 				</Badge>
 			)

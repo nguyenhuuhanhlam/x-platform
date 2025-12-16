@@ -19,7 +19,8 @@ async def get_employees(
 				d.name 'department',
 				p.name 'position',
 				w.id 'workinfo_id',
-				et.name 'employee_type'
+				et.name 'employee_type',
+				et.code 'employee_type_code'
 			FROM
 				api_employee e
 				LEFT JOIN api_work_information w ON w.work_info_employee_id=e.id

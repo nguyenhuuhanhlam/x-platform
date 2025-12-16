@@ -8,7 +8,7 @@ import IncomeSourcesTabsContent from './income-sources-tabscontent'
 import ExpenditureSourcesTabsContent from './expenditure-sources-tabscontent'
 import { fmt_date } from '@/lib/helpers'
 import { styles } from './config'
-import { FUNDING_SOURCE } from '@/constants'
+import { FUNDING_SOURCE, CONTRACT_STATUS } from '@/constants'
 
 
 const ProjectTabsContractsCosts = ({ value, data }) => {
@@ -32,7 +32,7 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 							tagClass={funding?.tagClass}
 						/>
 
-						<LabelValue label="Contract Status" value={data?.contract_status || '-'} />
+						<LabelValue label="Contract Status" value={CONTRACT_STATUS[data?.contract_status]?.text || '-'} vTag={true} />
 					</div>
 
 					<div className={cn(styles.card, 'gap-2')}>

@@ -4,12 +4,14 @@ import { flexRender, getCoreRowModel, useReactTable, getPaginationRowModel, getF
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow, } from '@/components/ui/table'
 import { Button } from '@/components/ui/button'
 import { IconChevronLeft, IconChevronRight } from '@tabler/icons-react'
+import { cn } from "@/lib/utils"
 
 // - - - - -
 export function DataTable({
 	columns,
 	data,
-	
+	wrapClass = 'w-full',
+
 	updateData,
 	editingRowId,
 	setEditingRowId,
@@ -54,7 +56,7 @@ export function DataTable({
 
 	return (
 		<>
-			<div className="overflow-hidden rounded-md border">
+			<div className={cn("overflow-hidden rounded-md border", wrapClass)}>
 				<Table>
 					<TableHeader>
 						{table.getHeaderGroups().map((headerGroup) => (
@@ -106,7 +108,7 @@ export function DataTable({
 			</div>
 
 			{/* Pagination */}
-			<div className="mt-4">
+			<div className={cn("mt-2", wrapClass)}>
 				{usePaging && (
 					<div className="flex items-center justify-between">
 						<Button

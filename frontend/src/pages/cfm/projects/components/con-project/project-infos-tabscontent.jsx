@@ -60,14 +60,18 @@ const ProjectInfosTabsContent = ({ value, data }) => {
 						<LabelValue label="Company" value={data?.company_name} />
 
 						<div className="flex flex-col gap-4">
-							<div className="text-sm font-bold text-amber-500/50">Contacts</div>
-							<div className="flex flex-col sm:flex-row gap-4 sm:w-fit">
-								{
-									contactsData?.map((item, k) =>
-										<ContactCard key={k} name={item.contact_name} role={item.position} email={item.emails} phone={item.phones} />
-									)
-								}
-							</div>
+							{
+								contactsData?.length
+								&& (
+									<div className="flex flex-col sm:flex-row gap-4 sm:w-fit">
+										{
+											contactsData?.map((item, k) =>
+												<ContactCard key={k} name={item.contact_name} role={item.position} email={item.emails} phone={item.phones} />
+											)
+										}
+									</div>
+								)
+							}
 
 							<div className="flex flex-col w-full">
 								<NoteAccordion items={accordion_items[0]} />

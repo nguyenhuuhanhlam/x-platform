@@ -4,7 +4,7 @@ import CON_TabsContent from './components/con-project/tabs-content'
 
 const CFMProjectsPage = () => {
 	return (
-		<div className="p-4">
+		<div className="p-4" id="cfm-projects-page">
 			<Tabs defaultValue="con">
 				<TabsList>
 					<TabsTrigger value="con">CON</TabsTrigger>

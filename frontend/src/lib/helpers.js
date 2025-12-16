@@ -19,5 +19,11 @@ export const fmt_date = (value, fmt = 'DD-MM-YYYY', fallback = '-') => {
 }
 
 // calculate social insurance deduction
-export const si_deduction = (basic_pay = 0) => Math.round(basic_pay * SI)
+export const si_deduction = (basic_pay = 0, contract_type = 'TV') => {
+	if (contract_type === 'TV') {
+		return 0
+	}
+
+	return Math.round(basic_pay * SI)
+}
 

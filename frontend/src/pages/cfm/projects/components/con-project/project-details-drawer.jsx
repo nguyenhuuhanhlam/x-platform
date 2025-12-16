@@ -13,7 +13,8 @@ import { cfm_api } from '@/services/api'
 const ProjectDetailsDrawer = ({
 	open, onOpenChange,
 	data,
-	callback = (e) => { }
+	callback = (e) => { },
+	...props
 }) => {
 
 	const { get_con_project_details, delete_con_project } = cfm_api()
@@ -46,7 +47,7 @@ const ProjectDetailsDrawer = ({
 		<Drawer open={open} onOpenChange={onOpenChange}>
 			<DrawerContent
 				className="h-full flex flex-col p-0"
-			// onInteractOutside={(e) => e.preventDefault()}
+				// onInteractOutside={(e) => e.preventDefault()}
 			>
 				<Tabs defaultValue="information" className="flex flex-col h-full">
 					<DrawerHeader className="mt-3 py-0">

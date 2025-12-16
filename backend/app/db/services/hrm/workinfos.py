@@ -16,11 +16,11 @@ async def get_workinfos_by_employee(db: AsyncSession, employee_id: int):
 				w.name 'work_type_name',
 				CONCAT(e.lastname , ' ' , e.firstname) 'manager_name'
 			FROM api_work_information wi
-			JOIN api_department d ON d.id = wi.department_id
-			JOIN api_position p ON p.id = wi.position_id
-			JOIN api_employee_type t ON t.id = wi.employee_type_id
-			JOIN api_work_type w ON w.id = wi.work_type_id
-			JOIN api_employee e ON e.id = wi.manager_employee_id
+				JOIN api_department d ON d.id = wi.department_id
+				JOIN api_position p ON p.id = wi.position_id
+				JOIN api_employee_type t ON t.id = wi.employee_type_id
+				JOIN api_work_type w ON w.id = wi.work_type_id
+				JOIN api_employee e ON e.id = wi.manager_employee_id
 			WHERE work_info_employee_id = :employee_id
 		'''
 		payload = {'employee_id': employee_id}

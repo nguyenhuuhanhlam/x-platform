@@ -48,7 +48,7 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 						<CardHeader className="p-0 gap-0">
 							<CardTitle className="flex justify-between items-center">
 								<span>Personal Infomation</span>
-								<span className="text-[8pt] text-neutral-400 bg-neutral-800 p-1 rounded-full font-thin!">{data.id}</span>
+								<span className="text-[8pt] text-neutral-300 bg-neutral-800 p-1 rounded-full">{data.id}</span>
 							</CardTitle>
 						</CardHeader>
 

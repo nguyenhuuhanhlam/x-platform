@@ -33,10 +33,10 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 
 	return (
 		<TabsContent value={value} className="px-0 pt-0 gap-4 flex flex-col pb-8">
-			<div className="flex flex-col md:flex-row gap-4">
+			<div className="mx-auto w-full flex flex-col md:flex-row gap-4 items-stretch md:max-w-[1444px]">
 
-				<div className="w-full md:w-1/2">
-					<Card className="p-4">
+				<div className="w-full md:w-1/2 flex">
+					<Card className="p-4 flex-1">
 						<CardHeader className="p-0 gap-0">
 							<CardTitle className="flex justify-between items-center">Basic Infomation</CardTitle>
 						</CardHeader>
@@ -63,8 +63,8 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 					</Card>
 				</div>
 
-				<div className="w-full md:w-1/2">
-					<Card className="p-4">
+				<div className="w-full md:w-1/2 flex">
+					<Card className="p-4 flex-1">
 						<CardHeader className="p-0 gap-0">
 							<CardTitle className="flex justify-between items-center">Salary Infomation</CardTitle>
 						</CardHeader>
@@ -94,7 +94,7 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 								<LabelValue label="SI Deduction" type="money"
 									value={
 										latestContract?.basic_pay
-											? si_deduction(latestContract.basic_pay)
+											? si_deduction(latestContract.basic_pay, latestContract.contract_type)
 											: 0
 									}
 								/>
@@ -108,6 +108,7 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 			</div>
 
 			<DataTable
+				wrapClass="w-full md:max-w-[1444px] mx-auto"
 				columns={contract_columns(t)}
 				data={contractData || []}
 			/>

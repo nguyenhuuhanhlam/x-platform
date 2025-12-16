@@ -1,5 +1,5 @@
 import { Badge } from '@/components/ui/badge'
-import { IconCircleCheckFilled } from '@tabler/icons-react'
+import { IconCircleCheckFilled, IconCircleFilled } from '@tabler/icons-react'
 
 export const employee_columns = (t) => [
 	{
@@ -12,7 +12,18 @@ export const employee_columns = (t) => [
 	},
 	{ accessorKey: 'department', header: t('department'), },
 	{ accessorKey: 'position', header: t('position'), },
-	{ accessorKey: 'employee_type', header: t('type') }
+	{
+		accessorKey: 'employee_type', header: t('type'),
+		cell: ({ row }) => (
+			<Badge variant="outline" size="sm">
+				{
+					row.original.employee_type_code === 'TV'
+					&& <IconCircleFilled className="w-2! h-2! text-amber-500" />
+				}
+				{row.original.employee_type}
+			</Badge>
+		)
+	},
 ]
 
 export const family_columns = (t) => [
@@ -28,7 +39,10 @@ export const family_columns = (t) => [
 		accessorKey: 'relationship', header: t('relationship'),
 		cell: ({ row }) => {
 			return row.original['is_dependent']
-				? <Badge variant="outline" className="bg-blue-500/30">{row.getValue('relationship')}</Badge>
+				? <Badge variant="outline">
+					<IconCircleFilled className="w-2! h-2! text-blue-500" />
+					{row.getValue('relationship')}
+				</Badge>
 				: row.getValue('relationship')
 		}
 	},

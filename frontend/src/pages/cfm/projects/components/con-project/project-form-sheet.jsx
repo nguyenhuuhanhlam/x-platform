@@ -34,7 +34,7 @@ const ProjectFormSheet = ({
 	})
 
 	const form = useForm({
-		validators: { 
+		validators: {
 			onSubmit: formSchema
 		},
 		onSubmit: ({ value }) => {
@@ -122,7 +122,7 @@ const ProjectFormSheet = ({
 			<SheetContent
 				aria-describedby={undefined}
 				className="min-w-full sm:min-w-1/3 p-0 flex flex-col"
-				onInteractOutside={(e) => e.preventDefault()}
+				// onInteractOutside={(e) => e.preventDefault()}
 			>
 				<SheetHeader className="p-4 py-4 pb-2">
 					<SheetTitle className="text-stone-700">Project Form</SheetTitle>
@@ -178,7 +178,7 @@ const ProjectFormSheet = ({
 
 							<FormFieldDate form={form} name="signed_date" label="Signed Date" />
 							<FormFieldNumber form={form} name="effective_days" label="Effective Days" />
-							<FormFieldDate form={form} name="expiry_date" label="Expiry Date" readonly={true}/>
+							<FormFieldDate form={form} name="expiry_date" label="Expiry Date" readonly={true} />
 
 							<FormFieldSelect form={form} name="stage" label="Stage"
 								items={
@@ -208,7 +208,11 @@ const ProjectFormSheet = ({
 				</div>
 
 				<div className="p-4 border-t bg-background sticky bottom-0">
-					<Button size="sm" title="Submit" onClick={form.handleSubmit}>Submit</Button>
+					<Button size="sm" title="Submit" variant="outline"
+						onClick={form.handleSubmit}
+					>
+						Submit
+					</Button>
 				</div>
 
 			</SheetContent>
