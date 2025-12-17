@@ -122,7 +122,7 @@ const ProjectFormSheet = ({
 			<SheetContent
 				aria-describedby={undefined}
 				className="min-w-full sm:min-w-1/3 p-0 flex flex-col"
-				// onInteractOutside={(e) => e.preventDefault()}
+			// onInteractOutside={(e) => e.preventDefault()}
 			>
 				<SheetHeader className="p-4 py-4 pb-2">
 					<SheetTitle className="text-stone-700">Project Form</SheetTitle>
@@ -149,18 +149,21 @@ const ProjectFormSheet = ({
 								}
 							/>
 
-							<FormFieldSelect form={form} name="sales_objects" label="Sales Objects"
-								items={[
-									{ label: 'Tư nhân', value: '2' },
-									{ label: 'Nhà nước', value: '1' }
-								]}
-							/>
-							<FormFieldSelect form={form} name="funding_source" label="Funding Source"
-								items={[
-									{ label: 'Đã cấp vốn', value: '1' },
-									{ label: 'Chưa cấp vốn', value: '0' }
-								]}
-							/>
+							<div className="flex flex-col sm:flex-row gap-4">
+								<FormFieldSelect form={form} name="sales_objects" label="Sales Objects"
+									items={[
+										{ label: 'Tư nhân', value: '2' },
+										{ label: 'Nhà nước', value: '1' }
+									]}
+								/>
+								<FormFieldSelect form={form} name="funding_source" label="Funding Source"
+									items={[
+										{ label: 'Đã cấp vốn', value: '1' },
+										{ label: 'Chưa cấp vốn', value: '0' }
+									]}
+								/>
+							</div>
+
 
 							<SeparatorWithText>/</SeparatorWithText>
 
@@ -176,10 +179,12 @@ const ProjectFormSheet = ({
 
 							<SeparatorWithText>/</SeparatorWithText>
 
-							<FormFieldDate form={form} name="signed_date" label="Signed Date" />
-							<FormFieldNumber form={form} name="effective_days" label="Effective Days" />
-							<FormFieldDate form={form} name="expiry_date" label="Expiry Date" readonly={true} />
-
+							<div className="flex flex-col sm:flex-row gap-4">
+								<FormFieldDate form={form} name="signed_date" label="Signed Date" />
+								<FormFieldNumber form={form} name="effective_days" label="Effective" />
+								<FormFieldDate form={form} name="expiry_date" label="Expiry Date" readonly={true} />
+							</div>
+							
 							<FormFieldSelect form={form} name="stage" label="Stage"
 								items={
 									mode === 'edit'
@@ -198,10 +203,22 @@ const ProjectFormSheet = ({
 
 							<SeparatorWithText>/</SeparatorWithText>
 
-							<FormFieldNumber form={form} name="contract_value_vat" label="Contract Value" />
-							<FormFieldNumber form={form} name="total_original_vat" label="Total Original" />
+							<div className="flex flex-col sm:flex-row gap-4">
+								<FormFieldNumber form={form} name="contract_value" label="Contract Value" />
+								<FormFieldNumber form={form} name="contract_value_vat" label="Contract Value (VAT)" />
+							</div>
+
+							<div className="flex flex-col sm:flex-row gap-4">
+								<FormFieldNumber form={form} name="total_original" label="Total Original" />
+								<FormFieldNumber form={form} name="total_original_vat" label="Total Original (VAT)" />
+							</div>
+
+							<div className="flex flex-col sm:flex-row gap-4">
+								<FormFieldNumber form={form} name="total_planned" label="Total Planned" />
+								<FormFieldNumber form={form} name="total_planned_vat" label="Total Planned (VAT)" />
+							</div>
+
 							<FormFieldNumber form={form} name="sales_cost" label="Sales Discount" />
-							<FormFieldNumber form={form} name="total_planned_vat" label="Total Planned VAT" />
 
 						</FieldGroup>
 					</form>

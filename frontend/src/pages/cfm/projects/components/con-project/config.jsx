@@ -61,8 +61,13 @@ export const formSchema = z.object({
 	effective_days: z.number(),
 	expiry_date: z.string().min(1),
 
+	contract_value: z.number(),
+	total_original: z.number(),
+	total_planned: z.number(),
+
 	contract_value_vat: z.number(),
 	total_original_vat: z.number(),
-	sales_cost: z.number(),
 	total_planned_vat: z.number(),
+	
+	sales_cost: z.number(),
 })

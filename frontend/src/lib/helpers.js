@@ -27,3 +27,25 @@ export const si_deduction = (basic_pay = 0, contract_type = 'TV') => {
 	return Math.round(basic_pay * SI)
 }
 
+// calculate PIT deduction
+export const pit_deduction = ({
+	gross_pay = 0,
+	basic_pay = 0,
+	dependent_count = 0
+}) => {
+
+	if (gross_pay > PD) {
+		const result = gross_pay - PD - (basic_pay * SI) - (dependent_count * DD)
+
+		const index = PIT_RULES.findIndex(
+			(rule) => result >= rule.range[0] && result < rule.range[1]
+		)
+
+		if (index < 0)
+			return 0
+		else
+			return result * PIT_RULES[index].pct - PIT_RULES[index].sub
+	}
+
+	return 0
+}
