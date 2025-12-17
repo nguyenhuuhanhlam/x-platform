@@ -7,7 +7,7 @@ from app.db.services.hrm.personal import get_personal
 
 
 # - - - - -
-router = APIRouter(prefix='/hrm/personal', tags=['HRM-Personal'])
+router = APIRouter(prefix='/hrm/personal', tags=['HRM'])
 # - - - - -
 
 @router.get('/{id}')

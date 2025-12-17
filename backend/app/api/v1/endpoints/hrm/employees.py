@@ -6,7 +6,7 @@ from app.db.session import get_db
 from app.db.services.hrm.employees import get_employees
 
 # - - - - -
-router = APIRouter(prefix='/hrm/employees', tags=['HRM-Employees'])
+router = APIRouter(prefix='/hrm/employees', tags=['HRM'])
 # - - - - -
 
 @router.get('/is-active')

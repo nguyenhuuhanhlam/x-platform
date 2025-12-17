@@ -12,6 +12,9 @@ export const hrm_api = (base = '/hrm') => ({
 	get_workinfos_by_employee: async (employee_id) => await api.get(`${base}/workinfos/by-employee/${employee_id}`),
 	get_contracts: async (employee_id) => await api.get(`${base}/contracts/${employee_id}`),
 	get_latest_contract: async (employee_id) => await api.get(`${base}/contracts/latest/${employee_id}`),
+
+	get_pit_deduction: async (employee_id) => await api.get(`${base}/salaries/pit-deduction/${employee_id}`),
+
 })
 
 export const cfm_api = (base = '/cfm') => ({

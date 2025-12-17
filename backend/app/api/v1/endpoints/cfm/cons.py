@@ -5,7 +5,7 @@ from app.db.session import second_get_db
 from app.db.services.cfm.spa.cons import get_cons
 
 # - - - - -
-router = APIRouter(prefix='/cfm/spa', tags=['CFM-Spa-CON'])
+router = APIRouter(prefix='/cfm/spa', tags=['CFM'])
 # - - - - -
 
 @router.get('/cons')

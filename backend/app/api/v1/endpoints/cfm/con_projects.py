@@ -17,7 +17,7 @@ from app.db.services.cfm.con_projects.incomes import (
 from app.utils.api import handle_exceptions
 
 # - - - - -
-router = APIRouter(prefix='/cfm/con', tags=['CFM-Projects-CON'])
+router = APIRouter(prefix='/cfm/con', tags=['CFM'])
 # - - - - -
 
 @router.get('/projects')

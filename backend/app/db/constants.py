@@ -9,7 +9,7 @@ PD = Decimal('11000000')
 # dependent deduction :: giảm trừ người phụ thuộc
 DD = Decimal('4400000')
 
-# PIT rules :: biểu thuế lũy tiến từng phần
+# PIT rules :: biểu thuế lũy tiến
 PIT_RULES = [
     {'range': (Decimal('0'), Decimal('5000000')), 'pct': Decimal('0.05'), 'sub': Decimal('0')},
     {'range': (Decimal('5000000'), Decimal('10000000')), 'pct': Decimal('0.10'), 'sub': Decimal('250000')},

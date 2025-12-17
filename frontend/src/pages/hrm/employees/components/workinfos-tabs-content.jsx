@@ -5,7 +5,8 @@ import { useTranslation } from 'react-i18next'
 import { TabsContent } from '@/components/ui/tabs'
 import { DataTable } from '@/components/ui-x/data-table'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
-import { Separator } from '@/components/ui/separator'
+import { Button } from '@/components/ui/button'
+import { IconPlus, IconEdit } from '@tabler/icons-react'
 
 import LabelValue from '@/components/ui-x/label-value'
 import { fmt_date, si_deduction } from '@/lib/helpers'
@@ -14,14 +15,21 @@ import { contract_columns } from '../config'
 
 const WorkInfosTabsContent = ({ value, data = {} }) => {
 	const { t } = useTranslation()
-	const { get_contracts } = hrm_api()
+	const { get_contracts, get_pit_deduction } = hrm_api()
 	const [latestContract, setLatestContract] = useState({})
 
 	const { data: contractData } = useQuery({
 		queryKey: ['contracts', data.id],
 		queryFn: () => get_contracts(data.id),
 		enabled: !!data.id,
-		select: res => res?.data ?? [],
+		select: res => res.data,
+	})
+
+	const { data: pitData } = useQuery({
+		queryKey: ['pit', data.id],
+		queryFn: () => get_pit_deduction(data.id),
+		enabled: !!data.id,
+		select: res => res.data,
 	})
 
 	useEffect(() => {
@@ -33,7 +41,7 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 
 	return (
 		<TabsContent value={value} className="px-0 pt-0 gap-4 flex flex-col pb-8">
-			<div className="mx-auto w-full flex flex-col md:flex-row gap-4 items-stretch md:max-w-[1444px]">
+			<div className="flex flex-col w-full gap-4 items-stretch mx-auto sm:flex-row sm:max-w-[1444px]">
 
 				<div className="w-full md:w-1/2 flex">
 					<Card className="p-4 flex-1">
@@ -69,7 +77,7 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 							<CardTitle className="flex justify-between items-center">Salary Infomation</CardTitle>
 						</CardHeader>
 
-						<CardContent className="flex flex-col p-0 gap-1">
+						<CardContent className="flex flex-col sm:flex-row p-0 gap-8">
 							<div className="flex flex-col gap-1 md:w-1/2">
 								<LabelValue label="Basic Pay" value={latestContract?.basic_pay} type="money" />
 								<LabelValue label="Position Pay" value={latestContract?.position_pay} type="money" />
@@ -77,9 +85,9 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 								<LabelValue label="Phone Allowance" value={latestContract?.phone_allowance} type="money" />
 								<LabelValue label="Field Allowance" value={latestContract?.field_allowance} type="money" />
 								<LabelValue label="Additional Allowance" value={latestContract?.additional_allowance} type="money" />
+							</div>
 
-								<Separator className="my-2" />
-
+							<div className="flex flex-col gap-1 md:w-1/2">
 								<LabelValue label="Gross Pay" type="money"
 									value={
 										(latestContract?.basic_pay || 0) +
@@ -98,8 +106,8 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 											: 0
 									}
 								/>
-								
-								<LabelValue label="Tax Deductions" value={0} type="money" />
+
+								<LabelValue label="PIT Deductions" value={pitData?.pit} type="money" />
 							</div>
 						</CardContent>
 					</Card>
@@ -107,11 +115,30 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 
 			</div>
 
-			<DataTable
-				wrapClass="w-full md:max-w-[1444px] mx-auto"
-				columns={contract_columns(t)}
-				data={contractData || []}
-			/>
+
+			<div className="w-full mx-auto sm:max-w-[1444px]">
+				<Card>
+					<CardHeader>
+						<CardTitle className="flex justify-between items-center">
+							<span>Contract Infomation</span>
+
+							<Button
+								variant="outline" size="icon" className="m-sm-add-button"
+								onClick={() => { }}
+							>
+								<IconPlus />
+							</Button>
+						</CardTitle>
+					</CardHeader>
+
+					<CardContent>
+						<DataTable
+							columns={contract_columns(t)}
+							data={contractData || []}
+						/>
+					</CardContent>
+				</Card>
+			</div>
 
 		</TabsContent>
 	)

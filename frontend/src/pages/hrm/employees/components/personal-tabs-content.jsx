@@ -6,7 +6,7 @@ import { DataTable } from '@/components/ui-x/data-table'
 import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card'
 import { Button } from '@/components/ui/button'
 import { Avatar, AvatarFallback, AvatarImage } from '@/components/ui/avatar'
-import { IconPlus } from '@tabler/icons-react'
+import { IconPlus, IconEdit } from '@tabler/icons-react'
 
 import { hrm_api, minio_api } from '@/services/api'
 import LabelValue from '@/components/ui-x/label-value'
@@ -41,14 +41,20 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 
 	return (
 		<TabsContent value={value} className="px-0 pt-0 pb-4">
-			<div className="flex flex-col md:flex-row gap-4">
+			<div className="flex flex-col md:flex-row gap-4 mx-auto items-stretch md:max-w-[1444px]">
 
-				<div className="w-full md:w-1/2">
-					<Card className="p-4">
+				<div className="w-full md:w-1/2 flex">
+					<Card className="p-4 flex-1">
 						<CardHeader className="p-0 gap-0">
 							<CardTitle className="flex justify-between items-center">
 								<span>Personal Infomation</span>
-								<span className="text-[8pt] text-neutral-300 bg-neutral-800 p-1 rounded-full">{data.id}</span>
+
+								<Button
+									variant="outline" size="icon" className="m-sm-add-button"
+									onClick={() => { }}
+								>
+									<IconEdit />
+								</Button>
 							</CardTitle>
 						</CardHeader>
 
@@ -74,23 +80,29 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 					</Card>
 				</div>
 
-				<div className="w-full md:w-1/2">
+				<div className="w-full md:w-1/2 flex">
+					<Card className="p-4 flex-1">
+						<CardHeader className="p-0 gap-0">
+							<CardTitle className="flex justify-between items-center">
+								<span>Family Infomation</span>
 
-					<div className="flex items-center justify-between gap-2 mb-2">
-						<p className="font-bold">Immediate Family</p>
-						<Button
-							variant="outline" size="icon" className="bg-blue-800! hover:bg-blue-700! rounded-full"
-							onClick={() => { }}
-						>
-							<IconPlus />
-						</Button>
-					</div>
+								<Button
+									variant="outline" size="icon" className="m-sm-add-button"
+									onClick={() => { }}
+								>
+									<IconPlus />
+								</Button>
+							</CardTitle>
+						</CardHeader>
 
-					<DataTable
-						columns={family_columns(t)}
-						data={familyData || []}
-						usePaging={false}
-					/>
+						<CardContent className="flex flex-col w-full p-0">
+							<DataTable
+								columns={family_columns(t)}
+								data={familyData || []}
+								usePaging={false}
+							/>
+						</CardContent>
+					</Card>
 
 				</div>
 			</div>

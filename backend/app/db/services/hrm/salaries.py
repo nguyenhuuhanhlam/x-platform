@@ -38,12 +38,12 @@ async def get_pit_deduction(db: AsyncSession, employee_id: int):
 				e.id 'employee_id',
 				con.basic_pay,
 				(
-					con.basic_pay +
-					con.position_pay +
-					con.management_allowance +
-					con.additional_allowance +
-					con.field_allowance +
-					con.phone_allowance
+					con.basic_pay
+					+ con.position_pay
+					+ con.management_allowance
+					+ con.additional_allowance
+					+ con.field_allowance
+					+ con.phone_allowance
 				) 'gross_pay',
 				COALESCE(f.dependent_count, 0) 'dependent_count'
 			FROM
@@ -65,7 +65,8 @@ async def get_pit_deduction(db: AsyncSession, employee_id: int):
 						GROUP BY family_employee_id
 				) f ON f.family_employee_id = e.id
 
-			WHERE rn = 1 AND e.id = :employee_id
+			WHERE
+				rn = 1 AND e.id = :employee_id
 		'''
 	)
 

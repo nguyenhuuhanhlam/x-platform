@@ -6,7 +6,7 @@ from app.db.session import get_db
 from app.db.services.hrm.families import get_families
 
 # - - - - -
-router = APIRouter(prefix='/hrm/families', tags=['HRM-Families'])
+router = APIRouter(prefix='/hrm/families', tags=['HRM'])
 # - - - - -
 
 @router.get('/{id}')

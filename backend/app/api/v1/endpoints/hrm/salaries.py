@@ -6,7 +6,7 @@ from app.db.session import get_db
 from app.db.services.hrm.salaries import get_pit_deduction
 
 # - - - - -
-router = APIRouter(prefix='/hrm/salaries', tags=['HRM-Salaries'])
+router = APIRouter(prefix='/hrm/salaries', tags=['HRM'])
 # - - - - -
 
 @router.get('/pit-deduction/{employee_id}')

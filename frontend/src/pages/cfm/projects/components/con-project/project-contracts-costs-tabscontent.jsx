@@ -37,8 +37,8 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 
 					<div className={cn(styles.card, 'gap-2')}>
 						<LabelValue label="Signed Date" value={data?.signed_date} />
-						<LabelValue label="Expiry Date" value={data?.expiry_date} />
 						<LabelValue label="Effective Days" value={data?.effective_days} />
+						<LabelValue label="Expiry Date" value={data?.expiry_date} />
 					</div>
 
 					<div className={cn(styles.card, 'gap-2')}>

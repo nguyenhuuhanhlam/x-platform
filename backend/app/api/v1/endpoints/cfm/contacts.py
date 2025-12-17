@@ -5,7 +5,7 @@ from app.db.session import second_get_db
 from app.db.services.cfm.contacts import get_some_contacts
 
 # - - - - -
-router = APIRouter(prefix='/cfm', tags=['CFM-Contacts'])
+router = APIRouter(prefix='/cfm', tags=['CFM'])
 # - - - - -
 
 @router.post('/some-contacts')

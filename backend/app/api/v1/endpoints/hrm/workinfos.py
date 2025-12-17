@@ -7,7 +7,7 @@ from app.db.services.hrm.workinfos import get_workinfos_by_employee
 
 
 # - - - - -
-router = APIRouter(prefix='/hrm/workinfos', tags=['HRM-WorkInfos'])
+router = APIRouter(prefix='/hrm/workinfos', tags=['HRM'])
 # - - - - -
 
 @router.get('/by-employee/{employee_id}')

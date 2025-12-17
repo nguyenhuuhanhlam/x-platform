@@ -7,7 +7,7 @@ from app.db.session import get_db
 from app.db.services.hrm.contracts import get_contracts
 
 # - - - - -
-router = APIRouter(prefix='/hrm/contracts', tags=['HRM-Contracts'])
+router = APIRouter(prefix='/hrm/contracts', tags=['HRM'])
 # - - - - -
 
 
