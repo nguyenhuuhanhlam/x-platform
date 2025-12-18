@@ -1,6 +1,7 @@
 import { Field, FieldLabel } from '@/components/ui/field'
 import { Input } from '@/components/ui/input'
 import { IconPointFilled } from '@tabler/icons-react'
+import clsx from 'clsx'
 
 const FormFieldInput = ({
 	form,
@@ -20,13 +21,17 @@ const FormFieldInput = ({
 						&& <FieldLabel className="flex justify-between field-label">
 							{label}
 							{field.state.meta.errors.length > 0 && (
-								<IconPointFilled size={14} className="text-red-800 translate-y-[2px]" />
+								<IconPointFilled size={14} className="text-red-800 translate-y-0.5" />
 							)}
 						</FieldLabel>
 					}
 
 					<Input
-						className={field.state.value ? highlight : ''}
+						className={
+							clsx(field.state.value ? highlight : '',
+								'focus-visible:ring-0 focus-visible:ring-offset-0 focus:border-stone-600'
+							)
+						}
 						type={type}
 						placeholder={placeholder}
 						value={field.state.value ?? ''}

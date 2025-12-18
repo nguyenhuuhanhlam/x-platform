@@ -1,3 +1,4 @@
+import { useState } from 'react'
 import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 import dayjs from 'dayjs'
@@ -27,7 +28,9 @@ const styles = {
 //#region COMPONENT
 const PersonalTabsContent = ({ value, data = {} }) => {
 	const { t } = useTranslation()
+	const [familyOpen, setFamilyOpen] = useState(false)
 
+	//#region QUERY
 	const { data: personalData } = useQuery({
 		queryKey: ['personal', data.id],
 		queryFn: () => get_personal(data.id),
@@ -48,13 +51,16 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 		enabled: true
 	})
 
+	//#region HOOK
 	const tableHook = useDataTable(
 		familyData,
 		{},
 		(e) => {
-			console.log(e)
+			setFamilyOpen(true)
 		})
 
+
+	//#region RENDER
 	return (
 		<TabsContent value={value} className="px-0 pt-0 pb-8">
 			<div className={styles.container}>
@@ -123,7 +129,11 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 
 				</div>
 
-				<FamilyFormDialog />
+				<FamilyFormDialog
+					open={familyOpen}
+					onOpenChange={setFamilyOpen}
+					data={tableHook.rowSelectedData}
+				/>
 			</div>
 		</TabsContent>
 	)

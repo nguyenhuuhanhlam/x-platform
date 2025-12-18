@@ -158,6 +158,8 @@ tr[data-state="selected"] {
 }
 
 .m-scroll {
+	scrollbar-gutter: stable;
+
 	@apply
 		scrollbar-thin
 		scrollbar-thumb-stone-600/20
