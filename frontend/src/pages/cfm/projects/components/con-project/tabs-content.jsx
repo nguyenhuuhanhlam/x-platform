@@ -31,7 +31,7 @@ const _TabsContent = ({ value, data = {} }) => {
 	})
 
 	const use_data_table = useDataTable(
-		spaconsData,
+		spaconsData,{},
 		(e) => { setDrawerOpen(true) }
 	)
 

@@ -6,10 +6,12 @@ import { cn } from '@/lib/utils'
 
 import IncomeSourcesTabsContent from './income-sources-tabscontent'
 import ExpenditureSourcesTabsContent from './expenditure-sources-tabscontent'
-import { fmt_date } from '@/lib/helpers'
-import { styles } from './config'
 import { FUNDING_SOURCE, CONTRACT_STATUS } from '@/constants'
 
+const styles = {
+	container: 'flex flex-col sm:flex-row gap-4 pb-8 w-full sm:w-[1180px]',
+	card: 'flex flex-col sm:w-1/3 bg-neutral-900/50 rounded-md p-4'
+}
 
 const ProjectTabsContractsCosts = ({ value, data }) => {
 	const { t } = useTranslation()
@@ -51,18 +53,20 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 			</section>
 
 			<section className="flex flex-col items-center">
-				<Tabs defaultValue="income">
+				<div className="flex flex-col w-full gap-4 pb-8 mx-auto sm:w-[1180px]">
+					<Tabs defaultValue="income">
 
-					<div className="flex justify-center w-full">
-						<TabsList>
-							<TabsTrigger value="income">Income Sources</TabsTrigger>
-							<TabsTrigger value="expenditure">Expenditure Sources</TabsTrigger>
-						</TabsList>
-					</div>
+						<div className="flex justify-center">
+							<TabsList>
+								<TabsTrigger value="income">Income Sources</TabsTrigger>
+								<TabsTrigger value="expenditure">Expenditure Sources</TabsTrigger>
+							</TabsList>
+						</div>
 
-					<IncomeSourcesTabsContent value="income" data={data} />
-					<ExpenditureSourcesTabsContent value="expenditure" data={data} />
-				</Tabs>
+						<IncomeSourcesTabsContent value="income" data={data} />
+						<ExpenditureSourcesTabsContent value="expenditure" data={data} />
+					</Tabs>
+				</div>
 			</section>
 		</TabsContent>
 	)

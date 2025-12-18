@@ -36,47 +36,46 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 	})
 
 	const tableHook = useDataTable(
-		incomeData,
+		incomeData, {},
 		(e) => { setOpen(true) }
 	)
 
+	const handleCreate = () => {
+		createMutation.mutate({
+			data: {
+				project_id: data.project_id,
+				title: '-',
+				type: 0,
+				payment_received_date: null,
+				amount: 0,
+				status: '-'
+			}
+		})
+	}
+
 	return (
 		<TabsContent value={value}>
-			<section className="flex flex-col items-center">
-				<div className="w-full flex justify-end my-2">
+			<section className="flex flex-col w-full mx-auto sm:w-fit">
+				<div className="flex justify-end mb-2">
 					<Button
 						variant="outline" size="icon" className="m-sm-add-button"
-						onClick={() => {
-							createMutation.mutate({
-								data: {
-									project_id: data.project_id,
-									title: '-',
-									type: 0,
-									payment_received_date: null,
-									amount: 0,
-									status: '-'
-								}
-							})
-						}}
+						onClick={handleCreate}
 					>
 						<IconPlus />
 					</Button>
 				</div>
 
-				<div className="flex flex-col">
-					<DataTable
-						columns={income_columns(t)}
-						data={incomeData || []}
-						// rowSelection={tableHook.rowSelection}
-						onRowSelectionChange={tableHook.handleSelectionChange}
-					/>
+				<DataTable
+					columns={income_columns(t)}
+					data={incomeData || []}
+					onRowSelectionChange={tableHook.handleSelectionChange}
+				/>
 
-					<IncomeFormDialog
-						open={open}
-						onOpenChange={setOpen}
-						data={tableHook.rowSelectedData}
-					/>
-				</div>
+				<IncomeFormDialog
+					open={open}
+					onOpenChange={setOpen}
+					data={tableHook.rowSelectedData}
+				/>
 			</section>
 		</TabsContent>
 	)

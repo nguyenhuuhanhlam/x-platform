@@ -9,8 +9,13 @@ import { cn } from '@/lib/utils'
 
 import { cfm_api } from '@/services/api'
 import { fmt_date } from '@/lib/helpers'
-import { styles } from './config'
 
+const styles = {
+	container: 'flex flex-col sm:flex-row gap-4 pb-8 w-full sm:w-[1180px]',
+	card: 'flex flex-col sm:w-1/3 bg-neutral-900/50 rounded-md p-4'
+}
+
+//#region COMPONENT
 const ProjectInfosTabsContent = ({ value, data }) => {
 	const { get_some_contacts } = cfm_api()
 	const { t } = useTranslation()

@@ -41,7 +41,7 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 
 	return (
 		<TabsContent value={value} className="px-0 pt-0 gap-4 flex flex-col pb-8">
-			<div className="flex flex-col w-full gap-4 items-stretch mx-auto sm:flex-row sm:max-w-[1444px]">
+			<div className="flex flex-col w-full gap-4 items-stretch mx-auto sm:flex-row sm:max-w-[1180px]">
 
 				<div className="w-full md:w-1/2 flex">
 					<Card className="p-4 flex-1">
@@ -115,10 +115,9 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 
 			</div>
 
-
-			<div className="w-full mx-auto sm:max-w-[1444px]">
-				<Card>
-					<CardHeader>
+			<div className="w-full mx-auto sm:max-w-[1180px]">
+				<Card className="p-4">
+					<CardHeader className="p-0 gap-0">
 						<CardTitle className="flex justify-between items-center">
 							<span>Contract Infomation</span>
 
@@ -131,7 +130,7 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 						</CardTitle>
 					</CardHeader>
 
-					<CardContent>
+					<CardContent className="flex flex-col w-full p-0 py-0">
 						<DataTable
 							columns={contract_columns(t)}
 							data={contractData || []}

@@ -40,7 +40,7 @@ const FormFieldDate = ({
 								{field.state.meta.errors.length > 0 && !isLocked && (
 									<IconPointFilled
 										size={14}
-										className="text-red-800 translate-y-[2px]"
+										className="text-red-800 translate-y-0.5"
 									/>
 								)}
 							</FieldLabel>
@@ -101,10 +101,10 @@ const FormFieldDate = ({
 									type="button"
 									variant="secondary"
 									size="icon"
-									className="h-9 w-9"
+									className="h-6 w-6"
 									onClick={() => field.handleChange(null)}
 								>
-									<IconX size={16} className="text-muted-foreground" />
+									<IconX className="text-muted-foreground" />
 								</Button>
 							)}
 						</div>

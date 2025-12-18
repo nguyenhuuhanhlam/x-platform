@@ -2,7 +2,7 @@ import { useEffect } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm } from '@tanstack/react-form'
 import { FieldGroup, } from '@/components/ui/field'
-import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { IconCheck } from '@tabler/icons-react'
 
@@ -66,19 +66,25 @@ const IncomeFormDialog = ({ open, onOpenChange, data }) => {
 
 				<FieldGroup className="gap-4">
 					<FormFieldInput form={form} name="title" label="Title" />
-					<FormFieldDate form={form} name="payment_received_date" label="Received Date" />
-					<FormFieldNumber form={form} name="amount" label="Amount" />
-					<FormFieldSelect form={form} name="type" label="Type"
-						items={
-							Object.entries(INCOME_TYPES).map(([k, v]) => ({ label: v.text, value: k }))
-						}
-					/>
-					<FormFieldSelect form={form} name="status" label="Status"
-						items={[
-							{ value: 'KH', label: 'Kế hoạch' },
-							{ value: 'HT', label: 'Hoàn thành' }
-						]}
-					/>
+
+					<div className="grid grid-cols-2 gap-4">
+						<FormFieldNumber form={form} name="amount" label="Amount" />
+						<FormFieldDate form={form} name="payment_received_date" label="Received Date" />
+					</div>
+
+					<div className="grid grid-cols-2 gap-4">
+						<FormFieldSelect form={form} name="type" label="Type"
+							items={
+								Object.entries(INCOME_TYPES).map(([k, v]) => ({ label: v.text, value: k }))
+							}
+						/>
+						<FormFieldSelect form={form} name="status" label="Status"
+							items={[
+								{ value: 'KH', label: 'Kế hoạch' },
+								{ value: 'HT', label: 'Hoàn thành' }
+							]}
+						/>
+					</div>
 				</FieldGroup>
 
 				<DialogFooter>

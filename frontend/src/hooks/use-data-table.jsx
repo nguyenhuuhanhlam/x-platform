@@ -1,6 +1,6 @@
 import { useState } from 'react'
 
-export const useDataTable = (data, callback = (e) => { }) => {
+export const useDataTable = (data, options = {}, callback = (e) => { }) => {
 	const [rowSelection, setRowSelection] = useState({})
 	const [rowSelectedData, setRowSelectedData] = useState({})
 

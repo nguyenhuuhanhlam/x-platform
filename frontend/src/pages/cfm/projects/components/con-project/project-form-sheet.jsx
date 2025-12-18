@@ -5,6 +5,7 @@ import dayjs from 'dayjs'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
+import { IconCircleNumber2Filled, IconCircleNumber3Filled, IconCircleNumber4Filled } from '@tabler/icons-react'
 
 import { FieldGroup } from '@/components/ui/field'
 import FormFieldSelect from '@/components/ui-x/form-field-select'
@@ -149,7 +150,7 @@ const ProjectFormSheet = ({
 								}
 							/>
 
-							<div className="flex flex-col sm:flex-row gap-4">
+							<div className="grid grid-cols-2 gap-4">
 								<FormFieldSelect form={form} name="sales_objects" label="Sales Objects"
 									items={[
 										{ label: 'Tư nhân', value: '2' },
@@ -165,7 +166,7 @@ const ProjectFormSheet = ({
 							</div>
 
 
-							<SeparatorWithText>/</SeparatorWithText>
+							<SeparatorWithText><IconCircleNumber2Filled /></SeparatorWithText>
 
 							<FormFieldInput form={form} name="contract_name" label="Contract Name" />
 							<FormFieldInput form={form} name="contract_code" label="Contract Code" />
@@ -177,14 +178,14 @@ const ProjectFormSheet = ({
 								]}
 							/>
 
-							<SeparatorWithText>/</SeparatorWithText>
+							<SeparatorWithText><IconCircleNumber3Filled /></SeparatorWithText>
 
 							<div className="flex flex-col sm:flex-row gap-4">
 								<FormFieldDate form={form} name="signed_date" label="Signed Date" />
 								<FormFieldNumber form={form} name="effective_days" label="Effective" />
 								<FormFieldDate form={form} name="expiry_date" label="Expiry Date" readonly={true} />
 							</div>
-							
+
 							<FormFieldSelect form={form} name="stage" label="Stage"
 								items={
 									mode === 'edit'
@@ -201,21 +202,21 @@ const ProjectFormSheet = ({
 								}
 							/>
 
-							<SeparatorWithText>/</SeparatorWithText>
+							<SeparatorWithText><IconCircleNumber4Filled /></SeparatorWithText>
 
 							<div className="flex flex-col sm:flex-row gap-4">
 								<FormFieldNumber form={form} name="contract_value" label="Contract Value" />
-								<FormFieldNumber form={form} name="contract_value_vat" label="Contract Value (VAT)" />
+								<FormFieldNumber form={form} name="contract_value_vat" label="Contract Value (VAT)" highlight="bg-violet-900/30!" />
 							</div>
 
 							<div className="flex flex-col sm:flex-row gap-4">
 								<FormFieldNumber form={form} name="total_original" label="Total Original" />
-								<FormFieldNumber form={form} name="total_original_vat" label="Total Original (VAT)" />
+								<FormFieldNumber form={form} name="total_original_vat" label="Total Original (VAT)" highlight="bg-violet-900/30!" />
 							</div>
 
 							<div className="flex flex-col sm:flex-row gap-4">
 								<FormFieldNumber form={form} name="total_planned" label="Total Planned" />
-								<FormFieldNumber form={form} name="total_planned_vat" label="Total Planned (VAT)" />
+								<FormFieldNumber form={form} name="total_planned_vat" label="Total Planned (VAT)" highlight="bg-violet-900/30!" />
 							</div>
 
 							<FormFieldNumber form={form} name="sales_cost" label="Sales Discount" />

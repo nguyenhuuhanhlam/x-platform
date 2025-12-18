@@ -27,7 +27,7 @@ const EmployeesPage = () => {
 		enabled: true
 	})
 
-	const use_data_table = useDataTable(data, () => setDrawerOpen(true))
+	const use_data_table = useDataTable(data,{}, () => setDrawerOpen(true))
 
 	return (
 		<div className="p-4">

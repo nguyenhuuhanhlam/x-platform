@@ -5,11 +5,6 @@ import { IconCircleFilled } from '@tabler/icons-react'
 import { cn } from '@/lib/utils'
 import { INCOME_TYPES, INCOME_STATUS } from '@/constants'
 
-export const styles = {
-	container: 'flex flex-col sm:flex-row gap-4 pb-8 w-full sm:w-[1444px]',
-	card: 'flex flex-col sm:w-1/3 bg-neutral-900/50 rounded-md p-4'
-}
-
 export const con_columns = (t) => [
 	{ accessorKey: 'project_name', header: t('project'), },
 	{ accessorKey: 'company_name', header: t('company'), },
