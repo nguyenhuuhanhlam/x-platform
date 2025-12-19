@@ -1,5 +1,6 @@
 import { Drawer, DrawerContent, DrawerDescription, DrawerHeader, DrawerTitle, } from '@/components/ui/drawer'
 import { Tabs, TabsList, TabsTrigger, } from '@/components/ui/tabs'
+import { IconSettings } from '@tabler/icons-react'
 
 import PersonalTabsContent from './personal-tabs-content'
 import WorkInfosTabsContent from './workinfos-tabs-content'
@@ -24,6 +25,7 @@ const EmployeeDetailsDrawer = ({ open, onOpenChange, data }) => {
 							<TabsTrigger value="salary">Salary</TabsTrigger>
 							<TabsTrigger value="career.path">Career-Path</TabsTrigger>
 							<TabsTrigger value="documents">Documents</TabsTrigger>
+							<TabsTrigger value="settings"><IconSettings size={14}/>Settings</TabsTrigger>
 						</TabsList>
 					</div>
 

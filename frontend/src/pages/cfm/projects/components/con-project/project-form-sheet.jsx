@@ -5,9 +5,9 @@ import dayjs from 'dayjs'
 import { Sheet, SheetContent, SheetHeader, SheetTitle } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { toast } from 'sonner'
-import { IconCircleNumber2Filled, IconCircleNumber3Filled, IconCircleNumber4Filled } from '@tabler/icons-react'
-
+import { IconCircleNumber2Filled, IconCircleNumber3Filled, IconCircleNumber4Filled, IconHelpCircleFilled, IconInfoCircleFilled } from '@tabler/icons-react'
 import { FieldGroup } from '@/components/ui/field'
+
 import FormFieldSelect from '@/components/ui-x/form-field-select'
 import FormFieldInput from '@/components/ui-x/form-field-input'
 import FormFieldDate from '@/components/ui-x/form-field-date'
@@ -17,6 +17,7 @@ import SeparatorWithText from '@/components/ui-x/separator-with-text'
 import { cfm_api } from '@/services/api'
 import { formSchema } from './config'
 
+//#region COMPONENT
 const ProjectFormSheet = ({
 	open = false,
 	mode = 'new',
@@ -206,17 +207,21 @@ const ProjectFormSheet = ({
 
 							<div className="flex flex-col sm:flex-row gap-4">
 								<FormFieldNumber form={form} name="contract_value" label="Contract Value" />
-								<FormFieldNumber form={form} name="contract_value_vat" label="Contract Value (VAT)" highlight="bg-violet-900/30!" />
+								<FormFieldNumber form={form} name="contract_value_vat"
+									label={<><span>Contract Value</span><IconInfoCircleFilled size={18} title="VAT" className="text-violet-700" /></>} highlight="bg-violet-900/30!"
+								/>
 							</div>
 
 							<div className="flex flex-col sm:flex-row gap-4">
 								<FormFieldNumber form={form} name="total_original" label="Total Original" />
-								<FormFieldNumber form={form} name="total_original_vat" label="Total Original (VAT)" highlight="bg-violet-900/30!" />
+								<FormFieldNumber form={form} name="total_original_vat"
+									label={<><span>Total Original</span><IconInfoCircleFilled size={18} title="VAT" className="text-violet-700" /></>} highlight="bg-violet-900/30!" />
 							</div>
 
 							<div className="flex flex-col sm:flex-row gap-4">
 								<FormFieldNumber form={form} name="total_planned" label="Total Planned" />
-								<FormFieldNumber form={form} name="total_planned_vat" label="Total Planned (VAT)" highlight="bg-violet-900/30!" />
+								<FormFieldNumber form={form} name="total_planned_vat"
+									label={<><span>Total Planned</span><IconInfoCircleFilled size={18} title="VAT" className="text-violet-700" /></>} highlight="bg-violet-900/30!" />
 							</div>
 
 							<FormFieldNumber form={form} name="sales_cost" label="Sales Discount" />

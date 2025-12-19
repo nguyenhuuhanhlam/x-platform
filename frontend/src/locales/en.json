@@ -30,5 +30,7 @@
 	"relationship": "Relationship",
 	"status": "Status",
 	"type": "Type",
-	"workdays": "Workdays"
+	"workdays": "Workdays",
+	"lastname": "Last Name",
+	"firstname": "First Name"
 }

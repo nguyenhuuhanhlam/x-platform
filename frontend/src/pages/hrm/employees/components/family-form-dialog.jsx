@@ -5,7 +5,7 @@ import { z } from 'zod'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
 import { FieldGroup } from '@/components/ui/field'
-import { IconCheck } from '@tabler/icons-react'
+import { IconCheck, IconBolt } from '@tabler/icons-react'
 
 import ConfirmButton from '@/components/ui-x/confirm-button'
 import FormFieldInput from '@/components/ui-x/form-field-input'
@@ -20,7 +20,7 @@ const formSchema = z.object({
 })
 
 //#region COMPONENT
-const FamilyFormDialog = ({ open, onOpenChange, data }) => {
+const FamilyFormDialog = ({ open, onOpenChange, mode = 'new', data }) => {
 
 	const form = useForm({
 		validators: {
@@ -40,7 +40,11 @@ const FamilyFormDialog = ({ open, onOpenChange, data }) => {
 	//#region RENDER
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className="flex flex-col sm:max-w-sm bg-gray-900 p-4 max-h-[667px]" aria-describedby={undefined}>
+			<DialogContent
+				className="flex flex-col sm:max-w-sm bg-gray-900 p-4 max-h-[667px]"
+				aria-describedby={undefined}
+				onOpenAutoFocus={(e) => e.preventDefault()}
+			>
 				<DialogHeader>
 					<DialogTitle className="text-stone-600">Family Editor</DialogTitle>
 				</DialogHeader>
@@ -64,8 +68,7 @@ const FamilyFormDialog = ({ open, onOpenChange, data }) => {
 						<FormFieldInput form={form} name="relationship" label="Relationship" />
 						<FormFieldInput form={form} name="phone" label="Phone" />
 
-
-						<SeparatorWithText>/</SeparatorWithText>
+						<SeparatorWithText><IconBolt size={16} /></SeparatorWithText>
 
 						<div className="flex flex-col sm:flex-row gap-4">
 							<FormFieldCheckbox form={form} name="is_dependent" label="Dependent" />

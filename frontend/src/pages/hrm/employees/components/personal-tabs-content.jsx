@@ -11,6 +11,7 @@ import { IconPlus, IconEdit } from '@tabler/icons-react'
 import { DataTable } from '@/components/ui-x/data-table'
 import LabelValue from '@/components/ui-x/label-value'
 import FamilyFormDialog from './family-form-dialog'
+import PersonalFormDialog from './personal-form-dialog'
 
 import { hrm_api, minio_api } from '@/services/api'
 import { useDataTable } from '@/hooks/use-data-table'
@@ -28,6 +29,7 @@ const styles = {
 //#region COMPONENT
 const PersonalTabsContent = ({ value, data = {} }) => {
 	const { t } = useTranslation()
+	const [personalOpen, setPersonalOpen] = useState(false)
 	const [familyOpen, setFamilyOpen] = useState(false)
 
 	//#region QUERY
@@ -73,7 +75,7 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 
 								<Button
 									variant="outline" size="icon" className="m-sm-add-button"
-									onClick={() => { }}
+									onClick={setPersonalOpen}
 								>
 									<IconEdit />
 								</Button>
@@ -128,6 +130,11 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 					</Card>
 
 				</div>
+
+				<PersonalFormDialog
+					open={personalOpen}
+					onOpenChange={setPersonalOpen}
+				/>
 
 				<FamilyFormDialog
 					open={familyOpen}
