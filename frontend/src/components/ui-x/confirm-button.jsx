@@ -4,7 +4,11 @@ import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { useState } from 'react'
 
-const ConfirmButton = ({ callback = (e) => { }, confirmText = 'OK' }) => {
+const ConfirmButton = ({
+	using = 'popover', // 'popover' | 'system'
+	callback = () => { },
+	confirmText = 'OK'
+}) => {
 	const [open, setOpen] = useState(false)
 	const [text, setText] = useState('')
 	const isValid = text.trim() === confirmText

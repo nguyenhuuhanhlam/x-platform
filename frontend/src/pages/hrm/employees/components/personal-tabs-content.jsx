@@ -75,7 +75,7 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 
 								<Button
 									variant="outline" size="icon" className="m-sm-add-button"
-									onClick={setPersonalOpen}
+									onClick={() => setPersonalOpen(true)}
 								>
 									<IconEdit />
 								</Button>
@@ -134,6 +134,7 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 				<PersonalFormDialog
 					open={personalOpen}
 					onOpenChange={setPersonalOpen}
+					data={personalData}
 				/>
 
 				<FamilyFormDialog

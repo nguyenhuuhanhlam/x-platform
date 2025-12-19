@@ -59,7 +59,11 @@ const IncomeFormDialog = ({ open, onOpenChange, data }) => {
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
-			<DialogContent className="sm:max-w-sm bg-gray-900 p-4" aria-describedby={undefined}>
+			<DialogContent
+				className="sm:max-w-sm bg-gray-900 p-4"
+				aria-describedby={undefined}
+				onOpenAutoFocus={(e) => e.preventDefault()}
+			>
 				<DialogHeader>
 					<DialogTitle className="text-stone-600">Income Editor</DialogTitle>
 				</DialogHeader>

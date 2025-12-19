@@ -43,7 +43,10 @@ const FamilyFormDialog = ({ open, onOpenChange, mode = 'new', data }) => {
 			<DialogContent
 				className="flex flex-col sm:max-w-sm bg-gray-900 p-4 max-h-[667px]"
 				aria-describedby={undefined}
-				onOpenAutoFocus={(e) => e.preventDefault()}
+				onOpenAutoFocus={(e) => {
+					e.preventDefault()
+					e.currentTarget.focus()
+				}}
 			>
 				<DialogHeader>
 					<DialogTitle className="text-stone-600">Family Editor</DialogTitle>
