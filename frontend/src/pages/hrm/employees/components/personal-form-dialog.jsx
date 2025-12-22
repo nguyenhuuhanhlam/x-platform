@@ -43,6 +43,7 @@ const PersonalFormDialog = ({ open, onOpenChange, data }) => {
 					<FieldGroup className="gap-4">
 						<FormFieldInput form={form} name="lastname" label={t('lastname')} />
 						<FormFieldInput form={form} name="firstname" label={t('firstname')} />
+						<FormFieldInput form={form} name="email" label={t('email')} />
 						<FormFieldInput form={form} name="phone" label="Phone" />
 					</FieldGroup>
 				</div>
