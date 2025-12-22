@@ -20,10 +20,15 @@ const PersonalFormDialog = ({ open, onOpenChange, data }) => {
 	const { t } = useTranslation()
 
 	useEffect(() => {
-		if (data) {
+		if (data && open) {
 			form.reset({ ...data })
 		}
-	}, [data])
+	}, [data, open])
+
+	// useEffect(() => {
+	// 	if (!open)
+	// 		form.reset(data)
+	// }, [open])
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
@@ -43,6 +48,15 @@ const PersonalFormDialog = ({ open, onOpenChange, data }) => {
 					<FieldGroup className="gap-4">
 						<FormFieldInput form={form} name="lastname" label={t('lastname')} />
 						<FormFieldInput form={form} name="firstname" label={t('firstname')} />
+						<FormFieldRadioGroup form={form} name="gender" label={t('gender')}
+							items={[
+								{ label: 'Male', value: 'male' },
+								{ label: 'Female', value: 'female' }
+							]}
+						/>
+						<FormFieldDate form={form} name="dob" label={t('birthday')} />
+						<FormFieldInput form={form} name="qualification" label={t('qualification')} />
+						<FormFieldInput form={form} name="address" label={t('address')} />
 						<FormFieldInput form={form} name="email" label={t('email')} />
 						<FormFieldInput form={form} name="phone" label="Phone" />
 					</FieldGroup>

@@ -5,7 +5,7 @@ pydantic
 asyncmy
 greenlet
 python-dotenv
-pyjwt
 openpyxl
 minio
 python-multipart
+python-jose
