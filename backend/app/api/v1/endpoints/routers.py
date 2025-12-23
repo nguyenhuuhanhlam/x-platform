@@ -6,12 +6,15 @@ from app.api.v1.endpoints.hrm.families import router as families_router
 from app.api.v1.endpoints.hrm.workinfos import router as workinfos_router
 from app.api.v1.endpoints.hrm.contracts import router as contracts_router
 from app.api.v1.endpoints.hrm.salaries import router as salaries_router
+from app.api.v1.endpoints.hrm.provinces import router as provinces_router
 
 from app.api.v1.endpoints.cfm.cons import router as cons_spa_router
 from app.api.v1.endpoints.cfm.con_projects import router as con_projects_router
 from app.api.v1.endpoints.cfm.contacts import router as contacts_router
 
 from app.api.v1.endpoints.minio.client import router as minio_client_router
+
+from app.api.v1.endpoints.bitrix.auth import router as bitrix_auth_router
 
 # CFM Routers
 cfm_router = APIRouter()
@@ -27,7 +30,12 @@ hrm_router.include_router(families_router)
 hrm_router.include_router(workinfos_router)
 hrm_router.include_router(contracts_router)
 hrm_router.include_router(salaries_router)
+hrm_router.include_router(provinces_router)
 
 # MINIO Routers
 minio_router = APIRouter()
 minio_router.include_router(minio_client_router)
+
+# BITRIX Routers
+bitrix_router = APIRouter()
+bitrix_router.include_router(bitrix_auth_router)

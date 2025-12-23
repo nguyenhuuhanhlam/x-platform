@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { useForm } from '@tanstack/react-form'
 import { z } from 'zod'
+import { useQuery } from '@tanstack/react-query'
 import { useTranslation } from 'react-i18next'
 
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
@@ -11,24 +12,28 @@ import { IconCheck, IconBolt } from '@tabler/icons-react'
 import ConfirmButton from '@/components/ui-x/confirm-button'
 import FormFieldInput from '@/components/ui-x/form-field-input'
 import FormFieldDate from '@/components/ui-x/form-field-date'
-import FormFieldCheckbox from '@/components/ui-x/form-field-checkbox'
+import FormFieldSelect from '@/components/ui-x/form-field-select'
 import FormFieldRadioGroup from '@/components/ui-x/form-field-radio-group'
 import SeparatorWithText from '@/components/ui-x/separator-with-text'
+
+import { hrm_api } from '@/services/api'
 
 const PersonalFormDialog = ({ open, onOpenChange, data }) => {
 	const form = useForm({})
 	const { t } = useTranslation()
+
+	const { data: provinceData } = useQuery({
+		queryKey: ['provinces', data],
+		queryFn: hrm_api().get_provinces,
+		select: res => res.data,
+		enabled: true
+	})
 
 	useEffect(() => {
 		if (data && open) {
 			form.reset({ ...data })
 		}
 	}, [data, open])
-
-	// useEffect(() => {
-	// 	if (!open)
-	// 		form.reset(data)
-	// }, [open])
 
 	return (
 		<Dialog open={open} onOpenChange={onOpenChange}>
@@ -46,27 +51,44 @@ const PersonalFormDialog = ({ open, onOpenChange, data }) => {
 
 				<div className="flex-1 overflow-y-auto m-scroll pb-4 pr-1">
 					<FieldGroup className="gap-4">
-						<FormFieldInput form={form} name="lastname" label={t('lastname')} />
-						<FormFieldInput form={form} name="firstname" label={t('firstname')} />
-						<FormFieldRadioGroup form={form} name="gender" label={t('gender')}
-							items={[
-								{ label: 'Male', value: 'male' },
-								{ label: 'Female', value: 'female' }
-							]}
-						/>
-						<FormFieldDate form={form} name="dob" label={t('birthday')} />
+						<div className="flex flex-col sm:flex-row gap-4">
+							<FormFieldInput form={form} name="lastname" label={t('lastname')} />
+							<FormFieldInput form={form} name="firstname" label={t('firstname')} />
+						</div>
+
+						<div className="flex flex-col sm:flex-row gap-4">
+							<FormFieldDate form={form} name="dob" label={t('birthday')} />
+							<FormFieldSelect form={form} name="province_id" label={t('province')}
+								items={provinceData?.map(v => ({ label: v.name, value: v.id }))}
+							/>
+						</div>
+
+						<div className="flex flex-col sm:flex-row gap-4">
+							<FormFieldRadioGroup form={form} name="gender" label={t('gender')}
+								items={[
+									{ label: 'Male', value: 'male' },
+									{ label: 'Female', value: 'female' }
+								]}
+							/>
+							<FormFieldRadioGroup form={form} name="marital" label={t('marital')}
+								items={[
+									{ label: t('marital.married'), value: 'married' },
+									{ label: t('marital.single'), value: 'single' }
+								]}
+							/>
+						</div>
+
 						<FormFieldInput form={form} name="qualification" label={t('qualification')} />
 						<FormFieldInput form={form} name="address" label={t('address')} />
-						<FormFieldInput form={form} name="email" label={t('email')} />
+
+						<FormFieldInput form={form} name="email" label="Email" />
 						<FormFieldInput form={form} name="phone" label="Phone" />
 					</FieldGroup>
 				</div>
 
 				<DialogFooter>
 					<div className="w-full flex justify-center gap-4">
-						<Button size="sm" variant="outline"
-							onClick={form.handleSubmit}
-						>
+						<Button size="sm" variant="outline" onClick={form.handleSubmit} >
 							<IconCheck size={14} className="text-green-800" /> Update
 						</Button>
 

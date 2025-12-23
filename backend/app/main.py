@@ -9,6 +9,7 @@ from app.db.session import engine
 from app.api.v1.endpoints.routers import cfm_router
 from app.api.v1.endpoints.routers import hrm_router
 from app.api.v1.endpoints.routers import minio_router
+from app.api.v1.endpoints.routers import bitrix_router
 
 
 class Base(DeclarativeBase):
@@ -37,6 +38,7 @@ app.add_middleware(
 app.include_router(cfm_router)
 app.include_router(hrm_router)
 app.include_router(minio_router)
+app.include_router(bitrix_router)
 
 
 if __name__ == "__main__":

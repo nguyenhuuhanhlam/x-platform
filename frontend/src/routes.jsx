@@ -9,6 +9,7 @@ import UsersPage from '@/pages/admin/users'
 
 import CFMProjectsPage from '@/pages/cfm/projects'
 
+import BitrixAuth from '@/pages/admin/users/bitrix-auth'
 import NotFoundPage from '@/pages/not-found'
 
 const router = createBrowserRouter([
@@ -18,6 +19,8 @@ const router = createBrowserRouter([
 		errorElement: <NotFoundPage />,
 		children: [
 			{ index: true, element: <HomePage /> },
+			{ path: '/bitrix/auth', element: <BitrixAuth /> },
+
 			{ path: '/employees', element: <EmployeesPage /> },
 			{ path: '/contracts', element: <ContractsPage /> },
 
