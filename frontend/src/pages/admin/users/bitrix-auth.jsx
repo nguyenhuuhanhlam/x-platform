@@ -1,9 +1,12 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import { Badge } from '@/components/ui/badge'
+
 import { bitrix_api } from '@/services/api'
 
+
 const BitrixAuth = () => {
-	const [status, setStatus] = useState('Đang khởi tạo...')
+	const [status, setStatus] = useState('Initializing...')
 	const navigate = useNavigate()
 
 	useEffect(() => {
@@ -12,28 +15,33 @@ const BitrixAuth = () => {
 		const domain = params.get('domain')
 
 		if (code && domain) {
-			setStatus('Đang xác thực với hệ thống...')
+			setStatus('System authentication in progress…')
 		}
 
 		bitrix_api().auth(code, domain)
 			.then(res => {
-				if (res.status === 'success') {
-					setStatus('Đăng nhập thành công! Đang chuyển hướng...')
+				const { status, data } = res.data
 
-					localStorage.setItem('b24_token', res.data.access_token)
-					localStorage.setItem('b24_user', JSON.stringify(res.data.user))
+				if (status === 'success') {
+					setStatus('Authentication successful. Redirecting…')
+
+					localStorage.setItem('b24_token', data.access_token)
+					localStorage.setItem('b24_user', JSON.stringify(data.user))
 
 					setTimeout(() => navigate('/'), 1500)
 				}
 			})
 			.catch(err => {
 				console.error(err)
-				setStatus('Lỗi xác thực: ' + (err.response?.data?.detail || 'Không xác định'))
+				setStatus('Authentication failed: ' + (err.response?.data?.detail || 'Unknown error'))
 			})
 	}, [])
 
 	return (
-		<div className="px-4 mt-4">AUTH PROCERSSING</div>
+		<div className="flex flex-col sm:flex-row px-4 mt-4 gap-2">
+			<Badge variant="secondary" className="bg-green-900"> AUTH </Badge>
+			<Badge variant="secondary" className="truncate">{status}</Badge>
+		</div>
 	)
 }
 

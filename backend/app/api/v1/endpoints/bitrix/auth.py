@@ -15,7 +15,7 @@ async def bitrix_auth(request: Request):
     domain = data.get("domain")
 
     if not code or not domain:
-        raise HTTPException(status_code=400, detail="Thiếu code hoặc domain")
+        raise HTTPException(status_code=400, detail="Missing code or domain")
 
     async with httpx.AsyncClient() as client:
         try:
@@ -35,7 +35,7 @@ async def bitrix_auth(request: Request):
             if "error" in token_data:
                 raise HTTPException(
                     status_code=401, 
-                    detail=token_data.get("error_description", "Lỗi xác thực Bitrix")
+                    detail=token_data.get("error_description", "Bitrix authentication failed")
                 )
             
             # 3. (Tùy chọn) Lấy thêm thông tin User hiện tại để xác nhận danh tính
@@ -50,7 +50,6 @@ async def bitrix_auth(request: Request):
             # 4. Trả kết quả về cho Frontend React
             return {
                 "status": "success",
-                "message": "Xác thực thành công",
                 "data": {
                     "user": user_info,
                     "access_token": access_token,
@@ -61,5 +60,4 @@ async def bitrix_auth(request: Request):
             }
 
         except httpx.HTTPError as e:
-            # Xử lý lỗi kết nối mạng hoặc server Bitrix lỗi
-            raise HTTPException(status_code=502, detail=f"Lỗi kết nối Bitrix API: {str(e)}")
+            raise HTTPException(status_code=502, detail=f"Bitrix API connection error: {str(e)}")

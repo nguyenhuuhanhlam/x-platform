@@ -42,6 +42,6 @@ export const minio_api = (base = '/minio') => ({
 
 export const bitrix_api = (base = '/bitrix') => ({
 	auth: async (code, domain) => {
-		const res = await api.post(`${base}/auth`, { code, domain })
+		return await api.post(`${base}/auth`, { code, domain })
 	}
 })
