@@ -13,6 +13,7 @@ async def get_incomes(db: AsyncSession, project_id: int):
 			cfm_con_incomes ci
 		WHERE
 			ci.project_id = :project_id
+		ORDER BY ci.payment_received_date
 	''')
 
 	result = await db.execute(query, {'project_id': project_id})

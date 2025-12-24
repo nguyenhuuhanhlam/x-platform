@@ -16,7 +16,7 @@ import { cfm_api } from '@/services/api'
 import { EXPENDITURE_TYPES } from '@/constants'
 
 const ExpenditureFormDialog = ({ open, onOpenChange, data }) => {
-	const { post_con_expenditure, delete_con_expenditure } = cfm_api()
+	// const { post_con_expenditure, delete_con_expenditure } = cfm_api()
 	const queryClient = useQueryClient()
 
 	const form = useForm({
@@ -32,7 +32,7 @@ const ExpenditureFormDialog = ({ open, onOpenChange, data }) => {
 	}, [data, open])
 
 	const mutation = useMutation({
-		mutationFn: post_con_expenditure,
+		mutationFn: cfm_api().post_con_expenditure,
 		onSuccess: () => {
 			queryClient.invalidateQueries(['con-expenditures'])
 			onOpenChange(false)
@@ -43,7 +43,7 @@ const ExpenditureFormDialog = ({ open, onOpenChange, data }) => {
 	})
 
 	const delete_mutation = useMutation({
-		mutationFn: (id) => delete_con_expenditure(id),
+		mutationFn: (id) => cfm_api().delete_con_expenditure(id),
 		onSuccess: () => {
 			queryClient.invalidateQueries(['con-expenditures'])
 			onOpenChange(false)

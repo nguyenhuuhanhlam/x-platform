@@ -1,4 +1,3 @@
-import React from 'react'
 import { Card, CardAction, CardContent, CardDescription, CardFooter, CardHeader, CardTitle, } from '@/components/ui/card'
 import { Avatar, AvatarImage, AvatarFallback } from '@/components/ui/avatar'
 import { Button } from '@/components/ui/button'
@@ -51,15 +50,10 @@ const ContactCard = ({
 			<CardFooter className="px-0 pt-2">
 				<div className="ml-auto flex gap-2">
 					<Button variant="outline" size="sm" asChild>
-						<a href={`mailto:${email}`} className="flex items-center gap-2">
-							<IconMessageCircle />
-							Message
-						</a>
+						<a href={`mailto:${email}`} className="flex items-center gap-2"><IconMessageCircle /> Message</a>
 					</Button>
 					<Button variant="outline" size="sm" asChild>
-						<a href={`tel:${phone}`} className="flex items-center gap-2">
-							<IconPhone />
-						</a>
+						<a href={`tel:${phone}`} className="flex items-center gap-2"><IconPhone /></a>
 					</Button>
 				</div>
 			</CardFooter>

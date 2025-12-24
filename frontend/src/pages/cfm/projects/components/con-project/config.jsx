@@ -4,6 +4,7 @@ import { Badge } from '@/components/ui/badge'
 import { IconCircleFilled } from '@tabler/icons-react'
 
 import { cn } from '@/lib/utils'
+import { fmt_date } from '@/lib/helpers'
 import { INCOME_TYPES, INCOME_STATUS, EXPENDITURE_TYPES } from '@/constants'
 
 export const con_columns = (t) => [
@@ -28,21 +29,15 @@ export const income_columns = (t) => [
 	},
 	{
 		accessorKey: 'amount', header: t('amount'),
-		cell: ({ row }) => {
-			return <div className="text-right">{Number(row.getValue('amount')).toLocaleString('de-DE')}</div>
-		}
+		cell: ({ row }) => (<div className="text-right">{Number(row.getValue('amount')).toLocaleString('de-DE')}</div>)
 	},
 	{
 		accessorKey: 'amount_vat', header: <><span>{t('amount')}</span> <span className="text-[8pt]! text-violet-500">VAT</span></>,
-		cell: ({ row }) => {
-			return <div className="text-right">{Number(row.getValue('amount_vat')).toLocaleString('de-DE')}</div>
-		}
+		cell: ({ row }) => (<div className="text-right">{Number(row.getValue('amount_vat')).toLocaleString('de-DE')}</div>)
 	},
 	{
 		accessorKey: 'payment_received_date', header: t('income.payment_received_date'),
-		cell: ({ row }) => {
-			return dayjs(row.getValue('payment_received_date')).format('DD-MM-YYYY')
-		}
+		cell: ({ row }) => fmt_date(row.getValue('payment_received_date'))
 	},
 	{
 		accessorKey: 'status', header: t('status'),
@@ -84,7 +79,7 @@ export const expenditure_columns = (t) =>
 		}
 	})
 
-export const formSchema = z.object({
+export const form_schema = z.object({
 	project_id: z.string().min(1),
 
 	sales_objects: z.string().min(1),

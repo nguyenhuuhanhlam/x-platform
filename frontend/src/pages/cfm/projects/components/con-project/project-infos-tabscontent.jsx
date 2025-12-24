@@ -8,7 +8,7 @@ import NoteAccordion from '@/components/ui-x/note-accordion'
 import { cn } from '@/lib/utils'
 
 import { cfm_api } from '@/services/api'
-import { fmt_date } from '@/lib/helpers'
+import { fmt_date, fmt_phonestring } from '@/lib/helpers'
 
 const styles = {
 	container: 'flex flex-col sm:flex-row gap-4 pb-8 w-full sm:w-[1180px]',
@@ -71,7 +71,13 @@ const ProjectInfosTabsContent = ({ value, data }) => {
 									<div className="flex flex-col sm:flex-row gap-4 sm:w-fit">
 										{
 											contactsData?.map((item, k) =>
-												<ContactCard key={k} name={item.contact_name} role={item.position} email={item.emails} phone={item.phones} />
+												<ContactCard
+													key={k}
+													name={item.contact_name}
+													role={item.position}
+													email={item.emails}
+													phone={fmt_phonestring(item.phones)}
+												/>
 											)
 										}
 									</div>

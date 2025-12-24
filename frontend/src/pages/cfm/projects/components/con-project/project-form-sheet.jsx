@@ -15,7 +15,7 @@ import FormFieldNumber from '@/components/ui-x/form-field-number'
 import SeparatorWithText from '@/components/ui-x/separator-with-text'
 
 import { cfm_api } from '@/services/api'
-import { formSchema } from './config'
+import { form_schema } from './config'
 
 //#region COMPONENT
 const ProjectFormSheet = ({
@@ -37,7 +37,7 @@ const ProjectFormSheet = ({
 
 	const form = useForm({
 		validators: {
-			onSubmit: formSchema
+			onSubmit: form_schema
 		},
 		onSubmit: ({ value }) => {
 			if (mode === 'new') {

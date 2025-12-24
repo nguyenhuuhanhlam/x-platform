@@ -3,6 +3,7 @@ import { useTranslation } from 'react-i18next'
 
 import { Separator } from '@/components/ui/separator'
 import LabelValue from '@/components/ui-x/label-value'
+import SummaryCard from '@/components/ui-x/summary-card'
 import { cn } from '@/lib/utils'
 
 import IncomeSourcesTabsContent from './income-sources-tabscontent'
@@ -10,7 +11,7 @@ import ExpenditureSourcesTabsContent from './expenditure-sources-tabscontent'
 import { FUNDING_SOURCE, CONTRACT_STATUS } from '@/constants'
 
 const styles = {
-	container: 'flex flex-col sm:flex-row gap-4 pb-8 w-full sm:w-[1180px]',
+	container: 'flex flex-col sm:flex-row gap-4 w-full sm:w-[1180px]',
 	card: 'flex flex-col sm:w-1/3 bg-neutral-900/50 rounded-md p-4'
 }
 
@@ -80,11 +81,30 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 				</div>
 			</section>
 
+			<section className="flex flex-col items-center py-4">
+				<div className={styles.container}>
+
+					<div className="w-full sm:w-1/2 bg-slate-700 rounded-md p-4">
+						<div className="text-xs pb-2 text-slate-900">Income Summary</div>
+						<div className="grid grid-cols-3 gap-4">
+							<SummaryCard />
+							<SummaryCard />
+							<SummaryCard />
+							<SummaryCard />
+						</div>
+					</div>
+
+					<div className="w-full sm:w-1/2 bg-slate-700 rounded-md p-4">
+						<div className="text-xs pb-2 text-slate-900">Expenditure Summary</div>
+					</div>
+				</div>
+			</section>
+
 			<section className="flex flex-col items-center">
 				<div className="flex flex-col w-full gap-4 pb-8 mx-auto sm:w-[1180px]">
 					<Tabs defaultValue="income">
 
-						<div className="flex justify-center">
+						<div className="flex items-center justify-center">
 							<TabsList>
 								<TabsTrigger value="income">Income Sources</TabsTrigger>
 								<TabsTrigger value="expenditure">Expenditure Sources</TabsTrigger>

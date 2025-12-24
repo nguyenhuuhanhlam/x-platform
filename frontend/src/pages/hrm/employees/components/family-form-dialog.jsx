@@ -14,7 +14,7 @@ import FormFieldCheckbox from '@/components/ui-x/form-field-checkbox'
 import FormFieldRadioGroup from '@/components/ui-x/form-field-radio-group'
 import SeparatorWithText from '@/components/ui-x/separator-with-text'
 
-const formSchema = z.object({
+const form_schema = z.object({
 	lastname: z.string().min(1),
 	firstname: z.string().min(1),
 })
@@ -24,7 +24,7 @@ const FamilyFormDialog = ({ open, onOpenChange, mode = 'new', data }) => {
 
 	const form = useForm({
 		validators: {
-			onSubmit: formSchema
+			onSubmit: form_schema
 		},
 		onSubmit: (e) => {
 			console.log(e.value)

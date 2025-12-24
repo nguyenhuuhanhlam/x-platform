@@ -1,6 +1,8 @@
 import { useEffect } from 'react'
 import { useMutation, useQueryClient } from '@tanstack/react-query'
 import { useForm } from '@tanstack/react-form'
+import { toast } from 'sonner'
+
 import { FieldGroup, } from '@/components/ui/field'
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogFooter } from '@/components/ui/dialog'
 import { Button } from '@/components/ui/button'
@@ -38,7 +40,7 @@ const IncomeFormDialog = ({ open, onOpenChange, data }) => {
 			onOpenChange(false)
 		},
 		onError: () => {
-			console.log('Failed to update income source')
+			toast.error('Failed to update income source')
 		}
 	})
 
@@ -49,7 +51,7 @@ const IncomeFormDialog = ({ open, onOpenChange, data }) => {
 			onOpenChange(false)
 		},
 		onError: () => {
-			console.log('Failed to delete income source')
+			toast.error('Failed to delete income source')
 		}
 	})
 
