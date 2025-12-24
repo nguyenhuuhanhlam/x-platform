@@ -208,7 +208,8 @@ const ProjectFormSheet = ({
 							<div className="flex flex-col sm:flex-row gap-4">
 								<FormFieldNumber form={form} name="contract_value" label="Contract Value" />
 								<FormFieldNumber form={form} name="contract_value_vat"
-									label={<><span>Contract Value</span><IconInfoCircleFilled size={18} title="VAT" className="text-violet-700" /></>} highlight="bg-violet-900/30!"
+									label={<><span>Contract Value</span><IconInfoCircleFilled size={18} title="VAT" className="text-violet-700" /></>}
+									highlight="bg-violet-900/30!"
 								/>
 							</div>
 

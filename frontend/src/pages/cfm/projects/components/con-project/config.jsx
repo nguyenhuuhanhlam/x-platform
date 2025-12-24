@@ -1,9 +1,10 @@
 import { z } from 'zod'
+import dayjs from 'dayjs'
 import { Badge } from '@/components/ui/badge'
 import { IconCircleFilled } from '@tabler/icons-react'
 
 import { cn } from '@/lib/utils'
-import { INCOME_TYPES, INCOME_STATUS } from '@/constants'
+import { INCOME_TYPES, INCOME_STATUS, EXPENDITURE_TYPES } from '@/constants'
 
 export const con_columns = (t) => [
 	{ accessorKey: 'project_name', header: t('project'), },
@@ -25,8 +26,24 @@ export const income_columns = (t) => [
 			)
 		}
 	},
-	{ accessorKey: 'amount', header: t('amount'), },
-	{ accessorKey: 'payment_received_date', header: t('income.payment_received_date'), },
+	{
+		accessorKey: 'amount', header: t('amount'),
+		cell: ({ row }) => {
+			return <div className="text-right">{Number(row.getValue('amount')).toLocaleString('de-DE')}</div>
+		}
+	},
+	{
+		accessorKey: 'amount_vat', header: <><span>{t('amount')}</span> <span className="text-[8pt]! text-violet-500">VAT</span></>,
+		cell: ({ row }) => {
+			return <div className="text-right">{Number(row.getValue('amount_vat')).toLocaleString('de-DE')}</div>
+		}
+	},
+	{
+		accessorKey: 'payment_received_date', header: t('income.payment_received_date'),
+		cell: ({ row }) => {
+			return dayjs(row.getValue('payment_received_date')).format('DD-MM-YYYY')
+		}
+	},
 	{
 		accessorKey: 'status', header: t('status'),
 		cell: ({ row }) => {
@@ -41,6 +58,31 @@ export const income_columns = (t) => [
 		}
 	},
 ]
+
+// expenditure_columns --> clone income_columns
+export const expenditure_columns = (t) =>
+	income_columns(t).map(col => {
+		if (col.accessorKey !== 'type') return col
+
+		// override cột type
+		return {
+			...col,
+			header: t('expenditure.type'),
+			cell: ({ row }) => {
+				const value = row.getValue('type')
+				if (!value || value.length < 2) return '-'
+
+				return (
+					<Badge variant="outline" size="sm">
+						<IconCircleFilled
+							className={cn("w-2! h-2!", EXPENDITURE_TYPES[value]?.tagClass)}
+						/>
+						{EXPENDITURE_TYPES[value]?.text}
+					</Badge>
+				)
+			}
+		}
+	})
 
 export const formSchema = z.object({
 	project_id: z.string().min(1),
@@ -63,6 +105,6 @@ export const formSchema = z.object({
 	contract_value_vat: z.number(),
 	total_original_vat: z.number(),
 	total_planned_vat: z.number(),
-	
+
 	sales_cost: z.number(),
 })

@@ -1,6 +1,7 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { useTranslation } from 'react-i18next'
 
+import { Separator } from '@/components/ui/separator'
 import LabelValue from '@/components/ui-x/label-value'
 import { cn } from '@/lib/utils'
 
@@ -44,9 +45,36 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 					</div>
 
 					<div className={cn(styles.card, 'gap-2')}>
-						<LabelValue label="Contract Value" value={data?.contract_value_vat} type="money" />
-						<LabelValue label="Total Planned" value={data?.total_planned_vat} type="money" />
-						<LabelValue label="Total Original" value={data?.total_original_vat} type="money" />
+						<LabelValue label="Contract Value" value={data?.contract_value} type="money" />
+						<LabelValue
+							label="VAT"
+							type="money"
+							value={data?.contract_value_vat}
+							valueClass="text-violet-500"
+						/>
+
+						<Separator />
+
+						<LabelValue label="Total Planned" value={data?.total_planned} type="money" />
+						<LabelValue
+							label="VAT"
+							type="money"
+							value={data?.total_planned_vat}
+							valueClass="text-violet-500"
+						/>
+
+						<Separator />
+
+						<LabelValue label="Total Original" value={data?.total_original} type="money" />
+						<LabelValue
+							label="VAT"
+							type="money"
+							value={data?.total_original_vat}
+							valueClass="text-violet-500"
+						/>
+
+						<Separator />
+
 						<LabelValue label="Sales Discount" value={data?.sales_cost} type="money" />
 					</div>
 				</div>

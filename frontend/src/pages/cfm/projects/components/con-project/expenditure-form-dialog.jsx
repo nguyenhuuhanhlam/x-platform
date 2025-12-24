@@ -13,10 +13,10 @@ import FormFieldDate from '@/components/ui-x/form-field-date'
 import FormFieldNumber from '@/components/ui-x/form-field-number'
 
 import { cfm_api } from '@/services/api'
-import { INCOME_TYPES } from '@/constants'
+import { EXPENDITURE_TYPES } from '@/constants'
 
-const IncomeFormDialog = ({ open, onOpenChange, data }) => {
-	const { post_con_income, delete_con_income } = cfm_api()
+const ExpenditureFormDialog = ({ open, onOpenChange, data }) => {
+	const { post_con_expenditure, delete_con_expenditure } = cfm_api()
 	const queryClient = useQueryClient()
 
 	const form = useForm({
@@ -32,24 +32,24 @@ const IncomeFormDialog = ({ open, onOpenChange, data }) => {
 	}, [data, open])
 
 	const mutation = useMutation({
-		mutationFn: post_con_income,
+		mutationFn: post_con_expenditure,
 		onSuccess: () => {
-			queryClient.invalidateQueries(['con-incomes'])
+			queryClient.invalidateQueries(['con-expenditures'])
 			onOpenChange(false)
 		},
 		onError: () => {
-			console.log('Failed to update income source')
+			console.log('Failed to update expenditure source')
 		}
 	})
 
 	const delete_mutation = useMutation({
-		mutationFn: (id) => delete_con_income(id),
+		mutationFn: (id) => delete_con_expenditure(id),
 		onSuccess: () => {
-			queryClient.invalidateQueries(['con-incomes'])
+			queryClient.invalidateQueries(['con-expenditures'])
 			onOpenChange(false)
 		},
 		onError: () => {
-			console.log('Failed to delete income source')
+			console.log('Failed to delete expenditure source')
 		}
 	})
 
@@ -65,7 +65,7 @@ const IncomeFormDialog = ({ open, onOpenChange, data }) => {
 				onOpenAutoFocus={(e) => e.preventDefault()}
 			>
 				<DialogHeader>
-					<DialogTitle className="text-stone-600">Income Editor</DialogTitle>
+					<DialogTitle className="text-stone-600">Expenditure Editor</DialogTitle>
 				</DialogHeader>
 
 				<FieldGroup className="gap-4">
@@ -84,9 +84,10 @@ const IncomeFormDialog = ({ open, onOpenChange, data }) => {
 					<div className="grid grid-cols-2 gap-4">
 						<FormFieldSelect form={form} name="type" label="Type"
 							items={
-								Object.entries(INCOME_TYPES).map(([k, v]) => ({ label: v.text, value: k }))
+								Object.entries(EXPENDITURE_TYPES).map(([k, v]) => ({ label: v.text, value: k }))
 							}
 						/>
+
 						<FormFieldSelect form={form} name="status" label="Status"
 							items={[
 								{ value: 'KH', label: 'Kế hoạch' },
@@ -112,4 +113,4 @@ const IncomeFormDialog = ({ open, onOpenChange, data }) => {
 	)
 }
 
-export default IncomeFormDialog
+export default ExpenditureFormDialog

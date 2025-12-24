@@ -19,6 +19,7 @@
 	"income.payment_received_date": "Date",
 	"income.type": "Type",
 	"income.title": "Title",
+	"expenditure.type": "Type",
 	"male": "Male",
 	"marital": "Marital",
 	"marital.married": "Married",

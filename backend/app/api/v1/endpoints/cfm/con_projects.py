@@ -13,6 +13,11 @@ from app.db.services.cfm.con_projects.incomes import (
   post_income,
   delete_income
 )
+from app.db.services.cfm.con_projects.expenditures import (
+   get_expenditures,
+   post_expenditure,
+   delete_expenditure
+)
 
 from app.utils.api import handle_exceptions
 
@@ -36,6 +41,7 @@ async def post__project(data: dict, db: AsyncSession = Depends(second_get_db)):
 async def delete__project(project_id: int, db: AsyncSession = Depends(second_get_db)):
    return await handle_exceptions(delete_project, db, project_id)
 
+# - - - - - - - - - - - - - - -
 @router.get('/incomes/{project_id}')
 async def get__incomes(project_id: int, db: AsyncSession = Depends(second_get_db)):
    return await handle_exceptions(get_incomes, db, project_id)
@@ -47,3 +53,16 @@ async def post__income(data: dict, db: AsyncSession = Depends(second_get_db)):
 @router.delete('/income/{income_id}')
 async def delete__income(income_id: int, db: AsyncSession = Depends(second_get_db)):
    return await handle_exceptions(delete_income, db, income_id)
+
+# - - - - - - - - - - - - - - -
+@router.get('/expenditures/{project_id}')
+async def get__expenditures(project_id: int, db: AsyncSession = Depends(second_get_db)):
+   return await handle_exceptions(get_expenditures, db, project_id)
+
+@router.post('/expenditure')
+async def post__expenditure(data: dict, db: AsyncSession = Depends(second_get_db)):
+   return await handle_exceptions(post_expenditure, db, data)
+
+@router.delete('/expenditure/{expenditure_id}')
+async def delete__expenditure(expenditure_id: int, db: AsyncSession = Depends(second_get_db)):
+   return await handle_exceptions(delete_expenditure, db, expenditure_id)

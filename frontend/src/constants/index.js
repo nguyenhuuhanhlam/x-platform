@@ -39,3 +39,10 @@ export const INCOME_STATUS = {
 	'KH': { text: 'Kế hoạch', tagClass: 'dark:text-stone-500' },
 	'HT': { text: 'Hoàn thành', tagClass: 'dark:text-green-500' },
 }
+
+export const EXPENDITURE_TYPES = {
+	'NS': { text: 'Ngân Sách', tagClass: 'dark:text-green-500' },
+	'PS': { text: 'Phát Sinh', tagClass: 'dark:text-amber-500' },
+	'HH': { text: 'Bán Hàng', tagClass: 'dark:text-stone-500' },
+	'BH': { text: 'Bảo Hành', tagClass: 'dark:text-blue-500' }
+}

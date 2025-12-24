@@ -25,7 +25,7 @@ const FormFieldNumber = ({
 							<FieldLabel className="flex justify-between field-label">
 								{label}
 								{field.state.meta.errors.length > 0 && (
-									<IconPointFilled size={14} className="text-red-800 translate-y-[2px]" />
+									<IconPointFilled size={14} className="text-red-800 translate-y-0.5" />
 								)}
 							</FieldLabel>
 						)}

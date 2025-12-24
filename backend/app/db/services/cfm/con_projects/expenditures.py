@@ -5,31 +5,31 @@ from sqlalchemy import text
 from app.db.utils import build_sql_payload, generate_upsert_sql
 
 # - - - - -
-async def get_incomes(db: AsyncSession, project_id: int):
+async def get_expenditures(db: AsyncSession, project_id: int):
 	query = text('''
 		SELECT
-			ci.*
+			ex.*
 		FROM
-			cfm_con_incomes ci
+			cfm_con_expenditures ex
 		WHERE
-			ci.project_id = :project_id
+			ex.project_id = :project_id
 	''')
 
 	result = await db.execute(query, {'project_id': project_id})
 	return [dict(row) for row in result.mappings()]
 
 # - - - - -	
-async def post_income(db: AsyncSession, data: dict):
-	sql = generate_upsert_sql('cfm_con_incomes', data, upsert=True)
+async def post_expenditure(db: AsyncSession, data: dict):
+	sql = generate_upsert_sql('cfm_con_expenditures', data, upsert=True)
 	payload = build_sql_payload(sql, data)
 
 	await db.execute(text(sql), payload)
 	await db.commit()
 
 # - - - - -	
-async def delete_income(db: AsyncSession, income_id: int):
-	sql = 'DELETE FROM cfm_con_incomes WHERE id = :income_id'
-	payload = {'income_id': income_id}
+async def delete_expenditure(db: AsyncSession, expenditure_id: int):
+	sql = 'DELETE FROM cfm_con_expenditures WHERE id = :expenditure_id'
+	payload = {'expenditure_id': expenditure_id}
 
 	await db.execute(text(sql), payload)
 	await db.commit()

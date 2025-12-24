@@ -14,7 +14,6 @@ const ProjectDetailsDrawer = ({
 	open, onOpenChange,
 	data,
 	callback = (e) => { },
-	...props
 }) => {
 
 	const { get_con_project_details, delete_con_project } = cfm_api()
