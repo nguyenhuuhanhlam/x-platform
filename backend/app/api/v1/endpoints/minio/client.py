@@ -9,7 +9,7 @@ from dotenv import load_dotenv
 load_dotenv()
 
 # - - - - -
-router = APIRouter(prefix='/minio', tags=['Minio'])
+router = APIRouter(prefix='/minio', tags=['MINIO'])
 # - - - - -
 
 minio_client = Minio( endpoint=os.getenv('MINIO_URL'), access_key=os.getenv('MINIO_ACCESS_KEY'), secret_key=os.getenv('MINIO_SECRET'), secure=False )

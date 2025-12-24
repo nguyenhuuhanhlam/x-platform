@@ -1,6 +1,16 @@
 import dayjs from 'dayjs'
 import { PD, SI, DD, PIT_RULES } from '@/constants'
 
+export const fmt_thousand = (val) => {
+	if (val === null || val === undefined || val === '') return ''
+
+	const num = Number(val)
+	if (isNaN(num)) return val
+
+	// vi-VN dùng dấu . cho hàng ngàn
+	return num.toLocaleString('vi-VN')
+}
+
 export const fmt_phonestring = (s) => {
 	if (!s) return '-'
 

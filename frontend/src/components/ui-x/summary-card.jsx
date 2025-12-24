@@ -1,12 +1,14 @@
 import clsx from 'clsx'
 
 const SummaryCard = ({
-	wrapClass = ''
+	wrapClass = '',
+	label = 'description',
+	value = 'values'
 }) => {
 	return (
-		<div className={clsx(wrapClass, "bg-slate-800 rounded-md p-2")}>
-			<div>description</div>
-			<div className="text-xl">150.000.000.000</div>
+		<div className={clsx(wrapClass, "bg-slate-300 rounded-md p-2")}>
+			<div className="text-black">{label}</div>
+			<div className="text-xl text-black">{value}</div>
 		</div>
 	)
 }

@@ -45,7 +45,7 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 			data: {
 				project_id: data.project_id,
 				title: '-',
-				type: 0,
+				type: '-',
 				payment_received_date: null,
 				amount: 0,
 				status: '-'

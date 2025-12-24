@@ -1,23 +1,42 @@
 import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
 import { useTranslation } from 'react-i18next'
+import { useQuery } from '@tanstack/react-query'
 
+import { cn } from '@/lib/utils'
 import { Separator } from '@/components/ui/separator'
 import LabelValue from '@/components/ui-x/label-value'
 import SummaryCard from '@/components/ui-x/summary-card'
-import { cn } from '@/lib/utils'
 
 import IncomeSourcesTabsContent from './income-sources-tabscontent'
 import ExpenditureSourcesTabsContent from './expenditure-sources-tabscontent'
 import { FUNDING_SOURCE, CONTRACT_STATUS } from '@/constants'
+import { cfm_api } from '@/services/api'
+import { fmt_thousand } from '@/lib/helpers'
 
+//#region HELPERS
 const styles = {
 	container: 'flex flex-col sm:flex-row gap-4 w-full sm:w-[1180px]',
 	card: 'flex flex-col sm:w-1/3 bg-neutral-900/50 rounded-md p-4'
 }
 
+const LabelVAT = ({ text = 'text', vat = false }) => (
+	<div className="flex items-center justify-between">
+		<span className="text-stone-500">{text}</span>
+		{vat && <span className="text-[8pt] text-violet-700">VAT</span>}
+	</div>
+)
+
+//#region COMPONENT
 const ProjectTabsContractsCosts = ({ value, data }) => {
 	const { t } = useTranslation()
 	const funding = FUNDING_SOURCE[data?.funding_source]
+
+	const { data: incomeSumData } = useQuery({
+		queryKey: ['income-sums', data?.project_id],
+		queryFn: () => cfm_api().get_con_incomes_summary(data?.project_id),
+		select: res => res.data[0],
+		enabled: data?.project_id !== undefined,
+	})
 
 	return (
 		<TabsContent value={value}>
@@ -87,10 +106,10 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 					<div className="w-full sm:w-1/2 bg-slate-700 rounded-md p-4">
 						<div className="text-xs pb-2 text-slate-900">Income Summary</div>
 						<div className="grid grid-cols-3 gap-4">
-							<SummaryCard />
-							<SummaryCard />
-							<SummaryCard />
-							<SummaryCard />
+							<SummaryCard label={<LabelVAT text="Planned" />} value={fmt_thousand(incomeSumData?.KH_sum)} />
+							<SummaryCard label={<LabelVAT text="Planned" vat={true} />} value={fmt_thousand(incomeSumData?.KH_sum_vat)} />
+							<SummaryCard label={<LabelVAT text="Warranty" />} value={fmt_thousand(incomeSumData?.KH_BH_sum)} />
+							<SummaryCard label={<LabelVAT text="Warranty" vat={true} />} value={fmt_thousand(incomeSumData?.KH_BH_sum_vat)} />
 						</div>
 					</div>
 
