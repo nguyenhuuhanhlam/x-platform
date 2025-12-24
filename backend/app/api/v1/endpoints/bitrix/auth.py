@@ -33,6 +33,7 @@ async def bitrix_auth(request: Request):
             token_data = token_res.json()
 
             if "error" in token_data:
+                print(f"LỖI CHI TIẾT TỪ BITRIX: {token_data}")
                 raise HTTPException(
                     status_code=401, 
                     detail=token_data.get("error_description", "Bitrix authentication failed")
