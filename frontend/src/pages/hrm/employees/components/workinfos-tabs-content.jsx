@@ -42,11 +42,18 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 	return (
 		<TabsContent value={value} className="px-0 pt-0 gap-4 flex flex-col pb-8">
 			<div className="flex flex-col w-full gap-4 items-stretch mx-auto sm:flex-row sm:max-w-[1180px]">
-
 				<div className="w-full md:w-1/2 flex">
 					<Card className="p-4 flex-1">
 						<CardHeader className="p-0 gap-0">
-							<CardTitle className="flex justify-between items-center">Basic Infomation</CardTitle>
+							<CardTitle className="flex justify-between items-center">
+								<span>Basic Infomation</span>
+								<Button
+									variant="outline" size="icon" className="m-sm-add-button"
+									onClick={() => { }}
+								>
+									<IconEdit />
+								</Button>
+							</CardTitle>
 						</CardHeader>
 
 						<CardContent className="flex flex-col p-0 gap-1">
@@ -112,7 +119,6 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 						</CardContent>
 					</Card>
 				</div>
-
 			</div>
 
 			<div className="w-full mx-auto sm:max-w-[1180px]">
@@ -138,7 +144,6 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 					</CardContent>
 				</Card>
 			</div>
-
 		</TabsContent>
 	)
 }
