@@ -31,7 +31,7 @@ export const CONTRACT_STATUS = {
 
 export const INCOME_TYPES = {
 	'TU': { text: 'Tạm ứng', tagClass: 'dark:text-amber-500' },
-	'GD': { text: 'Giai đoạn', tagClass: 'dark:text-green-500' },
+	'GD': { text: 'Giai đoạn', tagClass: 'dark:text-lime-500' },
 	'BH': { text: 'Bảo hành', tagClass: 'dark:text-blue-500' }
 }
 
@@ -41,8 +41,8 @@ export const INCOME_STATUS = {
 }
 
 export const EXPENDITURE_TYPES = {
-	'NS': { text: 'Ngân Sách', tagClass: 'dark:text-green-500' },
+	'NS': { text: 'Ngân Sách', tagClass: 'dark:text-cyan-500' },
 	'PS': { text: 'Phát Sinh', tagClass: 'dark:text-amber-500' },
-	'HH': { text: 'Bán Hàng', tagClass: 'dark:text-stone-500' },
+	'HH': { text: 'Bán Hàng', tagClass: 'dark:text-pink-500' },
 	'BH': { text: 'Bảo Hành', tagClass: 'dark:text-blue-500' }
 }

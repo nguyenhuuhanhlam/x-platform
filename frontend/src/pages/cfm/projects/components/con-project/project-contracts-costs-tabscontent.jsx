@@ -7,6 +7,7 @@ import { fmt_date } from '@/lib/helpers'
 import { Separator } from '@/components/ui/separator'
 import LabelValue from '@/components/ui-x/label-value'
 import SummaryCard from '@/components/ui-x/summary-card'
+import PiePercent from '@/components/ui-x/pie-percent'
 
 import IncomeSourcesTabsContent from './income-sources-tabscontent'
 import ExpenditureSourcesTabsContent from './expenditure-sources-tabscontent'
@@ -28,8 +29,18 @@ const LabelInfo = ({ text = 'text', info = false, infoClass = 'bg-slate-700' }) 
 	</div>
 )
 
+const ValueWithPie = ({ val = 0, vat = 0, pie = true, pieValue = 25, pieTotal = 100, pieColor = 'gray' }) => (
+	<div className="flex items-center justify-between">
+		<div className="flex flex-col">
+			<span>{fmt_thousand(val)}</span>
+			<span className="text-violet-800">{fmt_thousand(vat)}</span>
+		</div>
+		{pie && <PiePercent size={32} value={pieValue} total={pieTotal} color={pieColor} />}
+	</div>
+)
+
 //#region COMPONENT
-const ProjectTabsContractsCosts = ({ value, data }) => {
+const ProjectTabsContractsCosts = ({ value, data }) => { // props data có đầy đủ các dữ liệu cần thiết phía trên, có thể tận dụng 
 	const { t } = useTranslation()
 	const funding = FUNDING_SOURCE[data?.funding_source]
 
@@ -112,7 +123,7 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 
 			<section className="flex flex-col items-center py-4">
 				<div className={styles.container}>
-					<div className="w-full sm:w-1/2 bg-slate-700 rounded-md p-4">
+					<div className="w-full sm:w-1/2 bg-gray-800 rounded-md p-4">
 						<div className="text-xs pb-2 text-slate-400">Income Summary</div>
 						<div className={styles.summary}>
 							<SummaryCard
@@ -147,19 +158,14 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 						</div>
 					</div>
 
-					<div className="w-full sm:w-1/2 bg-slate-700 rounded-md p-4">
+					<div className="w-full sm:w-1/2 bg-gray-800 rounded-md p-4">
 						<div className="text-xs pb-2 text-slate-400">Expenditure Summary</div>
 						<div className={styles.summary}>
 
-							{/* LINE-1 */}
+							{/* LINE-HT */}
 							<SummaryCard
 								label={<LabelInfo text="Spent" info="Completed" infoClass="bg-green-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(expenditureSumData?.HT_sum)}</span>
-										<span className="text-violet-800">{fmt_thousand(expenditureSumData?.HT_sum_vat)}</span>
-									</div>
-								)}
+								value={<ValueWithPie val={expenditureSumData?.HT_sum} vat={expenditureSumData?.HT_sum_vat} pie={false} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Remaining" info="Completed" infoClass="bg-green-700" />}
@@ -172,17 +178,12 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Rate" info="Completed" infoClass="bg-green-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{0}</span>
-										<span className="text-violet-800">{0}</span>
-									</div>
-								)}
+								value={<ValueWithPie val={0} vat={0} />}
 							/>
 
-							{/* LINE-2 */}
+							{/* LINE-NS */}
 							<SummaryCard
-								label={<LabelInfo text="Spent" info="Budget" />}
+								label={<LabelInfo text="Spent" info="Budget" infoClass="bg-cyan-700" />}
 								value={(
 									<div className="flex flex-col">
 										<span>{fmt_thousand(expenditureSumData?.NS_sum)}</span>
@@ -191,7 +192,7 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 								)}
 							/>
 							<SummaryCard
-								label={<LabelInfo text="Remaining" info="Budget" />}
+								label={<LabelInfo text="Remaining" info="Budget" infoClass="bg-cyan-700" />}
 								value={(
 									<div className="flex flex-col">
 										<span>{0}</span>
@@ -200,7 +201,7 @@ const ProjectTabsContractsCosts = ({ value, data }) => {
 								)}
 							/>
 							<SummaryCard
-								label={<LabelInfo text="Rate" info="Budget" />}
+								label={<LabelInfo text="Rate" info="Budget" infoClass="bg-cyan-700" />}
 								value={(
 									<div className="flex flex-col">
 										<span>{0}</span>

@@ -56,7 +56,7 @@ const ExpenditureSourcesTabsContent = ({ value, data }) => {
 	return (
 		<TabsContent value={value}>
 			<section className="flex flex-col w-full mx-auto sm:w-fit">
-				<div className="flex justify-end mb-2">
+				<div className="flex justify-center mb-2">
 					<Button
 						variant="outline" size="icon" className="m-sm-add-button"
 						onClick={handleCreate}

@@ -45,7 +45,7 @@ const ProjectDetailsDrawer = ({
 	return (
 		<Drawer open={open} onOpenChange={onOpenChange}>
 			<DrawerContent
-				className="h-full flex flex-col p-0"
+				className="inset-0 h-svh flex flex-col p-0"
 				// onInteractOutside={(e) => e.preventDefault()}
 			>
 				<Tabs defaultValue="information" className="flex flex-col h-full">

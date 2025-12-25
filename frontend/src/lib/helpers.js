@@ -7,7 +7,6 @@ export const fmt_thousand = (val) => {
 	const num = Number(val)
 	if (isNaN(num)) return val
 
-	// vi-VN dùng dấu . cho hàng ngàn
 	return num.toLocaleString('vi-VN')
 }
 
