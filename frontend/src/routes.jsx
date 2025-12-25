@@ -11,6 +11,7 @@ import CFMProjectsPage from '@/pages/cfm/projects'
 
 import BitrixAuth from '@/pages/admin/users/bitrix-auth'
 import NotFoundPage from '@/pages/not-found'
+import AuthGuard from '@/pages/auth-guard'
 
 const router = createBrowserRouter([
 	{
@@ -21,7 +22,12 @@ const router = createBrowserRouter([
 			{ index: true, element: <HomePage /> },
 			{ path: '/bitrix/auth', element: <BitrixAuth /> },
 
-			{ path: '/employees', element: <EmployeesPage /> },
+			{
+				path: '/employees', element:
+					<AuthGuard>
+						<EmployeesPage />
+					</AuthGuard>
+			},
 			{ path: '/contracts', element: <ContractsPage /> },
 
 			{ path: '/cfm', element: <></> },
