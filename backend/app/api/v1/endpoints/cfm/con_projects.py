@@ -17,7 +17,8 @@ from app.db.services.cfm.con_projects.incomes import (
 from app.db.services.cfm.con_projects.expenditures import (
     get_expenditures,
     post_expenditure,
-    delete_expenditure
+    delete_expenditure,
+    get_expenditures_summary
 )
 
 from app.utils.api import handle_exceptions
@@ -84,3 +85,7 @@ async def post__expenditure(data: dict, db: AsyncSession = Depends(second_get_db
 @router.delete('/expenditure/{expenditure_id}')
 async def delete__expenditure(expenditure_id: int, db: AsyncSession = Depends(second_get_db)):
     return await handle_exceptions(delete_expenditure, db, expenditure_id)
+
+@router.get('/expenditures/summary/{project_id}')
+async def get__expenditures_summary(project_id: int, db: AsyncSession = Depends(second_get_db)):
+    return await handle_exceptions(get_expenditures_summary, db, project_id)

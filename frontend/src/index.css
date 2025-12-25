@@ -162,7 +162,7 @@ tr[data-state="selected"] {
 
 	@apply
 		scrollbar-thin
-		scrollbar-thumb-stone-600/20
+		scrollbar-thumb-stone-900/50
 		scrollbar-track-stone-900/10
 }
 

@@ -32,6 +32,7 @@ export const cfm_api = (base = '/cfm') => ({
 	get_con_expenditures: async (project_id) => await api.get(`${base}/con/expenditures/${project_id}`),
 	post_con_expenditure: async (data) => await api.post(`${base}/con/expenditure`, data),
 	delete_con_expenditure: async (expenditure_id) => await api.delete(`${base}/con/expenditure/${expenditure_id}`),
+	get_con_expenditures_summary: async(project_id)=>await api.get(`${base}/con/expenditures/summary/${project_id}`),
 
 	get_some_contacts: async (ids) => await api.post(`${base}/some-contacts`, ids)
 })

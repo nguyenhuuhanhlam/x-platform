@@ -43,7 +43,9 @@ async def get_incomes_summary(db: AsyncSession, project_id: int):
             SUM(CASE WHEN status='KH' THEN amount ELSE 0 END) 'KH_sum',
 	        SUM(CASE WHEN status='KH' THEN amount_vat ELSE 0 END) 'KH_sum_vat',
             SUM(CASE WHEN status='KH' AND type='BH' THEN amount ELSE 0 END) 'KH_BH_sum',
-            SUM(CASE WHEN status='KH' AND type='BH' THEN amount_vat ELSE 0 END) 'KH_BH_sum_vat'
+            SUM(CASE WHEN status='KH' AND type='BH' THEN amount_vat ELSE 0 END) 'KH_BH_sum_vat',
+            SUM(CASE WHEN status='HT' THEN amount ELSE 0 END) 'HT_sum',
+            SUM(CASE WHEN status='HT' THEN amount_vat ELSE 0 END) 'HT_sum_vat'
 		FROM
             cfm_con_incomes
         WHERE

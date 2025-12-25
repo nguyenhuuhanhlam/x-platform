@@ -33,7 +33,7 @@ export const income_columns = (t) => [
 	},
 	{
 		accessorKey: 'amount_vat', header: <><span>{t('amount')}</span> <span className="text-[8pt]! text-violet-500">VAT</span></>,
-		cell: ({ row }) => (<div className="text-right">{Number(row.getValue('amount_vat')).toLocaleString('de-DE')}</div>)
+		cell: ({ row }) => (<div className="text-right text-violet-500">{Number(row.getValue('amount_vat')).toLocaleString('de-DE')}</div>)
 	},
 	{
 		accessorKey: 'payment_received_date', header: t('income.payment_received_date'),
