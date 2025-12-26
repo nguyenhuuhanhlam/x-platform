@@ -55,7 +55,7 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 
 	return (
 		<TabsContent value={value}>
-			<section className="flex flex-col w-full mx-auto sm:w-fit">
+			<section className="flex flex-col w-full">
 				<div className="flex justify-center mb-2">
 					<Button
 						variant="outline" size="icon" className="m-sm-add-button"
@@ -82,3 +82,7 @@ const IncomeSourcesTabsContent = ({ value, data }) => {
 }
 
 export default IncomeSourcesTabsContent
+
+/**
+ * section --> mx-auto sm:w-fit
+ */
