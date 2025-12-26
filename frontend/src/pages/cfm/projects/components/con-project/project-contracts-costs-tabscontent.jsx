@@ -1,13 +1,14 @@
-import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
-import { useTranslation } from 'react-i18next'
 import { useQuery } from '@tanstack/react-query'
+import { useTranslation } from 'react-i18next'
+import { Tabs, TabsList, TabsTrigger, TabsContent } from '@/components/ui/tabs'
+import { IconPercentage } from '@tabler/icons-react'
 
 import { cn } from '@/lib/utils'
 import { fmt_date } from '@/lib/helpers'
 import { Separator } from '@/components/ui/separator'
+import { Label } from '@/components/ui/label'
 import LabelValue from '@/components/ui-x/label-value'
 import SummaryCard from '@/components/ui-x/summary-card'
-import PiePercent from '@/components/ui-x/pie-percent'
 
 import IncomeSourcesTabsContent from './income-sources-tabscontent'
 import ExpenditureSourcesTabsContent from './expenditure-sources-tabscontent'
@@ -29,15 +30,22 @@ const LabelInfo = ({ text = 'text', info = false, infoClass = 'bg-slate-700' }) 
 	</div>
 )
 
-const ValueWithPie = ({ val = 0, vat = 0, pie = true, pieValue = 25, pieTotal = 100, pieColor = 'gray' }) => (
-	<div className="flex items-center justify-between">
-		<div className="flex flex-col">
-			<span>{fmt_thousand(val)}</span>
-			<span className="text-violet-800">{fmt_thousand(vat)}</span>
-		</div>
-		{pie && <PiePercent size={32} value={pieValue} total={pieTotal} color={pieColor} />}
+const ValueInfo = ({ val = 0, vat = 0, suffix = '' }) => (
+	<div className="flex flex-col">
+		<span className="flex items-center gap-2">{fmt_thousand(val)}{suffix}</span>
+		<span className="flex items-center gap-2 text-violet-800">{fmt_thousand(vat)}{suffix}</span>
 	</div>
 )
+
+// const LabelValueVAT = ({ label = '', val = 0, vat = 0 }) => (
+// 	<div className="flex items-center justify-between">
+// 		<Label className="m-lv-label">{label}</Label>
+// 		<div className="flex gap-4">
+// 			<div className="text-sm">{fmt_thousand(val)}</div>
+// 			<div className="text-sm text-violet-500">{fmt_thousand(vat)}</div>
+// 		</div>
+// 	</div>
+// )
 
 //#region COMPONENT
 const ProjectTabsContractsCosts = ({ value, data }) => { // props data có đầy đủ các dữ liệu cần thiết phía trên, có thể tận dụng 
@@ -47,14 +55,14 @@ const ProjectTabsContractsCosts = ({ value, data }) => { // props data có đầ
 	const { data: incomeSumData } = useQuery({
 		queryKey: ['income-sums', data?.project_id],
 		queryFn: () => cfm_api().get_con_incomes_summary(data?.project_id),
-		select: res => res.data[0],
+		select: res => res.data,
 		enabled: data?.project_id !== undefined,
 	})
 
 	const { data: expenditureSumData } = useQuery({
 		queryKey: ['expenditure-sums', data?.project_id],
 		queryFn: () => cfm_api().get_con_expenditures_summary(data?.project_id),
-		select: res => res.data[0],
+		select: res => res.data,
 		enabled: data?.project_id !== undefined,
 	})
 
@@ -86,37 +94,24 @@ const ProjectTabsContractsCosts = ({ value, data }) => { // props data có đầ
 					</div>
 
 					<div className={cn(styles.card, 'gap-2')}>
-						<LabelValue label="Contract Value" value={data?.contract_value} type="money" />
-						<LabelValue
-							label=""
-							type="money"
-							value={data?.contract_value_vat}
-							valueClass="text-violet-500"
-						/>
 
-						<Separator />
+						<div className="grid grid-cols-3 gap-y-1.25 [&>:not(:nth-child(3n+1))]:text-right [&>:not(:nth-child(3n+1))]:text-sm">
+							<Label className="m-lv-label">Contract Value</Label>
+							<div>{fmt_thousand(data?.contract_value)}</div>
+							<div className="text-violet-500">{fmt_thousand(data?.contract_value_vat)}</div>
 
-						<LabelValue label="Total Planned" value={data?.total_planned} type="money" />
-						<LabelValue
-							label=""
-							type="money"
-							value={data?.total_planned_vat}
-							valueClass="text-violet-500"
-						/>
+							<Label className="m-lv-label">Planned Total</Label>
+							<div>{fmt_thousand(data?.total_planned)}</div>
+							<div className="text-violet-500">{fmt_thousand(data?.total_planned_vat)}</div>
 
-						<Separator />
+							<Label className="m-lv-label">Total Original</Label>
+							<div>{fmt_thousand(data?.total_original)}</div>
+							<div className="text-violet-500">{fmt_thousand(data?.total_original_vat)}</div>
 
-						<LabelValue label="Total Original" value={data?.total_original} type="money" />
-						<LabelValue
-							label=""
-							type="money"
-							value={data?.total_original_vat}
-							valueClass="text-violet-500"
-						/>
-
-						<Separator />
-
-						<LabelValue label="Sales Discount" value={data?.sales_cost} type="money" />
+							<Label className="m-lv-label">Sales Discount</Label>
+							<div>{fmt_thousand(data?.sales_cost)}</div>
+							<div></div>
+						</div>
 					</div>
 				</div>
 			</section>
@@ -128,12 +123,7 @@ const ProjectTabsContractsCosts = ({ value, data }) => { // props data có đầ
 						<div className={styles.summary}>
 							<SummaryCard
 								label={<LabelInfo text="Planned" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(incomeSumData?.KH_sum)}</span>
-										<span className="text-violet-800">{fmt_thousand(incomeSumData?.KH_sum_vat)}</span>
-									</div>
-								)}
+								value={<ValueInfo val={incomeSumData?.HT.sum} vat={incomeSumData?.HT.sum_vat} />}
 							/>
 
 							<SummaryCard
@@ -162,139 +152,104 @@ const ProjectTabsContractsCosts = ({ value, data }) => { // props data có đầ
 						<div className="text-xs pb-2 text-slate-400">Expenditure Summary</div>
 						<div className={styles.summary}>
 
-							{/* LINE-HT */}
+							{/* HT - COMPELETED */}
 							<SummaryCard
 								label={<LabelInfo text="Spent" info="Completed" infoClass="bg-green-700" />}
-								value={<ValueWithPie val={expenditureSumData?.HT_sum} vat={expenditureSumData?.HT_sum_vat} pie={false} />}
+								value={<ValueInfo val={expenditureSumData?.HT.sum} vat={expenditureSumData?.HT.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Remaining" info="Completed" infoClass="bg-green-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{0}</span>
-										<span className="text-violet-800">{0}</span>
-									</div>
-								)}
+								value={<ValueInfo val={expenditureSumData?.KH.sum} vat={expenditureSumData?.KH.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Rate" info="Completed" infoClass="bg-green-700" />}
-								value={<ValueWithPie val={0} vat={0} />}
+								value={<ValueInfo
+									val={expenditureSumData?.HT.sum / data?.total_planned * 100}
+									vat={expenditureSumData?.HT.sum_vat / data?.total_planned_vat * 100} suffix={<IconPercentage size={12} />} />}
 							/>
 
-							{/* LINE-NS */}
+							{/* NS - BUDGET */}
 							<SummaryCard
 								label={<LabelInfo text="Spent" info="Budget" infoClass="bg-cyan-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(expenditureSumData?.NS_sum)}</span>
-										<span className="text-violet-800">{fmt_thousand(expenditureSumData?.NS_sum_vat)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.HT.NS.sum}
+									vat={expenditureSumData?.HT.NS.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Remaining" info="Budget" infoClass="bg-cyan-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{0}</span>
-										<span className="text-violet-800">{0}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.KH.NS.sum}
+									vat={expenditureSumData?.KH.NS.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Rate" info="Budget" infoClass="bg-cyan-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{0}</span>
-										<span className="text-violet-800">{0}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.HT.NS.sum / expenditureSumData?.HT.sum * 100}
+									vat={expenditureSumData?.HT.NS.sum_vat / expenditureSumData?.HT.sum_vat * 100}
+									suffix={<IconPercentage size={12} />} />}
 							/>
 
-							{/* LINE-PS */}
+							{/* PS - EXTRA */}
 							<SummaryCard
 								label={<LabelInfo text="Spent" info="Extra" infoClass="bg-amber-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(expenditureSumData?.PS_sum)}</span>
-										<span className="text-violet-800">{fmt_thousand(expenditureSumData?.PS_sum_vat)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.HT.PS.sum}
+									vat={expenditureSumData?.HT.PS.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Remaining" info="Extra" infoClass="bg-amber-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(0)}</span>
-										<span className="text-violet-800">{fmt_thousand(0)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.KH.PS.sum}
+									vat={expenditureSumData?.KH.PS.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Rate" info="Extra" infoClass="bg-amber-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(0)}</span>
-										<span className="text-violet-800">{fmt_thousand(0)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.KH.PS.sum / expenditureSumData?.HT.sum * 100}
+									vat={expenditureSumData?.KH.PS.sum_vat / expenditureSumData?.HT.sum_vat * 100}
+									suffix={<IconPercentage size={12} />} />}
 							/>
 
-							{/* LINE-HH */}
+							{/* HH - COMMISSION */}
 							<SummaryCard
 								label={<LabelInfo text="Spent" info="Commission" infoClass="bg-pink-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(expenditureSumData?.HH_sum)}</span>
-										<span className="text-violet-800">{fmt_thousand(expenditureSumData?.HH_sum_vat)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.HT.HH.sum}
+									vat={expenditureSumData?.HT.HH.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Remaining" info="Commission" infoClass="bg-pink-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(0)}</span>
-										<span className="text-violet-800">{fmt_thousand(0)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.KH.HH.sum}
+									vat={expenditureSumData?.KH.HH.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Rate" info="Commission" infoClass="bg-pink-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(0)}</span>
-										<span className="text-violet-800">{fmt_thousand(0)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.KH.HH.sum / expenditureSumData?.HT.sum * 100}
+									vat={expenditureSumData?.KH.HH.sum_vat / expenditureSumData?.HT.sum_vat * 100}
+									suffix={<IconPercentage size={12} />} />}
 							/>
 
-							{/* LINE-BH */}
+							{/* BH - WARRANTY */}
 							<SummaryCard
 								label={<LabelInfo text="Spent" info="Warranty" infoClass="bg-blue-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(expenditureSumData?.BH_sum)}</span>
-										<span className="text-violet-800">{fmt_thousand(expenditureSumData?.BH_sum_vat)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.HT.BH.sum}
+									vat={expenditureSumData?.HT.BH.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Remaining" info="Warranty" infoClass="bg-blue-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(0)}</span>
-										<span className="text-violet-800">{fmt_thousand(0)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.KH.BH.sum}
+									vat={expenditureSumData?.KH.BH.sum_vat} />}
 							/>
 							<SummaryCard
 								label={<LabelInfo text="Rate" info="Warranty" infoClass="bg-blue-700" />}
-								value={(
-									<div className="flex flex-col">
-										<span>{fmt_thousand(0)}</span>
-										<span className="text-violet-800">{fmt_thousand(0)}</span>
-									</div>
-								)}
+								value={<ValueInfo
+									val={expenditureSumData?.KH.BH.sum / expenditureSumData?.HT.sum * 100}
+									vat={expenditureSumData?.KH.BH.sum_vat / expenditureSumData?.HT.sum_vat * 100}
+									suffix={<IconPercentage size={12} />} />}
 							/>
 
 						</div>

@@ -1,10 +1,16 @@
 import { useState } from 'react'
 
-export const useDataTable = (data, options = {}, callback = (e) => { }) => {
+export const useDataTable = (
+	data,
+	options = {},
+	callback = (e) => { }
+) => {
 	const [rowSelection, setRowSelection] = useState({})
 	const [rowSelectedData, setRowSelectedData] = useState({})
 
 	const handleSelectionChange = (updater) => {
+		console.log('updater',updater)
+		
 		setRowSelection((old) => {
 			const newState = typeof updater === 'function' ? updater(old) : updater
 
@@ -20,4 +26,3 @@ export const useDataTable = (data, options = {}, callback = (e) => { }) => {
 
 	return { rowSelection, rowSelectedData, handleSelectionChange }
 }
-

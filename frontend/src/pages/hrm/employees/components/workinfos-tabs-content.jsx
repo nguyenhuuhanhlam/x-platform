@@ -50,6 +50,7 @@ const WorkInfosTabsContent = ({ value, data = {} }) => {
 								<Button
 									variant="outline" size="icon" className="m-sm-add-button"
 									onClick={() => { }}
+									disabled={contractData?.length > 0}
 								>
 									<IconEdit />
 								</Button>

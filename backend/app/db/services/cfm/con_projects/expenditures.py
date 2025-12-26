@@ -37,27 +37,55 @@ async def delete_expenditure(db: AsyncSession, expenditure_id: int):
 
 
 async def get_expenditures_summary(db: AsyncSession, project_id: int):
+    STATUSES = ('HT', 'KH')
+    TYPES = ('NS', 'PS', 'HH', 'BH')
+
+    def init_summary():
+        data = {}
+        for s in STATUSES:
+            data[s] = {
+                "sum": 0,
+                "sum_vat": 0,
+            }
+            for t in TYPES:
+                data[s][t] = {
+                    "sum": 0,
+                    "sum_vat": 0,
+                }
+        return data
+
     query = text('''
-		SELECT
-			SUM(CASE WHEN status='HT' THEN amount ELSE 0 END) 'HT_sum',
-            SUM(CASE WHEN status='HT' THEN amount_vat ELSE 0 END) 'HT_sum_vat',
-                 
-            SUM(CASE WHEN type='NS' THEN amount ELSE 0 END) 'NS_sum',
-            SUM(CASE WHEN type='NS' THEN amount_vat ELSE 0 END) 'NS_sum_vat',
-                 
-            SUM(CASE WHEN type='PS' THEN amount ELSE 0 END) 'PS_sum',
-		    SUM(CASE WHEN type='PS' THEN amount_vat ELSE 0 END) 'PS_sum_vat',
-                 
-            SUM(CASE WHEN type='HH' THEN amount ELSE 0 END) 'HH_sum',
-		    SUM(CASE WHEN type='HH' THEN amount_vat ELSE 0 END) 'HH_sum_vat',
-                 
-            SUM(CASE WHEN type='BH' THEN amount ELSE 0 END) 'BH_sum',
-		    SUM(CASE WHEN type='BH' THEN amount_vat ELSE 0 END) 'BH_sum_vat'
-		FROM
-			cfm_con_expenditures
-		WHERE
-			project_id = :project_id
-	''')
+        SELECT
+            status,
+            type,
+            SUM(amount) 'sum_amount',
+            SUM(amount_vat) 'sum_amount_vat'
+        FROM
+            cfm_con_expenditures
+        WHERE
+            project_id = :project_id
+        GROUP BY
+            status,
+            type
+        WITH ROLLUP
+    ''')
 
     result = await db.execute(query, {'project_id': project_id})
-    return [dict(row) for row in result.mappings()]
+    rows = result.fetchall()
+
+    summary = init_summary()
+    for status, type_, amount, amount_vat in rows:
+
+        if status is None and type_ is None:
+            continue
+
+        if status is not None and type_ is None:
+            summary[status]["sum"] = amount or 0
+            summary[status]["sum_vat"] = amount_vat or 0
+            continue
+
+        if status is not None and type_ is not None:
+            summary[status][type_]["sum"] = amount or 0
+            summary[status][type_]["sum_vat"] = amount_vat or 0
+
+    return summary
