@@ -9,6 +9,8 @@ import UsersPage from '@/pages/admin/users'
 
 import CFMProjectsPage from '@/pages/cfm/projects'
 
+import B24DepartmentPage from '@/pages/b24/department-page'
+
 import BitrixAuth from '@/pages/admin/users/bitrix-auth'
 import NotFoundPage from '@/pages/not-found'
 import AuthGuard from '@/pages/auth-guard'
@@ -32,6 +34,8 @@ const router = createBrowserRouter([
 
 			{ path: '/cfm', element: <></> },
 			{ path: '/cfm/projects', element: <CFMProjectsPage /> },
+
+			{ path: '/b24/departments', element: <B24DepartmentPage /> },
 
 			{ path: '/admin', element: <></> },
 			{ path: '/admin/users', element: <UsersPage /> },

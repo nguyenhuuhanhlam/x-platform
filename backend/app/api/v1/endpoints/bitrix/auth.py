@@ -4,7 +4,7 @@ import httpx
 import os
 
 # - - - - -
-router = APIRouter(prefix='/bitrix', tags=['BITRIX'])
+router = APIRouter(prefix='/b24', tags=['BITRIX'])
 # - - - - -
 
 

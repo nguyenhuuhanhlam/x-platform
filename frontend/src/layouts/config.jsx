@@ -29,7 +29,7 @@ export const b24_menu_items = (t) => [
 	{
 		title: 'HRs', url: '#', icon: IconXboxBFilled,
 		items: [
-			{ title: 'Company Structure', url: '/b24/hr/structure' },
+			{ title: 'Company Departments', url: '/b24/departments' },
 		]
 	},
 ]
