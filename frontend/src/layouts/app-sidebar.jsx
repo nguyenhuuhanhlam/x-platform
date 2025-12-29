@@ -3,7 +3,7 @@ import { Sidebar, SidebarContent, SidebarFooter, SidebarGroup, SidebarGroupConte
 
 import NavUser from './nav-user'
 import NavGroup from './nav-group'
-import { hrm_menu_items, admin_menu_items, cfm_menu_items } from './config'
+import { hrm_menu_items, admin_menu_items, cfm_menu_items, b24_menu_items } from './config'
 
 const AppSidebar = () => {
 	const { t } = useTranslation()
@@ -24,6 +24,7 @@ const AppSidebar = () => {
 			<SidebarContent>
 				<NavGroup group="HRM" items={hrm_menu_items(t)} />
 				<NavGroup group="CFM" items={cfm_menu_items(t)} />
+				<NavGroup group="B24" items={b24_menu_items(t)} />
 				<NavGroup group="ADMIN" items={admin_menu_items} />
 			</SidebarContent>
 
