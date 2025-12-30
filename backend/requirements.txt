@@ -9,3 +9,4 @@ openpyxl
 minio
 python-multipart
 python-jose
+httpx
