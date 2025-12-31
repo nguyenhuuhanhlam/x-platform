@@ -66,8 +66,8 @@ const PersonalFormDialog = ({ open, onOpenChange, data }) => {
 						<div className="flex flex-col sm:flex-row gap-4">
 							<FormFieldRadioGroup form={form} name="gender" label={t('gender')}
 								items={[
-									{ label: 'Male', value: 'male' },
-									{ label: 'Female', value: 'female' }
+									{ label: t('male'), value: 'male' },
+									{ label: t('female'), value: 'female' }
 								]}
 							/>
 							<FormFieldRadioGroup form={form} name="marital" label={t('marital')}

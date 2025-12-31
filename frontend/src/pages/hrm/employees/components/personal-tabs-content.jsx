@@ -16,7 +16,7 @@ import PersonalFormDialog from './personal-form-dialog'
 import { hrm_api, minio_api } from '@/services/api'
 import { useDataTable } from '@/hooks/use-data-table'
 import { family_columns } from '../config'
-import { fmt_phonestring } from '@/lib/helpers'
+import { fmt_phonestring, fmt_date } from '@/lib/helpers'
 
 const { get_personal, get_families } = hrm_api()
 const { get_presigned } = minio_api()
@@ -55,12 +55,11 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 
 	//#region HOOK
 	const tableHook = useDataTable(
-		familyData,
-		{},
+		familyData, {},
 		(e) => {
 			setFamilyOpen(true)
-		})
-
+		}
+	)
 
 	//#region RENDER
 	return (
@@ -94,7 +93,7 @@ const PersonalTabsContent = ({ value, data = {} }) => {
 								<LabelValue label="Email" value={personalData?.email} />
 								<LabelValue label="Phone" value={fmt_phonestring(personalData?.phone)} />
 								<LabelValue label={t('gender')} value={t(personalData?.gender)} />
-								<LabelValue label={t('birthday')} value={dayjs(personalData?.dob).format('DD-MM-YYYY')} />
+								<LabelValue label={t('birthday')} value={fmt_date(personalData?.dob)} />
 								<LabelValue label={t('qualification')} value={personalData?.qualification} />
 								<LabelValue label={t('address')} value={personalData?.address} />
 								<LabelValue label={t('province')} value={personalData?.province_name} />

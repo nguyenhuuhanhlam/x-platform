@@ -1,7 +1,7 @@
-from sqlalchemy.ext.asyncio import AsyncSession
-from sqlalchemy import text
-
 from app.db.utils import build_sql_payload, generate_upsert_sql
+from sqlalchemy import text
+from sqlalchemy.ext.asyncio import AsyncSession
+from sqlalchemy.exc import SQLAlchemyError
 
 
 # - - - - -
@@ -21,3 +21,9 @@ async def get_personal(db: AsyncSession, id: int):
 
     result = await db.execute(query, params={'id': id})
     return [dict(row) for row in result.mappings()]
+
+
+async def insert_personal(db: AsyncSession, data: dict):
+    sql = generate_upsert_sql('api_employee', data, upsert=True)
+    payload = build_sql_payload(sql, data)
+    

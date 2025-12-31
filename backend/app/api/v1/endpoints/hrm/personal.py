@@ -3,13 +3,19 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from app.utils.api import handle_exceptions
 from app.db.session import get_db
-from app.db.services.hrm.personal import get_personal
+from app.db.services.hrm.personal import get_personal, insert_personal
 
 
 # - - - - -
 router = APIRouter(prefix='/hrm/personal', tags=['HRM'])
 # - - - - -
 
+
 @router.get('/{id}')
 async def get__personal(id: int, db: AsyncSession = Depends(get_db)):
-	return await handle_exceptions(get_personal, db, id=id)
+    return await handle_exceptions(get_personal, db, id=id)
+
+
+@router.post('/')
+async def insert__personal(data: dict, db: AsyncSession = Depends(get_db)):
+    return await handle_exceptions(insert_personal, db, data)
